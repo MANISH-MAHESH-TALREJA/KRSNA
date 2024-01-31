@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_home" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center">
+
+            <RelativeLayout
+                android:id="@+id/rl_days"
+                android:layout_width="66dp"
+                android:layout_height="66dp"
+                android:background="@drawable/bg_day_count">
+
+                <TextView
+                    android:id="@+id/textView_days"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textColor="@color/red"
+                    android:textSize="20sp" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/textView_comma"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_toRightOf="@+id/rl_days"
+                android:text=":"
+                android:textColor="@color/white"
+                android:textSize="26sp" />
+
+            <cn.iwgang.countdownview.CountdownView
+                android:id="@+id/countDownView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/textView_comma"
+                app:isHideTimeBackground="false"
+                app:isShowDay="false"
+                app:isShowHour="true"
+                app:isShowMinute="true"
+                app:isShowSecond="true"
+                app:isShowTimeBgBorder="true"
+                app:isSuffixTextBold="true"
+                app:isTimeTextBold="true"
+                app:suffix=":"
+                app:suffixGravity="center"
+                app:suffixTextColor="@color/white"
+                app:suffixTextSize="26dp"
+                app:timeBgBorderColor="@color/white40"
+                app:timeBgBorderRadius="50dp"
+                app:timeBgBorderSize="3dp"
+                app:timeBgColor="@color/white"
+                app:timeBgRadius="50dp"
+                app:timeBgSize="60dp"
+                app:timeTextColor="@color/red"
+                app:timeTextSize="20sp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

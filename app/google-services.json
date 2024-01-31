@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "409752638599",
+    "project_id": "manish-navratri",
+    "storage_bucket": "manish-navratri.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:409752638599:android:2edbc964aff56efce09422",
+        "android_client_info": {
+          "package_name": "net.manish.navratri"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "409752638599-q90dia81q366bh75k50aeidnlikdsujd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA31QwjYkHXcUexnZJobbY1o9_LV4sXNJk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "409752638599-q90dia81q366bh75k50aeidnlikdsujd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

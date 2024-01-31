@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@mipmap/home"
+            android:title="Home Dashboard" />
+        <item
+            android:id="@+id/nav_wallpapers"
+            android:icon="@mipmap/wallpaper"
+            android:title="Daily Darshan" />
+        <item
+            android:id="@+id/nav_ringtones"
+            android:icon="@mipmap/ringtone"
+            android:title="Kirtan" />
+        <item
+            android:id="@+id/nav_messages"
+            android:icon="@mipmap/message"
+            android:title="Bhagavad Gita Shlok" />
+
+        <item
+            android:id="@+id/nav_ekadashi"
+            android:icon="@drawable/baseline_calendar_month_24"
+            android:title="Ekadashi Calendar 2024" />
+
+    </group>
+
+    <item
+        android:id="@+id/nav_quiz"
+        android:icon="@mipmap/quiz"
+        android:title="@string/quiz" />
+
+    <item
+        android:id="@+id/nav_rate"
+        android:icon="@mipmap/rate"
+        android:title="@string/rate_app" />
+
+    <item
+        android:id="@+id/nav_shareapp"
+        android:icon="@drawable/share"
+        android:title="@string/shareapp" />
+    <item
+        android:id="@+id/nav_about_us"
+        android:icon="@drawable/version"
+        android:title="About Us" />
+    <item
+        android:id="@+id/nav_privacy"
+        android:icon="@drawable/baseline_privacy_tip_24"
+        android:title="Privacy Policy" />
+    <item
+        android:id="@+id/nav_more"
+        android:icon="@drawable/baseline_android_24"
+        android:title="More Apps" />
+
+    <item
+        android:id="@+id/nav_settings"
+        android:icon="@drawable/baseline_exit_to_app_24"
+        android:title="Exit Application" />
+
+</menu>

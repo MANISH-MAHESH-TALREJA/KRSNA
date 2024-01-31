@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="3dp"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="#FFF6FA"
+                android:scaleType="centerCrop"
+                app:riv_corner_radius="5dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_ring_play"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:scaleType="centerCrop"
+                    app:tint="@color/primary"
+                    android:src="@drawable/play" />
+
+                <fr.castorflex.android.circularprogressbar.CircularProgressBar
+                    android:id="@+id/pb_ringtone"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="14dp"
+                    android:indeterminate="true"
+                    android:visibility="gone"
+                    app:cpb_colors="@array/pocket_bar_colors"
+                    app:cpb_max_sweep_angle="300"
+                    app:cpb_min_sweep_angle="10"
+                    app:cpb_rotation_speed="1.0"
+                    app:cpb_stroke_width="4dp"
+                    app:cpb_sweep_speed="1.0" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:backgroundTint="#404040"
+                    android:background="@drawable/ringtone_line" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_ring_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingMultiplier="0.9"
+                        android:maxLines="2"
+                        android:textColor="#404040"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/iv_ring_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="25dp"
+                    android:src="@drawable/more_icon" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
+        android:id="@+id/rl_native_ad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@android:color/white"
+        android:visibility="gone" />
+
+</LinearLayout>

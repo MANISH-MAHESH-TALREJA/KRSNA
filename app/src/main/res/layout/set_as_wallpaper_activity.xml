@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background_clr"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_setwall"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/toolbar"
+        app:title="@string/set_as_wallpaper"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+    <com.theartofdev.edmodo.cropper.CropImageView
+        android:id="@+id/iv_crop"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/btnsecbg_clr"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/poppins"
+        android:gravity="center"
+        android:onClick="showBottomSheetDialog"
+        android:text="@string/set_as_wallpaper"
+        android:textColor="@color/sizedowntext_clr"
+        android:textStyle="bold" />
+
+</LinearLayout>

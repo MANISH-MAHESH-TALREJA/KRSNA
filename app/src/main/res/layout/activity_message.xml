@@ -1,0 +1,70 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_message"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/toolbar"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        ads:title="@string/message"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <LinearLayout
+        android:id="@+id/ll_adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager_message"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/ll_adView"
+        android:layout_below="@+id/toolbar_message"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="18dp" />
+
+    <net.manish.navratri.fab.FloatingActionMenu
+        android:id="@+id/floating_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ll_adView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
+        app:menu_colorNormal="@color/fab_menu"
+        app:menu_labels_colorNormal="@color/btn_fab_labels_color">
+
+        <net.manish.navratri.fab.FloatingActionButton
+            android:id="@+id/button_share_sms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/share_white"
+            app:fab_colorNormal="@color/fab_button"
+            app:fab_label="@string/share"
+            app:fab_size="mini" />
+
+        <net.manish.navratri.fab.FloatingActionButton
+            android:id="@+id/button_copy_sms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="6dp"
+            android:src="@drawable/copy"
+            app:fab_colorNormal="@color/fab_button"
+            app:fab_label="@string/copy"
+            app:fab_size="mini" />
+
+    </net.manish.navratri.fab.FloatingActionMenu>
+
+</RelativeLayout>

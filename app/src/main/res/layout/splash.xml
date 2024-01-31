@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    style="@style/ThirdLinearLayout">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mainText"
+        android:layout_width="@dimen/_275sdp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="@dimen/_5sdp"
+        android:layout_marginVertical="@dimen/_5sdp"
+        android:gravity="center_horizontal"
+        android:text="Hare Krishna, Hare Rama"
+        android:textColor="@color/primary"
+        android:textSize="@dimen/_21sdp"
+        android:textStyle="bold" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mainTextAlternate"
+        android:layout_width="@dimen/_275sdp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="@dimen/_5sdp"
+        android:layout_marginVertical="@dimen/_5sdp"
+        android:gravity="center_horizontal"
+        android:text="Jai Srila Prabhupada"
+        android:textColor="@color/primary"
+        android:textSize="@dimen/_21sdp"
+        android:textStyle="bold" />
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/startImage"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_250sdp"
+        android:layout_margin="@dimen/_10sdp"
+
+        android:src="@drawable/splash" />
+
+    <yanzhikai.textpath.SyncTextPathView
+        android:id="@+id/fancy_text3"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_margin="@dimen/_10sdp"
+        app:duration="3000"
+        app:pathStrokeColor="@color/bg_quiz"
+        app:showPainter="true"
+        app:text="DEVELOPED BY"
+        app:textInCenter="true"
+        app:textSize="@dimen/_22sdp" />
+
+    <yanzhikai.textpath.SyncTextPathView
+        android:id="@+id/fancy_text4"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_margin="@dimen/_10sdp"
+        android:textDirection="rtl"
+        app:duration="3000"
+        app:pathStrokeColor="#D101FF"
+        app:showPainter="true"
+        app:text="MANISH MAHESH TALREJA"
+        app:textInCenter="true"
+        app:textSize="@dimen/_21sdp" />
+
+</LinearLayout>

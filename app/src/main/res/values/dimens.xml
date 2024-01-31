@@ -1,0 +1,10 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <dimen name="movieListTextSize">16.0sp</dimen>
+    <dimen name="unit_spacing">8dp</dimen>
+    <dimen name="fab_size_normal">56dp</dimen>
+    <dimen name="fab_size_mini">40dp</dimen>
+    <dimen name="labels_text_size">14sp</dimen>
+</resources>

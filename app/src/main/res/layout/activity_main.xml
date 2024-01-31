@@ -1,0 +1,77 @@
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_clr"
+    tools:openDrawer="start">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/toolbar"
+                android:elevation="5dp"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/adView"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <FrameLayout
+                android:id="@+id/frame_nav"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/ll_adView" />
+
+            <LinearLayout
+                android:id="@+id/ll_adView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:orientation="vertical" />
+
+        </RelativeLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        style="@style/Widget.Custom.NavigationView"
+        app:headerLayout="@layout/nav_header_main"
+        android:layout_gravity="start"
+        android:background="#FFF6FA"
+        app:itemTextColor="@color/nav_text"
+        app:itemIconTint="@color/nav_text"
+        android:clipToPadding="false"
+        app:menu="@menu/activity_main_drawer"/>
+        <!--android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:drawerLayoutCornerSize="50dp"
+        style="ShapeAppearanceOverlay.Nav"
+        android:background="#0CFF04"
+        android:padding="2dp"
+        android:theme="@style/NavigationDrawer"
+        app:headerLayout="@layout/nav_header_main"
+        app:itemIconTint="@color/nav_text"
+        app:itemTextColor="@color/nav_text"
+         />-->
+
+</androidx.drawerlayout.widget.DrawerLayout>

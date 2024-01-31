@@ -1,0 +1,73 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_singwall"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/toolbar"
+        android:theme="@style/AppTheme.AppBarOverlay" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager_wall"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/ll_adView"
+        android:layout_below="@+id/toolbar_singwall" />
+
+    <net.manish.navratri.fab.FloatingActionMenu
+        android:id="@+id/floating_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ll_adView"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        app:menu_colorNormal="@color/fab_menu"
+        app:menu_labels_colorNormal="@color/btn_fab_labels_color">
+
+        <net.manish.navratri.fab.FloatingActionButton
+            android:id="@+id/button_share_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/share_white"
+            app:fab_colorNormal="@color/fab_button"
+            app:fab_label="Share"
+            app:fab_size="mini" />
+
+        <net.manish.navratri.fab.FloatingActionButton
+            android:id="@+id/button_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="6dp"
+            android:src="@drawable/save"
+            app:fab_colorNormal="@color/fab_button"
+            app:fab_label="Save Image"
+            app:fab_size="mini" />
+
+        <net.manish.navratri.fab.FloatingActionButton
+            android:id="@+id/button_imgdtls_setwall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/setwall"
+            app:fab_colorNormal="@color/fab_button"
+            app:fab_label="Set As Wallpaper"
+            app:fab_size="mini" />
+
+    </net.manish.navratri.fab.FloatingActionMenu>
+
+    <LinearLayout
+        android:id="@+id/ll_adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+</RelativeLayout>
