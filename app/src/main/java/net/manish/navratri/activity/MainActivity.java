@@ -38,6 +38,7 @@ import net.manish.navratri.fragments.FragmentDashBoard;
 import net.manish.navratri.fragments.FragmentHome;
 import net.manish.navratri.fragments.FragmentMessage;
 import net.manish.navratri.fragments.FragmentRingtone;
+import net.manish.navratri.fragments.FragmentVideo;
 import net.manish.navratri.fragments.FragmentWallpaper;
 import net.manish.navratri.interfaces.AboutListener;
 import net.manish.navratri.interfaces.AdConsentListener;
@@ -153,7 +154,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_ringtones) {
             FragmentRingtone fragmentRingtone = new FragmentRingtone();
             loadFrag(fragmentRingtone, "Kirtan", fm);
-        } else if (id == R.id.nav_messages) {
+        }
+        else if (id == R.id.nav_videos) {
+            FragmentVideo fragmentVideo = new FragmentVideo();
+            loadFrag(fragmentVideo, "Devotional Lectures", fm);
+        }
+        else if (id == R.id.nav_messages) {
             FragmentMessage fragmentMessage = new FragmentMessage();
             loadFrag(fragmentMessage, getString(R.string.message), fm);
         } else if (id == R.id.nav_quiz) {

@@ -1,55 +1,37 @@
 package net.manish.navratri.fragments;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-/*import com.google.ads.consent.ConsentInformation;
-import com.google.ads.consent.ConsentStatus;
-import com.google.ads.mediation.admob.AdMobAdapter;
-import com.google.ads.mediation.facebook.FacebookAdapter;
-import com.google.ads.mediation.facebook.FacebookExtras;
-import com.google.android.gms.ads.AdLoader;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.nativead.NativeAd;
-import com.startapp.sdk.ads.nativead.NativeAdPreferences;
-import com.startapp.sdk.ads.nativead.StartAppNativeAd;
-import com.startapp.sdk.adsbase.Ad;
-import com.startapp.sdk.adsbase.adlisteners.AdEventListener;*/
-import net.manish.navratri.adapter.AdapterWall;
-import net.manish.navratri.asyncTask.LoadWallpapers;
-import net.manish.navratri.R;
-import net.manish.navratri.interfaces.WallpaperListener;
-import net.manish.navratri.item.ItemWallpaper;
-import net.manish.navratri.util.Constant;
-import net.manish.navratri.util.Methods;
-
-import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import net.manish.navratri.R;
+import net.manish.navratri.adapter.AdapterMessage;
+import net.manish.navratri.asyncTask.LoadMessage;
+import net.manish.navratri.interfaces.MessageListener;
+import net.manish.navratri.item.ItemMessage;
+import net.manish.navratri.util.Constant;
+import net.manish.navratri.util.Methods;
+
+import java.util.ArrayList;
+
 import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 
-public class FragmentWallpaper extends Fragment {
+public class FragmentVideos extends Fragment {
 
-    private ArrayList<ItemWallpaper> arrayList, arrayListAdLess;
-    private AdapterWall adapter;
-    private int columnWidth;
     private Methods methods;
-    private CircularProgressBar progressBar;
-
-    private GridLayoutManager lLayout;
     private RecyclerView recyclerView;
+    private AdapterMessage adapterMessage;
+    private ArrayList<ItemMessage> arrayList;
+    private CircularProgressBar progressBar;
 
     private TextView textView_empty;
     private AppCompatButton button_try;
@@ -58,49 +40,37 @@ public class FragmentWallpaper extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        View rootView = inflater.inflate(R.layout.fragment_wallpaper, container, false);
-
-        arrayList = new ArrayList<>();
-        arrayListAdLess = new ArrayList<>();
+        View rootView = inflater.inflate(R.layout.fragment_messsage, container, false);
 
         methods = new Methods(getActivity());
 
-        columnWidth = (methods.getScreenWidth() - ((Constant.NUM_OF_COLUMNS + 1))) / Constant.NUM_OF_COLUMNS;
-
-        lLayout = new GridLayoutManager(getActivity(), 3);
-        lLayout.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                return adapter.isHeader(position) ? lLayout.getSpanCount() : 1;
-            }
-        });
+        arrayList = new ArrayList<>();
 
         ll_empty = rootView.findViewById(R.id.ll_empty);
         textView_empty = rootView.findViewById(R.id.textView_empty_msg);
         button_try = rootView.findViewById(R.id.button_empty_try);
-        errr_msg = getString(R.string.no_wallpaper_found);
+        errr_msg = getString(R.string.no_message_found);
 
-        progressBar = rootView.findViewById(R.id.pb_wall);
-        recyclerView = rootView.findViewById(R.id.rv_wallpaper);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(lLayout);
+        progressBar = rootView.findViewById(R.id.pb_message);
+        recyclerView = rootView.findViewById(R.id.rv_message);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         button_try.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadWallpapers();
+                loadMessage();
             }
         });
 
-        loadWallpapers();
+        loadMessage();
 
+        setHasOptionsMenu(true);
         return rootView;
     }
 
-    private void loadWallpapers() {
+    private void loadMessage() {
         if (methods.isNetworkAvailable()) {
-            LoadWallpapers loadWallpapers = new LoadWallpapers(new WallpaperListener() {
+            LoadMessage loadMessage = new LoadMessage(new MessageListener() {
                 @Override
                 public void onStart() {
                     arrayList.clear();
@@ -110,22 +80,20 @@ public class FragmentWallpaper extends Fragment {
                 }
 
                 @Override
-                public void onEnd(String success, String verifyStatus, String message, ArrayList<ItemWallpaper> arrayListWallpaper) {
+                public void onEnd(String success, String verifyStatus, String message, ArrayList<ItemMessage> arrayListMessage) {
                     if (getActivity() != null) {
 
-                        //arrayListWallpaper.addAll(arrayListWallpaper);
-                        //arrayListWallpaper.addAll(arrayListWallpaper);
-                        //arrayListWallpaper.addAll(arrayListWallpaper);
-                        //arrayListWallpaper.addAll(arrayListWallpaper);
-                        //arrayListWallpaper.addAll(arrayListWallpaper);
-                        //arrayListWallpaper.addAll(arrayListWallpaper);
+                        // arrayListMessage.addAll(arrayListMessage);
+                       /* arrayListMessage.addAll(arrayListMessage);
+                        arrayListMessage.addAll(arrayListMessage);
+                        arrayListMessage.addAll(arrayListMessage);
+                        arrayListMessage.addAll(arrayListMessage);
+                        arrayListMessage.addAll(arrayListMessage);*/
 
                         if (success.equals("1")) {
                             if (!verifyStatus.equals("-1")) {
-                                //addAds(arrayListWallpaper);
-                                arrayListAdLess.addAll(arrayListWallpaper);
-                                arrayList.addAll(arrayListWallpaper);
-                                errr_msg = getString(R.string.no_wallpaper_found);
+                                arrayList.addAll(arrayListMessage);
+                                errr_msg = getString(R.string.no_message_found);
                                 setAdapter();
                             } else {
                                 methods.getVerifyDialog(getString(R.string.error_unauth_access), message);
@@ -136,38 +104,22 @@ public class FragmentWallpaper extends Fragment {
                         }
                     }
                 }
-            }, methods.getAPIRequest(Constant.METHOD_WALLPAPER, 0, "", "", ""));
-            loadWallpapers.execute();
+            }, methods.getAPIRequest(Constant.METHOD_QUOTES, 0, "", "", ""));
+            loadMessage.execute();
         } else {
             errr_msg = getString(R.string.net_not_conn);
             setEmpty();
         }
     }
 
-
     private void setAdapter() {
-        adapter = new AdapterWall(getActivity(), arrayList, arrayListAdLess, columnWidth);
-        recyclerView.setAdapter(adapter);
+        adapterMessage = new AdapterMessage(getActivity(), arrayList);
+        recyclerView.setAdapter(adapterMessage);
         setEmpty();
 
-        //loadNativeAds();
+        // loadNativeAds();
     }
 
-    private void addAds(ArrayList<ItemWallpaper> arrayListRadio) {
-        if (Constant.isNativeAd) {
-            if (arrayListRadio.size() > 0) {
-                arrayList.add(arrayListRadio.get(0));
-            }
-            for (int i = 1; i < arrayListRadio.size(); i++) {
-                if (i % Constant.nativeAdShow == 0) {
-                    arrayList.add(null);
-                }
-                arrayList.add(arrayListRadio.get(i));
-            }
-        } else {
-            arrayList.addAll(arrayListRadio);
-        }
-    }
     private void setEmpty() {
         progressBar.setVisibility(View.GONE);
         if (arrayList.size() > 0) {
@@ -180,7 +132,7 @@ public class FragmentWallpaper extends Fragment {
         }
     }
 
-   /* @SuppressLint("MissingPermission")
+    /*@SuppressLint("MissingPermission")
     private void loadNativeAds() {
         if (Constant.isNativeAd && arrayList.size() >= 10) {
             switch (Constant.nativeAdType) {
@@ -191,8 +143,10 @@ public class FragmentWallpaper extends Fragment {
                             new NativeAd.OnNativeAdLoadedListener() {
                                 @Override
                                 public void onNativeAdLoaded(@NotNull NativeAd nativeAd) {
+                                    // A native ad loaded successfully, check if the ad loader has finished loading
+                                    // and if so, insert the ads into the list.
                                     try {
-                                        adapter.addAds(nativeAd);
+                                        adapterMessage.addAds(nativeAd);
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
@@ -221,7 +175,7 @@ public class FragmentWallpaper extends Fragment {
                         @Override
                         public void onReceiveAd(Ad ad) {
                             try {
-                                adapter.addNativeAds(nativeAd.getNativeAds());
+                                adapterMessage.addNativeAds(nativeAd.getNativeAds());
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -234,17 +188,9 @@ public class FragmentWallpaper extends Fragment {
                     });
                     break;
                 case Constant.AD_TYPE_APPLOVIN:
-                    adapter.setNativeAds(true);
+                    adapterMessage.setNativeAds(true);
                     break;
             }
         }
-    }*/
-
-    /*@Override
-    public void onDestroy() {
-        if (adapter != null) {
-            // adapter.destroyNativeAds();
-        }
-        super.onDestroy();
     }*/
 }

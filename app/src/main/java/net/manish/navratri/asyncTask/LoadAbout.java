@@ -33,14 +33,12 @@ public class LoadAbout extends AsyncTask<String, String, String> {
     protected String doInBackground(String... strings) {
         try {
             String json = JsonUtils.okhttpPost(Constant.SERVER_URL, requestBody);
-            System.out.println("ABOUT : " + json);
             JSONObject jsonObject = new JSONObject(json);
 
             if (jsonObject.has(Constant.TAG_ROOT)) {
                 JSONArray jsonArray = jsonObject.getJSONArray(Constant.TAG_ROOT);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject c = jsonArray.getJSONObject(i);
-                    System.out.println("ABOUT : " + c);
 
                     if (!c.has(Constant.TAG_SUCCESS)) {
                         String appname = c.getString("app_name");

@@ -16,6 +16,10 @@
             android:icon="@mipmap/ringtone"
             android:title="Kirtan" />
         <item
+            android:id="@+id/nav_videos"
+            android:icon="@mipmap/ringtone"
+            android:title="Devotional lectures" />
+        <item
             android:id="@+id/nav_messages"
             android:icon="@mipmap/message"
             android:title="Bhagavad Gita Shlok" />

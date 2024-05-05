@@ -6,7 +6,7 @@
     android:gravity="center">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_ringtone"
+        android:id="@+id/rv_video"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
@@ -21,7 +21,7 @@
         android:visibility="gone" />
 
     <fr.castorflex.android.circularprogressbar.CircularProgressBar
-        android:id="@+id/pb_ringtone"
+        android:id="@+id/pb_video"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_centerInParent="true"

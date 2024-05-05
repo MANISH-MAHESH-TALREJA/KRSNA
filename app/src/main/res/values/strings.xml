@@ -8,9 +8,9 @@
     <string name="applovin_id">FBZJ_9VAbH95a0MVJsIldv-Twlc8JBmTNKtNTMX3eh9DhVk_M0k-viWpS7ymJiJg1A2VXaZAGiOyC6yT6gX0N2</string>
 -->
     <string name="privacy_policy_url">http://www.example.com/</string>
-
+    <string name="Let_me_recommend_you_this_application">Let me recommend you this application</string>
     <string name="play_more_apps">https://play.google.com/store/apps/developer?id=Viaan+Parmar&amp;hl=en</string>
-
+    <string name="choose_one">Choose one</string>
     <string name="isRTL">false</string>
 
     <string name="desc">desc</string>
@@ -47,6 +47,7 @@
     <string name="no_message_found">No Messages Found</string>
     <string name="no_wallpaper_found">No Wallpapers Found</string>
     <string name="no_ringtones_found">No Ringtones Found</string>
+    <string name="no_videos_found">No Videos Found</string>
     <string name="server_no_conn">Error connecting server, please try again</string>
     <string name="your_ad_consent">Your Ad Consent</string>
     <string name="show_personalized_ad">Show Personalized Ads</string>

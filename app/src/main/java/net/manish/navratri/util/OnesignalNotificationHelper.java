@@ -12,10 +12,12 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 
-import com.onesignal.OSMutableNotification;
-import com.onesignal.OSNotification;
-import com.onesignal.OSNotificationReceivedEvent;
+
 import com.onesignal.OneSignal;
+import com.onesignal.notifications.IDisplayableMutableNotification;
+import com.onesignal.notifications.INotificationReceivedEvent;
+import com.onesignal.notifications.INotificationServiceExtension;
+
 import net.manish.navratri.R;
 import net.manish.navratri.activity.SplashActivity;
 
@@ -31,20 +33,21 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
 
-public class OnesignalNotificationHelper implements OneSignal.OSRemoteNotificationReceivedHandler {
+public class OnesignalNotificationHelper implements INotificationServiceExtension
+{
 
     String CHANNEL_ID = "christmas_push";
     String title, message, bigpicture, url;
 
     @Override
-    public void remoteNotificationReceived(Context context, OSNotificationReceivedEvent notificationReceivedEvent) {
-        OSNotification notification = notificationReceivedEvent.getNotification();
+    public void onNotificationReceived(INotificationReceivedEvent event) {
+        IDisplayableMutableNotification notification = event.getNotification();
 
-        if (notification.getActionButtons() != null) {
+        /*if (notification.getActionButtons() != null) {
             for (OSNotification.ActionButton button : notification.getActionButtons()) {
                 OneSignal.onesignalLog(OneSignal.LOG_LEVEL.VERBOSE, "ActionButton: " + button.toString());
             }
-        }
+        }*/
 
         title = notification.getTitle();
         message = notification.getBody();
@@ -56,13 +59,14 @@ public class OnesignalNotificationHelper implements OneSignal.OSRemoteNotificati
             e.printStackTrace();
         }
 
-        sendNotification(context);
+        sendNotification(event.getContext());
 
-        OSMutableNotification mutableNotification = notification.mutableCopy();
+        /*OSMutableNotification mutableNotification = notification.mutableCopy();
         mutableNotification.setExtender(builder -> builder.setColor(context.getResources().getColor(R.color.colorPrimary)));
 
         // If complete isn't call within a time period of 25 seconds, OneSignal internal logic will show the original notification
-        notificationReceivedEvent.complete(null);
+        notificationReceivedEvent.complete(null);*/
+        event.preventDefault();
     }
 
     private void sendNotification(Context context) {

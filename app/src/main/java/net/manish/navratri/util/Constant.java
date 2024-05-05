@@ -23,6 +23,7 @@ public class Constant implements Serializable {
     public static final String METHOD_WALLPAPER = "get_wallpaper";
     public static final String METHOD_MOST_VIEWED_WALLPAPER = "get_wallpaper_view";
     public static final String METHOD_RINGTONE = "get_ringtone";
+    public static final String METHOD_VIDEOS = "get_videos";
     public static final String METHOD_QUIZ = "get_quiz";
     public static final String METHOD_QUOTES = "get_sms";
 
@@ -41,6 +42,13 @@ public class Constant implements Serializable {
 
     public static final String LATESTMSG_ID = "id";
     public static final String LATESTMSG_URL = "sms";
+
+    public static final String LATEST_VIDEO_ID = "id";
+    public static final String LATEST_VIDEO_URL = "video_url";
+    public static final String LATEST_VIDEO_TYPE = "video_type";
+    public static final String LATEST_VIDEO_LAYOUT = "video_orientation";
+    public static final String LATEST_VIDEO_TITLE = "video_title";
+    public static final String LATEST_VIDEO_IMAGE = "video_image";
 
     public static final String QUIZ_ID = "id";
     public static final String QUIZ_QUES = "quiz_title";

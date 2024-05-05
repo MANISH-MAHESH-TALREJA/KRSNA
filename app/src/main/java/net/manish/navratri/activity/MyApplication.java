@@ -38,8 +38,7 @@ public class MyApplication extends Application {
         FirebaseApp.initializeApp(getApplicationContext());
         FirebaseAnalytics.getInstance(getApplicationContext());
 
-        OneSignal.initWithContext(this);
-        OneSignal.setAppId(getString(R.string.onesignal_app_id));
+        OneSignal.initWithContext(this, getString(R.string.onesignal_app_id));
 
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());

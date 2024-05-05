@@ -4,11 +4,11 @@
     FC3263
     <color name="colorPrimaryDark">#FC4596</color>
     <color name="colorAccent">#FC4596</color>
-
+    <color name="progressbar_style">#FC4596</color>
     <color name="primary">#FC4596</color>
     <color name="primaryDark">#FC4596</color>
     <color name="primaryDarkLight">#FFC4DF</color>
-
+    <color name="textView_fitnessVideo_adapter">#525252</color>
     <color name="bg">#FFC4DF</color>
     <color name="bg_cardview">#f6f6f6</color>
     <color name="bg_grey_dark">#F4F4F4</color>

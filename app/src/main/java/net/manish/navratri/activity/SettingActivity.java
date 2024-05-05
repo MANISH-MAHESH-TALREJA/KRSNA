@@ -137,7 +137,8 @@ public class SettingActivity extends AppCompatActivity {
         switch_noti.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                OneSignal.disablePush(!isChecked);
+                OneSignal.getUser().getPushSubscription().optOut();
+                //OneSignal.disablePush(!isChecked);
                 sharedPref.setIsNotification(isChecked);
             }
         });

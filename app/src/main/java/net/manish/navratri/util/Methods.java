@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -136,6 +137,12 @@ public class Methods {
             window.getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         }
     }
+
+    public void changeStatusBarColor(Window window) {
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(context.getResources().getColor(R.color.statusbarcolor));
+    }
+
 
     public void setStatusColor(Window window) {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -749,4 +756,6 @@ public class Methods {
                 .addFormDataPart("data", API.toBase64(jsObj.toString()))
                 .build();
     }
+
+
 }
