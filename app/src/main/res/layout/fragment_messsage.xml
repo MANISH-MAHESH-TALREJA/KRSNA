@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
-    android:background="@drawable/bg">
+    android:background="#F8F0F3">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_message"

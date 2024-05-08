@@ -51,7 +51,7 @@
     <color name="text_disable">#B9B9B7</color>
 
     <color name="statusbarcolor">#A9050D</color>
-    <color name="textView_empty">#90ffffff</color>
+    <color name="textView_empty">#000000</color>
     <color name="white40">#40ffffff</color>
     <color name="nav_header_message">#2f2f2f</color>
 

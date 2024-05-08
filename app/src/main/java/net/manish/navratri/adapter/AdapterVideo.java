@@ -46,13 +46,15 @@ public class AdapterVideo extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == VIEW_TYPE_ITEM) {
+        View view = LayoutInflater.from(activity).inflate(R.layout.fitness_video_adapter, parent, false);
+        return new ViewHolder(view);
+        /*if (viewType == VIEW_TYPE_ITEM) {
             View view = LayoutInflater.from(activity).inflate(R.layout.fitness_video_adapter, parent, false);
             return new ViewHolder(view);
         } else  {
             View v = LayoutInflater.from(activity).inflate(R.layout.layout_loading_item, parent, false);
             return new ProgressViewHolder(v);
-        }
+        }*/
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -230,7 +232,7 @@ public class AdapterVideo extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return videoLists.size() + 1;
+        return videoLists.size();
     }
 
     @Override
