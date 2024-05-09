@@ -54,12 +54,7 @@ public class SingleWallpaper extends AppCompatActivity {
         position = getIntent().getIntExtra("pos", 0);
 
 
-        methods = new Methods(this/*, new InterAdListener() {
-            @Override
-            public void onClick(int position, String type) {
-                methods.saveImage(Constant.arrayList_wallpaper.get(viewpager.getCurrentItem()).getImageBig(), type, "");
-            }
-        }*/);
+        methods = new Methods(this);
         methods.setStatusColor(getWindow());
         methods.forceRTLIfSupported(getWindow());
 
@@ -69,40 +64,30 @@ public class SingleWallpaper extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(getString(R.string.wallpaper));
 
-        //methods.showBannerAd(ll_adView);
 
         viewpager = findViewById(R.id.viewPager_wall);
         button_save = findViewById(R.id.button_save);
         button_share_image = findViewById(R.id.button_share_image);
         button_setWall = findViewById(R.id.button_imgdtls_setwall);
 
-        button_setWall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (methods.checkPer()) {
-                    methods.saveImage(Constant.arrayList_wallpaper.get(viewpager.getCurrentItem()).getImageBig(), getString(R.string.set_as_wallpaper), "");
-                    // methods.showInterAd(viewpager.getCurrentItem(), getString(R.string.set_as_wallpaper));
-                }
+        button_setWall.setOnClickListener(view ->
+        {
+            if (methods.checkPer()) {
+                methods.saveImage(Constant.arrayList_wallpaper.get(viewpager.getCurrentItem()).getImageBig(), getString(R.string.set_as_wallpaper), "");
             }
         });
 
-        button_save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (methods.checkPer()) {
-                    methods.saveImage(Constant.arrayList_wallpaper.get(viewpager.getCurrentItem()).getImageBig(), getString(R.string.download), "");
-                    // methods.showInterAd(viewpager.getCurrentItem(), getString(R.string.download));
-                }
+        button_save.setOnClickListener(view ->
+        {
+            if (methods.checkPer()) {
+                methods.saveImage(Constant.arrayList_wallpaper.get(viewpager.getCurrentItem()).getImageBig(), getString(R.string.download), "");
             }
         });
 
-        button_share_image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (methods.checkPer()) {
-                    methods.saveImage(Constant.arrayList_wallpaper.get(viewpager.getCurrentItem()).getImageBig(), getString(R.string.share), "");
-                    /*methods.showInterAd(viewpager.getCurrentItem(), getString(R.string.share));*/
-                }
+        button_share_image.setOnClickListener(view ->
+        {
+            if (methods.checkPer()) {
+                methods.saveImage(Constant.arrayList_wallpaper.get(viewpager.getCurrentItem()).getImageBig(), getString(R.string.share), "");
             }
         });
 

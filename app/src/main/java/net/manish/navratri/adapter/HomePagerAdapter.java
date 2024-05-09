@@ -87,14 +87,4 @@ public class HomePagerAdapter extends EnchantedViewPagerAdapter {
         return 5;
     }
 
-    /*private InterAdListener interAdListener = new InterAdListener() {
-        @Override
-        public void onClick(int position, String type) {
-            Constant.arrayList_wallpaper.clear();
-            Constant.arrayList_wallpaper.addAll(arrayList);
-            Intent intent = new Intent(mContext, SingleWallpaper.class);
-            intent.putExtra("pos", position);
-            mContext.startActivity(intent);
-        }
-    };*/
 }

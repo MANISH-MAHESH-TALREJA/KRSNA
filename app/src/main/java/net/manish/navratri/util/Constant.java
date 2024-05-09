@@ -70,11 +70,6 @@ public class Constant implements Serializable {
     public static final String DARK_MODE_OFF = "off";
     public static final String DARK_MODE_SYSTEM = "system";
 
-    public static final String AD_TYPE_ADMOB = "admob";
-    public static final String AD_TYPE_FACEBOOK = "facebook";
-    public static final String AD_TYPE_STARTAPP = "startapp";
-    public static final String AD_TYPE_APPLOVIN = "applovins";
-
     // Number of columns of Grid View
     public static final int NUM_OF_COLUMNS = 3;
     public static String DEVICE_ID;

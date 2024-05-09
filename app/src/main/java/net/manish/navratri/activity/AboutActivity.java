@@ -22,9 +22,11 @@ import net.manish.navratri.util.Methods;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
-public class AboutActivity extends AppCompatActivity {
+public class AboutActivity extends AppCompatActivity
+{
 
     Toolbar toolbar;
     Methods methods;
@@ -38,12 +40,14 @@ public class AboutActivity extends AppCompatActivity {
     LoadAbout loadAbout;
 
     @Override
-    protected void attachBaseContext(Context newBase) {
+    protected void attachBaseContext(Context newBase)
+    {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
@@ -76,10 +80,13 @@ public class AboutActivity extends AppCompatActivity {
         ll_company = findViewById(R.id.ll_company);
         dbHelper.getAbout();
 
-        if (methods.isNetworkAvailable()) {
+        if (methods.isNetworkAvailable())
+        {
             loadAboutData();
-        } else {
-            if (dbHelper.getAbout()) {
+        } else
+        {
+            if (dbHelper.getAbout())
+            {
                 setTexts();
                 setVariables();
             }
@@ -87,8 +94,10 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
+    public boolean onOptionsItemSelected(MenuItem menuItem)
+    {
+        switch (menuItem.getItemId())
+        {
             case android.R.id.home:
                 onBackPressed();
                 break;
@@ -99,24 +108,32 @@ public class AboutActivity extends AppCompatActivity {
         return true;
     }
 
-    public void loadAboutData() {
-        loadAbout = new LoadAbout(new AboutListener() {
+    public void loadAboutData()
+    {
+        loadAbout = new LoadAbout(new AboutListener()
+        {
             @Override
-            public void onStart() {
+            public void onStart()
+            {
                 pbar.show();
             }
 
             @Override
-            public void onEnd(String success, String verifyStatus, String message) {
-                if (pbar.isShowing()) {
+            public void onEnd(String success, String verifyStatus, String message)
+            {
+                if (pbar.isShowing())
+                {
                     pbar.dismiss();
                 }
-                if (success.equals("1")) {
-                    if (!verifyStatus.equals("-1")) {
+                if (success.equals("1"))
+                {
+                    if (!verifyStatus.equals("-1"))
+                    {
                         setTexts();
                         setVariables();
                         dbHelper.addtoAbout();
-                    } else {
+                    } else
+                    {
                         methods.getVerifyDialog(getString(R.string.error_unauth_access), message);
                     }
                 }
@@ -125,7 +142,8 @@ public class AboutActivity extends AppCompatActivity {
         loadAbout.execute();
     }
 
-    private void setTexts() {
+    private void setTexts()
+    {
         appname = Constant.itemAbout.getAppName();
         applogo = Constant.itemAbout.getAppLogo();
         desc = Constant.itemAbout.getAppDesc();
@@ -138,35 +156,43 @@ public class AboutActivity extends AppCompatActivity {
         developedby = Constant.itemAbout.getDevelopedby();
     }
 
-    public void setVariables() {
+    public void setVariables()
+    {
         textView_appname.setText(appname);
-        if (!email.trim().isEmpty()) {
+        if (!email.trim().isEmpty())
+        {
             ll_email.setVisibility(View.VISIBLE);
             textView_email.setText(email);
         }
 
-        if (!website.trim().isEmpty()) {
+        if (!website.trim().isEmpty())
+        {
             ll_website.setVisibility(View.VISIBLE);
             textView_website.setText(website);
         }
 
-        if (!appauthor.trim().isEmpty()) {
+        if (!appauthor.trim().isEmpty())
+        {
             ll_company.setVisibility(View.VISIBLE);
             textView_company.setText(appauthor);
         }
 
-        if (!appcontact.trim().isEmpty()) {
+        if (!appcontact.trim().isEmpty())
+        {
             ll_contact.setVisibility(View.VISIBLE);
             textView_contact.setText(appcontact);
         }
 
-        if (!appversion.trim().isEmpty()) {
+        if (!appversion.trim().isEmpty())
+        {
             textView_version.setText(appversion);
         }
 
-        if (applogo.trim().isEmpty()) {
+        if (applogo.trim().isEmpty())
+        {
             imageView_logo.setVisibility(View.GONE);
-        } else {
+        } else
+        {
             System.out.println("IMAGE PATH : " + Constant.SERVER_IMAGE + applogo);
             Picasso
                     .get()
@@ -178,14 +204,16 @@ public class AboutActivity extends AppCompatActivity {
         String encoding = "utf-8";
 
         String text = "";
-        if (methods.isDarkMode()) {
+        if (methods.isDarkMode())
+        {
             text = "<html><head>"
                     + "<style> body{color:#fff !important;text-align:left}"
                     + "</style></head>"
                     + "<body>"
                     + desc
                     + "</body></html>";
-        } else {
+        } else
+        {
             text = "<html><head>"
                     + "<style> body{color:#000 !important;text-align:left}"
                     + "</style></head>"

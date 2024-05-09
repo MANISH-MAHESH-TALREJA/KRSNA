@@ -68,8 +68,6 @@ public class MyApplication extends Application {
                 break;
         }
 
-        sharedPref.getAdDetails();
-        // new Methods(getApplicationContext()).initializeAds();
     }
 
     @Override

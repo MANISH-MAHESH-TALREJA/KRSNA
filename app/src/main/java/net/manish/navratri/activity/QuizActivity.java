@@ -139,13 +139,10 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
                             }
                         }
 
-                        new Handler().postDelayed(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                radioGroup.clearCheck();
-                                nextQues();
-                            }
+                        new Handler().postDelayed(() ->
+                        {
+                            radioGroup.clearCheck();
+                            nextQues();
                         }, 2000);
                     }
                 } else {
@@ -451,13 +448,10 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
             }
         });
 
-        button_exit.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                finish();
-            }
+        button_exit.setOnClickListener(v ->
+        {
+            dialog.dismiss();
+            finish();
         });
 
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();

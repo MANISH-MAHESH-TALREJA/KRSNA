@@ -47,26 +47,7 @@ public class MessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
 
-        methods = new Methods(this/*, new InterAdListener() {
-            @Override
-            public void onClick(int position, String type) {
-                switch (type) {
-                    case "copy":
-                        ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-                        ClipData clip = ClipData.newPlainText("message", Constant.arrayList_message.get(viewPager.getCurrentItem()).getMessage());
-                        clipboard.setPrimaryClip(clip);
-                        Toast.makeText(MessageActivity.this, getString(R.string.message_copied), Toast.LENGTH_SHORT).show();
-                        break;
-                    case "share":
-                        Intent sendIntent = new Intent();
-                        sendIntent.setAction(Intent.ACTION_SEND);
-                        sendIntent.putExtra(Intent.EXTRA_TEXT, "" + Constant.arrayList_message.get(viewPager.getCurrentItem()).getMessage());
-                        sendIntent.setType("text/plain");
-                        startActivity(sendIntent);
-                        break;
-                }
-            }
-        }*/);
+        methods = new Methods(this);
         methods.setStatusColor(getWindow());
         methods.forceRTLIfSupported(getWindow());
 
@@ -97,20 +78,15 @@ public class MessageActivity extends AppCompatActivity {
                 sendIntent.putExtra(Intent.EXTRA_TEXT, "" + Constant.arrayList_message.get(viewPager.getCurrentItem()).getMessage());
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
-                // methods.showInterAd(viewPager.getCurrentItem(), "share");
             }
         });
 
-        button_copy.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("message", Constant.arrayList_message.get(viewPager.getCurrentItem()).getMessage());
-                clipboard.setPrimaryClip(clip);
-                Toast.makeText(MessageActivity.this, getString(R.string.message_copied), Toast.LENGTH_SHORT).show();
-                // methods.showInterAd(viewPager.getCurrentItem(),"copy");
-            }
+        button_copy.setOnClickListener(v ->
+        {
+            ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText("message", Constant.arrayList_message.get(viewPager.getCurrentItem()).getMessage());
+            clipboard.setPrimaryClip(clip);
+            Toast.makeText(MessageActivity.this, getString(R.string.message_copied), Toast.LENGTH_SHORT).show();
         });
     }
 

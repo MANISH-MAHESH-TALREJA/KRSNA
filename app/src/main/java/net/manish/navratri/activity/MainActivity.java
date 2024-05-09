@@ -73,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ActionBarDrawerToggle toggle;
     DBHelper dbHelper;
     LoadAbout loadAbout;
-    //AdConsent adConsent;
     LinearLayout ll_adView;
     Boolean isTime = false;
     NavigationView navigationView;
@@ -113,22 +112,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Constant.DEVICE_ID = Secure.getString(this.getContentResolver(), Secure.ANDROID_ID);
 
-        /*adConsent = new AdConsent(this, new AdConsentListener() {
-            @Override
-            public void onConsentUpdate() {
-                methods.showBannerAd(ll_adView);
-            }
-        });*/
-
         FragmentDashBoard fragmentDashBoard = new FragmentDashBoard();
         loadFrag(fragmentDashBoard, getString(R.string.app_name), fm);
 
         if (methods.isNetworkAvailable()) {
             loadAboutData();
         } else {
-            /*adConsent.checkForConsent();*/
             dbHelper.getAbout();
-            /*methods.showBannerAd(ll_adView);*/
             methods.showToast(getString(R.string.net_not_conn));
         }
 
@@ -310,33 +300,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     if (Constant.showUpdateDialog && !Constant.appVersion.equals(version)) {
                         methods.showUpdateAlert(Constant.appUpdateMsg);
                     } else {
-                        // adConsent.checkForConsent();
                         dbHelper.addtoAbout();
-                        // new AdManagerInterAdmob(MainActivity.this).createAd();
                     }
 
-                    // methods.initializeAds();
 
-                    /*new SharedPref(MainActivity.this).setAdDetails(Constant.isBannerAd, Constant.isInterstitialAd, Constant.isNativeAd, Constant.bannerAdType,
-                            Constant.interstitialAdType, Constant.nativeAdType, Constant.bannerAdID, Constant.interstitialAdID, Constant.nativeAdID, Constant.startapp_id, Constant.interstitialAdShow, Constant.nativeAdShow);
-
-                    if (Constant.isInterstitialAd) {
-                        switch (Constant.interstitialAdType) {
-                            case Constant.AD_TYPE_ADMOB:
-                            case Constant.AD_TYPE_FACEBOOK:
-                                AdManagerInterAdmob adManagerInterAdmob = new AdManagerInterAdmob(getApplicationContext());
-                                adManagerInterAdmob.createAd();
-                                break;
-                            case Constant.AD_TYPE_STARTAPP:
-                                AdManagerInterStartApp adManagerInterStartApp = new AdManagerInterStartApp(getApplicationContext());
-                                adManagerInterStartApp.createAd();
-                                break;
-                            case Constant.AD_TYPE_APPLOVIN:
-                                AdManagerInterApplovin adManagerInterApplovin = new AdManagerInterApplovin(MainActivity.this);
-                                adManagerInterApplovin.createAd();
-                                break;
-                        }
-                    }*/
                 }
             }
         }, methods.getAPIRequest(Constant.METHOD_ABOUT, 0, "", "", ""));
@@ -371,33 +338,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         spinner_time.setAdapter(customAdapter);
         spinner.setAdapter(customAdapter_ques);
 
-        checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                isTime = isChecked;
-                if (isChecked) {
-                    ll_time.setVisibility(View.VISIBLE);
-                } else {
-                    ll_time.setVisibility(View.GONE);
-                }
+        checkBox.setOnCheckedChangeListener((buttonView, isChecked) ->
+        {
+            isTime = isChecked;
+            if (isChecked) {
+                ll_time.setVisibility(View.VISIBLE);
+            } else {
+                ll_time.setVisibility(View.GONE);
             }
         });
 
-        button.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if (methods.isNetworkAvailable()) {
-                    Intent intentabout = new Intent(getApplicationContext(), QuizActivity.class);
-                    intentabout.putExtra("que", Integer.parseInt(spinner.getSelectedItem().toString()));
-                    intentabout.putExtra("istime", checkBox.isChecked());
-                    intentabout.putExtra("time", (Integer.parseInt(spinner_time.getSelectedItem().toString()) * Integer.parseInt(spinner.getSelectedItem().toString())));
-                    startActivity(intentabout);
-                    dialog.dismiss();
-                } else {
-                    Toast.makeText(MainActivity.this, getString(R.string.net_not_conn), Toast.LENGTH_SHORT).show();
-                }
+        button.setOnClickListener(v ->
+        {
+            if (methods.isNetworkAvailable()) {
+                Intent intentabout = new Intent(getApplicationContext(), QuizActivity.class);
+                intentabout.putExtra("que", Integer.parseInt(spinner.getSelectedItem().toString()));
+                intentabout.putExtra("istime", checkBox.isChecked());
+                intentabout.putExtra("time", (Integer.parseInt(spinner_time.getSelectedItem().toString()) * Integer.parseInt(spinner.getSelectedItem().toString())));
+                startActivity(intentabout);
+                dialog.dismiss();
+            } else {
+                Toast.makeText(MainActivity.this, getString(R.string.net_not_conn), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -431,35 +392,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         alert.setMessage(getString(R.string.sure_quit));
 
         alert.setPositiveButton(getString(R.string.exit),
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        finish();
-                    }
-                });
+                (dialog, whichButton) -> finish());
 
         alert.setNegativeButton(getString(R.string.cancel),
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
+                (dialog, whichButton) ->
+                {
 
-                    }
                 });
 
         alert.setNeutralButton(getString(R.string.rate_app),
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        final String appName = getPackageName();//your application package name i.e play store application url
-                        try {
-                            startActivity(new Intent(Intent.ACTION_VIEW,
-                                    Uri.parse("market://details?id="
-                                            + appName)));
-                        } catch (android.content.ActivityNotFoundException anfe) {
-                            startActivity(new Intent(
-                                    Intent.ACTION_VIEW,
-                                    Uri.parse("http://play.google.com/store/apps/details?id="
-                                            + appName)));
-                        }
-
+                (dialog, which) ->
+                {
+                    final String appName = getPackageName();//your application package name i.e play store application url
+                    try {
+                        startActivity(new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("market://details?id="
+                                        + appName)));
+                    } catch (android.content.ActivityNotFoundException anfe) {
+                        startActivity(new Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("http://play.google.com/store/apps/details?id="
+                                        + appName)));
                     }
+
                 });
         alert.show();
     }

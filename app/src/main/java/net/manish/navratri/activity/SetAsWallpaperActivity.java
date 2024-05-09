@@ -124,25 +124,10 @@ public class SetAsWallpaperActivity extends AppCompatActivity {
         TextView textView_lock = dialog_desc.findViewById(R.id.tv_set_lock);
         TextView textView_all = dialog_desc.findViewById(R.id.tv_set_all);
 
-        textView_home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new SetWall().execute("home");
-            }
-        });
+        textView_home.setOnClickListener(v -> new SetWall().execute("home"));
 
-        textView_lock.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new SetWall().execute("lock");
-            }
-        });
+        textView_lock.setOnClickListener(v -> new SetWall().execute("lock"));
 
-        textView_all.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new SetWall().execute("all");
-            }
-        });
+        textView_all.setOnClickListener(v -> new SetWall().execute("all"));
     }
 }

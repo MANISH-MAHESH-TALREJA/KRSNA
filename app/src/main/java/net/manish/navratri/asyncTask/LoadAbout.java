@@ -12,35 +12,43 @@ import org.json.JSONObject;
 
 import okhttp3.RequestBody;
 
-public class LoadAbout extends AsyncTask<String, String, String> {
+public class LoadAbout extends AsyncTask<String, String, String>
+{
 
     private RequestBody requestBody;
     private AboutListener aboutListener;
     private String message = "", verifyStatus = "0";
 
-    public LoadAbout(AboutListener aboutListener, RequestBody requestBody) {
+    public LoadAbout(AboutListener aboutListener, RequestBody requestBody)
+    {
         this.aboutListener = aboutListener;
         this.requestBody = requestBody;
     }
 
     @Override
-    protected void onPreExecute() {
+    protected void onPreExecute()
+    {
         aboutListener.onStart();
         super.onPreExecute();
     }
 
     @Override
-    protected String doInBackground(String... strings) {
-        try {
+    protected String doInBackground(String... strings)
+    {
+        try
+        {
             String json = JsonUtils.okhttpPost(Constant.SERVER_URL, requestBody);
             JSONObject jsonObject = new JSONObject(json);
 
-            if (jsonObject.has(Constant.TAG_ROOT)) {
+            if (jsonObject.has(Constant.TAG_ROOT))
+            {
                 JSONArray jsonArray = jsonObject.getJSONArray(Constant.TAG_ROOT);
-                for (int i = 0; i < jsonArray.length(); i++) {
+                for (int i = 0; i < jsonArray.length(); i++)
+                {
                     JSONObject c = jsonArray.getJSONObject(i);
 
-                    if (!c.has(Constant.TAG_SUCCESS)) {
+                    if (!c.has(Constant.TAG_SUCCESS))
+                    {
                         String appname = c.getString("app_name");
                         String applogo = c.getString("app_logo");
                         String email = c.getString("app_email");
@@ -79,21 +87,24 @@ public class LoadAbout extends AsyncTask<String, String, String> {
                         Constant.appUpdateCancel = c.getBoolean("cancel_update_status");
 
                         Constant.itemAbout = new ItemAbout(appname, applogo, desc, appversion, appauthor, appcontact, email, website, privacy, developedby);
-                    } else {
+                    } else
+                    {
                         verifyStatus = c.getString(Constant.TAG_SUCCESS);
                         message = c.getString(Constant.TAG_MSG);
                     }
                 }
             }
             return "1";
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
             return "0";
         }
     }
 
     @Override
-    protected void onPostExecute(String s) {
+    protected void onPostExecute(String s)
+    {
         aboutListener.onEnd(s, verifyStatus, message);
         super.onPostExecute(s);
     }

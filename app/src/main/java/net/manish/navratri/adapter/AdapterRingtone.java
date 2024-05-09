@@ -69,14 +69,11 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
     private BottomSheetDialog dialog_setas;
     private final ProgressDialog progressDialog;
 
-    private Boolean isAdLoaded = false;
-    /*private final List<NativeAd> mNativeAdsAdmob = new ArrayList<>();
-    List<NativeAdDetails> nativeAdsStartApp = new ArrayList<>();*/
 
     public AdapterRingtone(Context context, ArrayList<ItemRingtone> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
-        methods = new Methods(context/*, interAdListener*/);
+        methods = new Methods(context);
 
         progressDialog = new ProgressDialog(context);
         progressDialog.setMessage(context.getString(R.string.downloading));
@@ -103,11 +100,7 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
 
 
     public void filterList(ArrayList<ItemRingtone> filterList) {
-        // below line is to add our filtered
-        // list in our course array list.
         arrayList = filterList;
-        // below line is to notify our adapter
-        // as change in recycler view data.
         notifyDataSetChanged();
     }
 
@@ -126,40 +119,38 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
 
         holder.textView_name.setText(itemRingtone.getName());
 
-        holder.imageView_more.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ContextThemeWrapper ctw;
-                if (methods.isDarkMode()) {
-                    ctw = new ContextThemeWrapper(context, R.style.PopupMenuDark);
-                } else {
-                    ctw = new ContextThemeWrapper(context, R.style.PopupMenuLight);
-                }
-
-                PopupMenu popupMenu = new PopupMenu(ctw, v);
-                popupMenu.getMenuInflater().inflate(R.menu.popup, popupMenu.getMenu());
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        int itemId = item.getItemId();
-                        if (itemId == R.id.item_popup_save) {
-                            if (methods.checkPer()) {
-                                buttonOnClick(holder.getAdapterPosition(), ctw.getString(R.string.download));
-                            }
-                        } else if (itemId == R.id.item_popup_share) {
-                            if (methods.checkPer()) {
-                                buttonOnClick(holder.getAdapterPosition(), ctw.getString(R.string.share));
-                            }
-                        } else if (itemId == R.id.item_popup_setas) {
-                            if (methods.checkPer()) {
-                                buttonOnClick(holder.getAdapterPosition(), ctw.getString(R.string.set_as));
-                            }
-                        }
-                        return true;
-                    }
-                });
-                popupMenu.show();
+        holder.imageView_more.setOnClickListener(v ->
+        {
+            ContextThemeWrapper ctw;
+            if (methods.isDarkMode()) {
+                ctw = new ContextThemeWrapper(context, R.style.PopupMenuDark);
+            } else {
+                ctw = new ContextThemeWrapper(context, R.style.PopupMenuLight);
             }
+
+            PopupMenu popupMenu = new PopupMenu(ctw, v);
+            popupMenu.getMenuInflater().inflate(R.menu.popup, popupMenu.getMenu());
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    int itemId = item.getItemId();
+                    if (itemId == R.id.item_popup_save) {
+                        if (methods.checkPer()) {
+                            buttonOnClick(holder.getAdapterPosition(), ctw.getString(R.string.download));
+                        }
+                    } else if (itemId == R.id.item_popup_share) {
+                        if (methods.checkPer()) {
+                            buttonOnClick(holder.getAdapterPosition(), ctw.getString(R.string.share));
+                        }
+                    } else if (itemId == R.id.item_popup_setas) {
+                        if (methods.checkPer()) {
+                            buttonOnClick(holder.getAdapterPosition(), ctw.getString(R.string.set_as));
+                        }
+                    }
+                    return true;
+                }
+            });
+            popupMenu.show();
         });
 
         holder.imageView_playpause.setOnClickListener(new View.OnClickListener() {
@@ -196,74 +187,16 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
             }
         });
 
-        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                mediaPlayer.start();
+        mediaPlayer.setOnPreparedListener(mp ->
+        {
+            mediaPlayer.start();
 
-                roundedImageView.setVisibility(View.VISIBLE);
-                progressBar.setVisibility(View.GONE);
-                roundedImageView.setImageResource(R.drawable.pause);
-            }
+            roundedImageView.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+            roundedImageView.setImageResource(R.drawable.pause);
         });
 
-        /*if (Constant.isNativeAd && isAdLoaded && (position != arrayList.size() - 1) && (position + 1) % Constant.nativeAdShow == 0) {
-            try {
-                if (holder.rl_native_ad.getChildCount() == 0) {
-                    switch (Constant.nativeAdType) {
-                        case Constant.AD_TYPE_ADMOB:
-                        case Constant.AD_TYPE_FACEBOOK:
-                            if (mNativeAdsAdmob.size() >= 1) {
 
-                                int i = new Random().nextInt(mNativeAdsAdmob.size() - 1);
-
-                                NativeAdView adView = (NativeAdView) ((Activity) context).getLayoutInflater().inflate(R.layout.layout_native_ad_admob, null);
-                                populateUnifiedNativeAdView(mNativeAdsAdmob.get(i), adView);
-                                holder.rl_native_ad.removeAllViews();
-                                holder.rl_native_ad.addView(adView);
-
-                                holder.rl_native_ad.setVisibility(View.VISIBLE);
-                            }
-                            break;
-                        case Constant.AD_TYPE_STARTAPP:
-                            int i = new Random().nextInt(nativeAdsStartApp.size() - 1);
-
-                            RelativeLayout nativeAdView = (RelativeLayout) ((Activity) context).getLayoutInflater().inflate(R.layout.layout_native_ad_startapp, null);
-                            populateStartAppNativeAdView(nativeAdsStartApp.get(i), nativeAdView);
-
-                            holder.rl_native_ad.removeAllViews();
-                            holder.rl_native_ad.addView(nativeAdView);
-                            holder.rl_native_ad.setVisibility(View.VISIBLE);
-                            break;
-                        case Constant.AD_TYPE_APPLOVIN:
-                            MaxNativeAdLoader nativeAdLoader = new MaxNativeAdLoader(Constant.nativeAdID, context);
-                            nativeAdLoader.setNativeAdListener(new MaxNativeAdListener() {
-                                @Override
-                                public void onNativeAdLoaded(final MaxNativeAdView nativeAdView, final MaxAd ad) {
-                                    nativeAdView.setPadding(0, 0, 0, 10);
-                                    nativeAdView.setBackgroundColor(Color.WHITE);
-                                    holder.rl_native_ad.removeAllViews();
-                                    holder.rl_native_ad.addView(nativeAdView);
-                                    holder.rl_native_ad.setVisibility(View.VISIBLE);
-                                }
-
-                                @Override
-                                public void onNativeAdLoadFailed(final String adUnitId, final MaxError error) {
-                                }
-
-                                @Override
-                                public void onNativeAdClicked(final MaxAd ad) {
-                                }
-                            });
-
-                            nativeAdLoader.loadAd();
-                            break;
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }*/
     }
 
     private class LoadPlay extends AsyncTask<String, String, String> {
@@ -272,8 +205,8 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
             try {
                 Uri myUri = Uri.parse(arrayList.get(Integer.parseInt(strings[0])).getUrl());
                 mediaPlayer.reset();
-                mediaPlayer.setDataSource(context, myUri); // setup song from http://www.hrupin.com/wp-content/uploads/mp3/testsong_20_sec.mp3 URL to mediaplayer data source
-                mediaPlayer.prepare(); // you must call this method after setup the datasource in setDataSource method. After calling prepare() the instance of MediaPlayer starts load data from URL to internal buffer.
+                mediaPlayer.setDataSource(context, myUri);
+                mediaPlayer.prepare();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -291,120 +224,7 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
         return arrayList.size();
     }
 
-    /*private void populateUnifiedNativeAdView(NativeAd nativeAd, NativeAdView adView) {
-        // Set the media view. Media content will be automatically populated in the media view once
-        // adView.setNativeAd() is called.
-        MediaView mediaView = adView.findViewById(R.id.ad_media);
-        adView.setMediaView(mediaView);
 
-        // Set other ad assets.
-        adView.setHeadlineView(adView.findViewById(R.id.ad_headline));
-        adView.setBodyView(adView.findViewById(R.id.ad_body));
-        adView.setCallToActionView(adView.findViewById(R.id.ad_call_to_action));
-        adView.setIconView(adView.findViewById(R.id.ad_icon));
-        adView.setPriceView(adView.findViewById(R.id.ad_price));
-        adView.setStarRatingView(adView.findViewById(R.id.ad_stars));
-        adView.setStoreView(adView.findViewById(R.id.ad_store));
-        adView.setAdvertiserView(adView.findViewById(R.id.ad_advertiser));
-
-        // The headline is guaranteed to be in every UnifiedNativeAd.
-        ((TextView) adView.getHeadlineView()).setText(nativeAd.getHeadline());
-
-        // These assets aren't guaranteed to be in every UnifiedNativeAd, so it's important to
-        // check before trying to display them.
-        if (nativeAd.getBody() == null) {
-            adView.getBodyView().setVisibility(View.INVISIBLE);
-        } else {
-            adView.getBodyView().setVisibility(View.VISIBLE);
-            ((TextView) adView.getBodyView()).setText(nativeAd.getBody());
-        }
-
-        if (nativeAd.getCallToAction() == null) {
-            adView.getCallToActionView().setVisibility(View.INVISIBLE);
-        } else {
-            adView.getCallToActionView().setVisibility(View.VISIBLE);
-            ((Button) adView.getCallToActionView()).setText(nativeAd.getCallToAction());
-        }
-
-        if (nativeAd.getIcon() == null) {
-            adView.getIconView().setVisibility(View.GONE);
-        } else {
-            ((ImageView) adView.getIconView()).setImageDrawable(
-                    nativeAd.getIcon().getDrawable());
-            adView.getIconView().setVisibility(View.VISIBLE);
-        }
-
-        if (nativeAd.getPrice() == null) {
-            adView.getPriceView().setVisibility(View.INVISIBLE);
-        } else {
-            adView.getPriceView().setVisibility(View.VISIBLE);
-            ((TextView) adView.getPriceView()).setText(nativeAd.getPrice());
-        }
-
-        if (nativeAd.getStore() == null) {
-            adView.getStoreView().setVisibility(View.INVISIBLE);
-        } else {
-            adView.getStoreView().setVisibility(View.VISIBLE);
-            ((TextView) adView.getStoreView()).setText(nativeAd.getStore());
-        }
-
-        if (nativeAd.getStarRating() == null) {
-            adView.getStarRatingView().setVisibility(View.INVISIBLE);
-        } else {
-            ((RatingBar) adView.getStarRatingView())
-                    .setRating(nativeAd.getStarRating().floatValue());
-            adView.getStarRatingView().setVisibility(View.VISIBLE);
-        }
-
-        if (nativeAd.getAdvertiser() == null) {
-            adView.getAdvertiserView().setVisibility(View.INVISIBLE);
-        } else {
-            ((TextView) adView.getAdvertiserView()).setText(nativeAd.getAdvertiser());
-            adView.getAdvertiserView().setVisibility(View.VISIBLE);
-        }
-
-        // This method tells the Google Mobile Ads SDK that you have finished populating your
-        // native ad view with this native ad. The SDK will populate the adView's MediaView
-        // with the media content from this native ad.
-        adView.setNativeAd(nativeAd);
-    }
-
-    private void populateStartAppNativeAdView(NativeAdDetails nativeAdDetails, RelativeLayout nativeAdView) {
-        ImageView icon = nativeAdView.findViewById(R.id.icon);
-        TextView title = nativeAdView.findViewById(R.id.title);
-        TextView description = nativeAdView.findViewById(R.id.description);
-        Button button = nativeAdView.findViewById(R.id.button);
-
-        icon.setImageBitmap(nativeAdDetails.getImageBitmap());
-        title.setText(nativeAdDetails.getTitle());
-        description.setText(nativeAdDetails.getDescription());
-        button.setText(nativeAdDetails.isApp() ? "Install" : "Open");
-    }
-
-    public void addAds(NativeAd nativeAd) {
-        mNativeAdsAdmob.add(nativeAd);
-        isAdLoaded = true;
-    }
-
-    public void addNativeAds(ArrayList<NativeAdDetails> nativeAdDetails) {
-        nativeAdsStartApp.addAll(nativeAdDetails);
-        isAdLoaded = true;
-    }
-
-    public void setNativeAds(boolean isLoaded) {
-        isAdLoaded = isLoaded;
-    }
-
-    public void destroyNativeAds() {
-        try {
-            for (int i = 0; i < mNativeAdsAdmob.size(); i++) {
-                mNativeAdsAdmob.get(i).destroy();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-*/
     private void playRingTone(int pos) {
         new LoadPlay().execute(String.valueOf(pos));
     }
@@ -433,26 +253,11 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
         LinearLayout ll_set_noti = dialog_setas.findViewById(R.id.ll_set_noti);
         LinearLayout ll_set_alarm = dialog_setas.findViewById(R.id.ll_set_alarm);
 
-        ll_set_ring.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setRingtone(pos, context.getString(R.string.set_as_ring));
-            }
-        });
+        ll_set_ring.setOnClickListener(v -> setRingtone(pos, context.getString(R.string.set_as_ring)));
 
-        ll_set_noti.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setRingtone(pos, context.getString(R.string.set_as_noti));
-            }
-        });
+        ll_set_noti.setOnClickListener(v -> setRingtone(pos, context.getString(R.string.set_as_noti)));
 
-        ll_set_alarm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setRingtone(pos, context.getString(R.string.set_as_alarm));
-            }
-        });
+        ll_set_alarm.setOnClickListener(v -> setRingtone(pos, context.getString(R.string.set_as_alarm)));
     }
 
     private void setRingtone(final int pos, final String type) {
@@ -461,7 +266,6 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
             settingsCanWrite = Settings.System.canWrite(context);
 
             if (!settingsCanWrite) {
-                // If do not have write settings permission then open the Can modify system settings panel.
                 Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
                 context.startActivity(intent);
             } else {
@@ -797,33 +601,6 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
         methods.showToast(context.getString(R.string.noti_set));
     }
 
-//    private void loadRingtoneAPI(int pos, String type) {
-//        if (methods.isNetworkAvailable()) {
-//            LoadRingtone loadRingtone = new LoadRingtone(new RingtoneListener() {
-//
-//                ProgressDialog pDialog;
-//
-//                @Override
-//                public void onStart() {
-//                    pDialog = new ProgressDialog(context);
-//                    pDialog.setMessage(context.getString(R.string.loading));
-//                    pDialog.setCancelable(false);
-//                    pDialog.show();
-//                }
-//
-//                @Override
-//                public void onEnd(String success, String verifyStatus, String message, ArrayList<ItemRingtone> arrayListRingtone) {
-//                    pDialog.dismiss();
-//                    if (success.equals("1")) {
-//                        if (!verifyStatus.equals("-1")) {
-//
-//                        }
-//                    }
-//                }
-//            }, methods.getAPIRequest(Constant.METHOD_SINGLE_RINGTONE, 0, "", arrayList.get(pos).getId(), ""));
-//            loadRingtone.execute();
-//        }
-//    }
 
     public void stopMediaPlayer() {
         if (mediaPlayer != null) {
@@ -840,7 +617,6 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
         if (type.equals(context.getString(R.string.download))) {
             if (methods.isNetworkAvailable()) {
                 loadRingTone(position, type);
-//                    methods.saveImage(arrayList.get(position).getUrl(), context.getString(R.string.download), context.getString(R.string.ringtone), arrayList.get(position).getName());
             } else {
                 methods.showToast(context.getString(R.string.net_not_conn));
             }
@@ -849,7 +625,6 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
             share.setType("text/plain");
             share.putExtra(Intent.EXTRA_TEXT, context.getString(R.string.christmas_ringtone) + arrayList.get(position).getName() + " - " + context.getString(R.string.download_this_ring) + "\n\n " + context.getString(R.string.app_name) + " - https://play.google.com/store/apps/details?id=" + context.getPackageName());
             context.startActivity(Intent.createChooser(share, context.getString(R.string.share)));
-//                methods.saveImage(arrayList.get(position).getUrl(), context.getString(R.string.share), context.getString(R.string.ringtone), arrayList.get(position).getName());
         } else {
             if (methods.isNetworkAvailable()) {
                 showBottomSheetDialog(position);
@@ -859,29 +634,4 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
         }
     }
 
-    /*private final InterAdListener interAdListener = new InterAdListener() {
-        @Override
-        public void onClick(int position, String type) {
-            if (type.equals(context.getString(R.string.download))) {
-                if (methods.isNetworkAvailable()) {
-                    loadRingTone(position, type);
-//                    methods.saveImage(arrayList.get(position).getUrl(), context.getString(R.string.download), context.getString(R.string.ringtone), arrayList.get(position).getName());
-                } else {
-                    methods.showToast(context.getString(R.string.net_not_conn));
-                }
-            } else if (type.equals(context.getString(R.string.share))) {
-                Intent share = new Intent(Intent.ACTION_SEND);
-                share.setType("text/plain");
-                share.putExtra(Intent.EXTRA_TEXT, context.getString(R.string.christmas_ringtone) + arrayList.get(position).getName() + " - " + context.getString(R.string.download_this_ring) + "\n\n " + context.getString(R.string.app_name) + " - https://play.google.com/store/apps/details?id=" + context.getPackageName());
-                context.startActivity(Intent.createChooser(share, context.getString(R.string.share)));
-//                methods.saveImage(arrayList.get(position).getUrl(), context.getString(R.string.share), context.getString(R.string.ringtone), arrayList.get(position).getName());
-            } else {
-                if (methods.isNetworkAvailable()) {
-                    showBottomSheetDialog(position);
-                } else {
-                    methods.showToast(context.getString(R.string.net_not_conn));
-                }
-            }
-        }
-    };*/
 }

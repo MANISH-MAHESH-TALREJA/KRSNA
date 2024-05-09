@@ -51,21 +51,11 @@ public class AdapterVideo extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(activity).inflate(R.layout.fitness_video_adapter, parent, false);
         return new ViewHolder(view);
-        /*if (viewType == VIEW_TYPE_ITEM) {
-            View view = LayoutInflater.from(activity).inflate(R.layout.fitness_video_adapter, parent, false);
-            return new ViewHolder(view);
-        } else  {
-            View v = LayoutInflater.from(activity).inflate(R.layout.layout_loading_item, parent, false);
-            return new ProgressViewHolder(v);
-        }*/
+
     }
 
     public void filterList(ArrayList<ItemVideos> filterList) {
-        // below line is to add our filtered
-        // list in our course array list.
         videoLists = filterList;
-        // below line is to notify our adapter
-        // as change in recycler view data.
         notifyDataSetChanged();
     }
 
@@ -82,7 +72,7 @@ public class AdapterVideo extends RecyclerView.Adapter {
             viewHolder.textView.setText(videoLists.get(position).getVideoTitle());
 
             Glide.with(activity).load(videoLists.get(position).getVideoImage())
-                    .placeholder(R.drawable.place_holder)
+                    .placeholder(R.drawable.bg_header2)
                     .into(viewHolder.imageView);
 
             viewHolder.constraintLayout.setOnClickListener(v -> click(position));
@@ -110,130 +100,7 @@ public class AdapterVideo extends RecyclerView.Adapter {
                 activity.startActivity(Intent.createChooser(intent, activity.getResources().getString(R.string.choose_one)));
             });
 
-        } /*else if (holder.getItemViewType() == VIEW_TYPE_Ad) {
-            AdOption adOption = (AdOption) holder;
-            if (adOption.conAdView.getChildCount() == 0) {
-                if (videoLists.get(position).getNative_ad_type().equals("admob")) {
-
-                    View view = activity.getLayoutInflater().inflate(R.layout.admob_ad, null, true);
-
-                    TemplateView templateView = view.findViewById(R.id.my_template);
-                    if (templateView.getParent() != null) {
-                        ((ViewGroup) templateView.getParent()).removeView(templateView); // <- fix
-                    }
-                    adOption.conAdView.addView(templateView);
-                    AdLoader adLoader = new AdLoader.Builder(activity, videoLists.get(position).getNative_ad_id())
-                            .forNativeAd(nativeAd -> {
-                                NativeTemplateStyle styles = new
-                                        NativeTemplateStyle.Builder()
-                                        .build();
-
-                                templateView.setStyles(styles);
-                                templateView.setNativeAd(nativeAd);
-
-                            })
-                            .build();
-
-                    AdRequest adRequest;
-                    if (Method.personalization_ad) {
-                        adRequest = new AdRequest.Builder()
-                                .build();
-                    } else {
-                        Bundle extras = new Bundle();
-                        extras.putString("npa", "1");
-                        adRequest = new AdRequest.Builder()
-                                .addNetworkExtrasBundle(AdMobAdapter.class, extras)
-                                .build();
-                    }
-                    adLoader.loadAd(adRequest);
-                } else {
-                    LayoutInflater inflater = LayoutInflater.from(activity);
-                    LinearLayout adView = (LinearLayout) inflater.inflate(R.layout.native_ad_layout, adOption.conAdView, false);
-
-                    NativeAd nativeAd = new NativeAd(activity, videoLists.get(position).getNative_ad_id());
-
-                    // Add the AdOptionsView
-                    LinearLayout adChoicesContainer = adView.findViewById(R.id.ad_choices_container);
-
-                    // Create native UI using the ad metadata.
-                    MediaView nativeAdIcon = adView.findViewById(R.id.native_ad_icon);
-                    TextView nativeAdTitle = adView.findViewById(R.id.native_ad_title);
-                    MediaView nativeAdMedia = adView.findViewById(R.id.native_ad_media);
-                    TextView nativeAdSocialContext = adView.findViewById(R.id.native_ad_social_context);
-                    TextView nativeAdBody = adView.findViewById(R.id.native_ad_body);
-                    TextView sponsoredLabel = adView.findViewById(R.id.native_ad_sponsored_label);
-                    Button nativeAdCallToAction = adView.findViewById(R.id.native_ad_call_to_action);
-
-                    adOption.conAdView.addView(adView);
-
-                    NativeAdListener nativeAdListener = new NativeAdListener() {
-                        @Override
-                        public void onMediaDownloaded(Ad ad) {
-                            // Native ad finished downloading all assets
-                            Log.e("status_data", "Native ad finished downloading all assets.");
-                        }
-
-                        @Override
-                        public void onError(Ad ad, AdError adError) {
-                            // Native ad failed to load
-                            Log.e("status_data", "Native ad failed to load: " + adError.getErrorMessage());
-                        }
-
-                        @Override
-                        public void onAdLoaded(Ad ad) {
-                            // Native ad is loaded and ready to be displayed
-                            Log.d("status_data", "Native ad is loaded and ready to be displayed!");
-                            // Race condition, load() called again before last ad was displayed
-                            if (nativeAd == null || nativeAd != ad) {
-                                return;
-                            }
-                            // Inflate Native Ad into Container
-                            Log.d("status_data", "on load" + " " + ad.toString());
-
-                            NativeAdLayout nativeAdLayout = new NativeAdLayout(activity);
-                            AdOptionsView adOptionsView = new AdOptionsView(activity, nativeAd, nativeAdLayout);
-                            adChoicesContainer.removeAllViews();
-                            adChoicesContainer.addView(adOptionsView, 0);
-
-                            // Set the Text.
-                            nativeAdTitle.setText(nativeAd.getAdvertiserName());
-                            nativeAdBody.setText(nativeAd.getAdBodyText());
-                            nativeAdSocialContext.setText(nativeAd.getAdSocialContext());
-                            nativeAdCallToAction.setVisibility(nativeAd.hasCallToAction() ? View.VISIBLE : View.INVISIBLE);
-                            nativeAdCallToAction.setText(nativeAd.getAdCallToAction());
-                            sponsoredLabel.setText(nativeAd.getSponsoredTranslation());
-
-                            // Create a list of clickable views
-                            List<View> clickableViews = new ArrayList<>();
-                            clickableViews.add(nativeAdTitle);
-                            clickableViews.add(nativeAdCallToAction);
-
-                            // Register the Title and CTA button to listen for clicks.
-                            nativeAd.registerViewForInteraction(
-                                    adOption.conAdView,
-                                    nativeAdMedia,
-                                    nativeAdIcon,
-                                    clickableViews);
-                        }
-
-                        @Override
-                        public void onAdClicked(Ad ad) {
-                            // Native ad clicked
-                            Log.d("status_data", "Native ad clicked!");
-                        }
-
-                        @Override
-                        public void onLoggingImpression(Ad ad) {
-                            // Native ad impression
-                            Log.d("status_data", "Native ad impression logged!");
-                        }
-                    };
-
-                    // Request an ad
-                    nativeAd.loadAd(nativeAd.buildLoadAdConfig().withAdListener(nativeAdListener).build());
-                }
-            }
-        }*/
+        }
 
     }
 

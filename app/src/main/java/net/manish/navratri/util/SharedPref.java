@@ -62,19 +62,4 @@ public class SharedPref {
         editor.putInt(TAG_AD_NATIVE_POS, nativePos);
         editor.apply();
     }
-
-    public void getAdDetails() {
-        Constant.bannerAdType = Methods.decrypt(sharedPreferences.getString(TAG_AD_TYPE_BANNER, Constant.AD_TYPE_ADMOB));
-        Constant.interstitialAdType = Methods.decrypt(sharedPreferences.getString(TAG_AD_TYPE_INTER, Constant.AD_TYPE_ADMOB));
-        Constant.nativeAdType = Methods.decrypt(sharedPreferences.getString(TAG_AD_TYPE_NATIVE, Constant.AD_TYPE_ADMOB));
-
-        Constant.bannerAdID = Methods.decrypt(sharedPreferences.getString(TAG_AD_ID_BANNER, ""));
-        Constant.interstitialAdID = Methods.decrypt(sharedPreferences.getString(TAG_AD_ID_INTER, ""));
-        Constant.nativeAdID = Methods.decrypt(sharedPreferences.getString(TAG_AD_ID_NATIVE, ""));
-
-        Constant.startapp_id = Methods.decrypt(sharedPreferences.getString(TAG_STARTAPP_ID, ""));
-
-        Constant.interstitialAdShow = sharedPreferences.getInt(TAG_AD_INTER_POS, 5);
-        Constant.nativeAdShow = sharedPreferences.getInt(TAG_AD_NATIVE_POS, 9);
-    }
 }

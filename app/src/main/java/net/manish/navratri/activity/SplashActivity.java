@@ -38,44 +38,24 @@ public class SplashActivity extends AppCompatActivity {
 
         TextView text = findViewById(R.id.mainText);
         GifImageView image = findViewById(R.id.startImage);
-        /*Flubber.with()
-                .animation(Flubber.AnimationPreset.SLIDE_UP)
-                .duration(3000)
-                .createFor(text)
-                .start();
-        Flubber.with()
-                .animation(Flubber.AnimationPreset.SLIDE_DOWN)
-                .duration(3000)
-                .createFor(image)
-                .start();*/
+
         SyncTextPathView syncTextPathView3 = findViewById(R.id.fancy_text3);
         syncTextPathView3.startAnimation(0,1);
         SyncTextPathView syncTextPathView4 = findViewById(R.id.fancy_text4);
         syncTextPathView4.startAnimation(0,1);
-        /*new Handler(Looper.getMainLooper()).postDelayed(() ->
-        {
-            Intent newIntent = new Intent(getApplicationContext(),Login.class);
-            newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(newIntent);
-            Animatoo.animateDiagonal(this);
-            finish();
 
-        },4000);*/
 
         dbHelper = new DBHelper(this);
         sharedPref = new SharedPref(this);
         methods = new Methods(this);
         methods.setStatusColor(getWindow());
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (sharedPref.getIsFirst()) {
-                    loadAboutData();
-                } else {
-                    openMainActivity();
-                }
+        new Handler().postDelayed(() ->
+        {
+            if (sharedPref.getIsFirst()) {
+                loadAboutData();
+            } else {
+                openMainActivity();
             }
         }, 4000);
     }
@@ -129,20 +109,10 @@ public class SplashActivity extends AppCompatActivity {
         alertDialog.setCancelable(false);
 
         if (title.equals(getString(R.string.internet_not_connected)) || title.equals(getString(R.string.server_error))) {
-            alertDialog.setNegativeButton(getString(R.string.try_again), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    loadAboutData();
-                }
-            });
+            alertDialog.setNegativeButton(getString(R.string.try_again), (dialog, which) -> loadAboutData());
         }
 
-        alertDialog.setPositiveButton(getString(R.string.exit), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-            }
-        });
+        alertDialog.setPositiveButton(getString(R.string.exit), (dialog, which) -> finish());
         alertDialog.show();
     }
 
