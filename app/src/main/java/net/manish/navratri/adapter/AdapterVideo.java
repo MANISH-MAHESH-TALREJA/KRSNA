@@ -3,6 +3,7 @@ package net.manish.navratri.adapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +22,11 @@ import com.google.android.material.textview.MaterialTextView;
 import net.manish.navratri.R;
 import net.manish.navratri.activity.ActivityYoutubeVideo;
 import net.manish.navratri.activity.VideoPlayer;
+import net.manish.navratri.item.ItemMessage;
 import net.manish.navratri.item.ItemVideos;
 import net.manish.navratri.util.Methods;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdapterVideo extends RecyclerView.Adapter {
@@ -57,6 +60,15 @@ public class AdapterVideo extends RecyclerView.Adapter {
         }*/
     }
 
+    public void filterList(ArrayList<ItemVideos> filterList) {
+        // below line is to add our filtered
+        // list in our course array list.
+        videoLists = filterList;
+        // below line is to notify our adapter
+        // as change in recycler view data.
+        notifyDataSetChanged();
+    }
+
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
@@ -78,6 +90,16 @@ public class AdapterVideo extends RecyclerView.Adapter {
             viewHolder.imageViewPlay.setOnClickListener(v -> click(position));
 
 
+            if (videoLists.get(position).getVideoType().equalsIgnoreCase("youtube"))
+            {
+                viewHolder.imageViewFav.setVisibility(View.INVISIBLE);
+            }
+            viewHolder.imageViewFav.setOnClickListener(v ->
+            {
+                Uri uri = Uri.parse("https://www.youtube.com/watch?v=" + videoLists.get(position).getVideoURL()); // missing 'http://' will cause crashed
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                activity.startActivity(intent);
+            });
 
             viewHolder.imageViewShare.setOnClickListener(v -> {
                 viewHolder.imageViewShare.startAnimation(myAnim);

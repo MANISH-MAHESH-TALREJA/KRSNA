@@ -107,9 +107,16 @@ public class AdapterWall extends RecyclerView.Adapter {
 
         ((MyViewHolder) holder).imageView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 Constant.arrayList_wallpaper.clear();
-                Constant.arrayList_wallpaper.addAll(arrayListAdLess);
+                if (arrayListAdLess.isEmpty())
+                {
+                    Constant.arrayList_wallpaper.addAll(arrayList);
+                } else
+                {
+                    Constant.arrayList_wallpaper.addAll(arrayListAdLess);
+                }
                 Intent intent = new Intent(context, SingleWallpaper.class);
                 intent.putExtra("pos", getPos(position));
                 intent.putExtra("layout", Constant.arrayList_wallpaper.get(position).getLayout());

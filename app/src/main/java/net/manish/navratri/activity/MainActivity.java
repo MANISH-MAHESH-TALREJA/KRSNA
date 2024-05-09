@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else if (id == R.id.nav_videos) {
             FragmentVideo fragmentVideo = new FragmentVideo();
-            loadFrag(fragmentVideo, "Devotional Lectures", fm);
+            loadFrag(fragmentVideo, "Videos", fm);
         }
         else if (id == R.id.nav_messages) {
             FragmentMessage fragmentMessage = new FragmentMessage();

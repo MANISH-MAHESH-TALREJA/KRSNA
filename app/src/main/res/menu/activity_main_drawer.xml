@@ -18,7 +18,7 @@
         <item
             android:id="@+id/nav_videos"
             android:icon="@mipmap/ringtone"
-            android:title="Devotional lectures" />
+            android:title="Videos" />
         <item
             android:id="@+id/nav_messages"
             android:icon="@mipmap/message"
@@ -26,7 +26,7 @@
 
         <item
             android:id="@+id/nav_ekadashi"
-            android:icon="@drawable/baseline_calendar_month_24"
+            android:icon="@drawable/calendar"
             android:title="Ekadashi Calendar 2024" />
 
     </group>
@@ -51,11 +51,11 @@
         android:title="About Us" />
     <item
         android:id="@+id/nav_privacy"
-        android:icon="@drawable/baseline_privacy_tip_24"
+        android:icon="@drawable/policy_privacy"
         android:title="Privacy Policy" />
     <item
         android:id="@+id/nav_more"
-        android:icon="@drawable/baseline_android_24"
+        android:icon="@drawable/google_play"
         android:title="More Apps" />
 
     <item

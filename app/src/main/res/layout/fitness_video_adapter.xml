@@ -65,8 +65,8 @@
 
             <ImageView
                 android:id="@+id/imageView_fav_video_adapter"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
@@ -78,8 +78,8 @@
 
             <ImageView
                 android:id="@+id/imageView_share_video_adapter"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_marginEnd="10dp"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/new_share"

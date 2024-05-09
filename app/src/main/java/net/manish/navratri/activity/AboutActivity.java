@@ -167,6 +167,7 @@ public class AboutActivity extends AppCompatActivity {
         if (applogo.trim().isEmpty()) {
             imageView_logo.setVisibility(View.GONE);
         } else {
+            System.out.println("IMAGE PATH : " + Constant.SERVER_IMAGE + applogo);
             Picasso
                     .get()
                     .load(Constant.SERVER_IMAGE + applogo)

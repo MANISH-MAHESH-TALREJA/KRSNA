@@ -34,6 +34,7 @@ import com.google.android.gms.ads.nativead.NativeAdView;*/
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 /*import com.startapp.sdk.ads.nativead.NativeAdDetails;*/
 import net.manish.navratri.R;
+import net.manish.navratri.item.ItemMessage;
 import net.manish.navratri.item.ItemRingtone;
 import net.manish.navratri.util.Constant;
 import net.manish.navratri.util.Methods;
@@ -59,7 +60,7 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
 
     private final Methods methods;
     private final Context context;
-    private final ArrayList<ItemRingtone> arrayList;
+    private ArrayList<ItemRingtone> arrayList;
     private final MediaPlayer mediaPlayer = new MediaPlayer();
     private Boolean isFirst = true;
     private int playpos = 0;
@@ -97,8 +98,17 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
             imageView_playpause = view.findViewById(R.id.iv_ring_play);
             imageView_more = view.findViewById(R.id.iv_ring_more);
             progressBar = view.findViewById(R.id.pb_ringtone);
-            rl_native_ad = view.findViewById(R.id.rl_native_ad);
         }
+    }
+
+
+    public void filterList(ArrayList<ItemRingtone> filterList) {
+        // below line is to add our filtered
+        // list in our course array list.
+        arrayList = filterList;
+        // below line is to notify our adapter
+        // as change in recycler view data.
+        notifyDataSetChanged();
     }
 
     @NonNull

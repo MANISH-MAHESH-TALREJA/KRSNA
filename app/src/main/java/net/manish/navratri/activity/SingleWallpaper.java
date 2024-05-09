@@ -40,7 +40,6 @@ public class SingleWallpaper extends AppCompatActivity {
     String layout;
     ViewPager viewpager;
     FloatingActionButton button_save, button_share_image, button_setWall;
-    LinearLayout ll_adView;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -53,7 +52,7 @@ public class SingleWallpaper extends AppCompatActivity {
         setContentView(R.layout.activity_single_wallpaper);
 
         position = getIntent().getIntExtra("pos", 0);
-        layout = getIntent().getStringExtra("layout");
+
 
         methods = new Methods(this/*, new InterAdListener() {
             @Override
@@ -70,7 +69,6 @@ public class SingleWallpaper extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(getString(R.string.wallpaper));
 
-        ll_adView = findViewById(R.id.ll_adView);
         //methods.showBannerAd(ll_adView);
 
         viewpager = findViewById(R.id.viewPager_wall);
@@ -129,11 +127,20 @@ public class SingleWallpaper extends AppCompatActivity {
         });
 
         loadViewed(position);
-        if(layout.equalsIgnoreCase("Landscape"))
+        try
         {
-            getWindow().setFlags(1024, 1024);
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            layout = getIntent().getStringExtra("layout");
+            if(layout.equalsIgnoreCase("Landscape"))
+            {
+                getWindow().setFlags(1024, 1024);
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            }
         }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
