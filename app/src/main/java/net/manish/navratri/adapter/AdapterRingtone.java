@@ -1,11 +1,9 @@
 package net.manish.navratri.adapter;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
@@ -19,11 +17,9 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
-import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -38,7 +34,6 @@ import com.google.android.gms.ads.nativead.NativeAdView;*/
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 /*import com.startapp.sdk.ads.nativead.NativeAdDetails;*/
 import net.manish.navratri.R;
-import net.manish.navratri.interfaces.InterAdListener;
 import net.manish.navratri.item.ItemRingtone;
 import net.manish.navratri.util.Constant;
 import net.manish.navratri.util.Methods;
@@ -53,8 +48,6 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.ContextThemeWrapper;
@@ -167,7 +160,7 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
                         progressBar.setVisibility(View.GONE);
                         roundedImageView.setVisibility(View.VISIBLE);
 
-                        roundedImageView.setImageResource(R.drawable.play);
+                        roundedImageView.setImageResource(R.drawable.new_play);
                         roundedImageView = holder.imageView_playpause;
                         progressBar = holder.progressBar;
 
@@ -412,7 +405,7 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
             roundedImageView.setImageResource(R.drawable.pause);
         } else {
             mediaPlayer.pause();
-            roundedImageView.setImageResource(R.drawable.play);
+            roundedImageView.setImageResource(R.drawable.new_play);
         }
     }
 

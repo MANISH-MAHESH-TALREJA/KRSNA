@@ -46,10 +46,11 @@ public class LoadWallpapers extends AsyncTask<String, String, String> {
                     String id = objJson.getString(Constant.TAG_ID);
                     String name = objJson.getString(Constant.TAG_WALL_NAME);
                     String tag = objJson.getString(Constant.TAG_TAGS);
-                    String imagebig = objJson.getString(Constant.TAG_WALL_IMAGE_BIG);
-                    String imagesmall = objJson.getString(Constant.TAG_WALL_IMAGE_BIG);
+                    String imageBig = objJson.getString(Constant.TAG_WALL_IMAGE_BIG);
+                    String imageSmall = objJson.getString(Constant.TAG_WALL_IMAGE_BIG);
+                    String wallLayout = objJson.getString(Constant.TAG_WALL_LAYOUT);
 
-                    ItemWallpaper itemWallpaper = new ItemWallpaper(id, name, tag, imagebig, imagesmall);
+                    ItemWallpaper itemWallpaper = new ItemWallpaper(id, name, tag, imageBig, imageSmall, wallLayout);
                     arrayList.add(itemWallpaper);
                 } else {
                     verifyStatus = objJson.getString(Constant.TAG_SUCCESS);

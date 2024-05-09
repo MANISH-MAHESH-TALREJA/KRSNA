@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginBottom="5dp"
     android:orientation="vertical">
 
@@ -29,14 +30,25 @@
                 android:background="#FFF6FA"
                 android:padding="10dp">
 
-                <ImageView
+
+                <TextView
+                    android:id="@+id/shlokaNumber"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:textStyle="bold"
+                    android:textSize="22sp"
+                    android:gravity="center"
+                    android:background="@drawable/round_tv"
+                    tools:text="11.22"/>
+
+                <!--<ImageView
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
                     android:scaleType="centerCrop"
                     app:tint="@color/primary"
-                    android:src="@drawable/baseline_menu_book_24" />
+                    android:src="@drawable/baseline_menu_book_24" />-->
 
             </RelativeLayout>
 

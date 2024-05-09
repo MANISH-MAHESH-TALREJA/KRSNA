@@ -112,6 +112,7 @@ public class AdapterWall extends RecyclerView.Adapter {
                 Constant.arrayList_wallpaper.addAll(arrayListAdLess);
                 Intent intent = new Intent(context, SingleWallpaper.class);
                 intent.putExtra("pos", getPos(position));
+                intent.putExtra("layout", Constant.arrayList_wallpaper.get(position).getLayout());
                 context.startActivity(intent);
                 // methods.showInterAd(position, "");
             }
@@ -199,6 +200,10 @@ public class AdapterWall extends RecyclerView.Adapter {
 
     public int getPos(int position) {
         return arrayListAdLess.indexOf(arrayList.get(position));
+    }
+
+    public String getLayout(int position) {
+        return arrayListAdLess.get(position).getLayout();
     }
 
     /*private void populateUnifiedNativeAdView(NativeAd nativeAd, NativeAdView adView) {

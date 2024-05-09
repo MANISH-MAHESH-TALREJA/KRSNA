@@ -1,6 +1,7 @@
 package net.manish.navratri.activity;
 
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -36,6 +37,7 @@ public class SingleWallpaper extends AppCompatActivity {
 
     Methods methods;
     int position;
+    String layout;
     ViewPager viewpager;
     FloatingActionButton button_save, button_share_image, button_setWall;
     LinearLayout ll_adView;
@@ -51,6 +53,7 @@ public class SingleWallpaper extends AppCompatActivity {
         setContentView(R.layout.activity_single_wallpaper);
 
         position = getIntent().getIntExtra("pos", 0);
+        layout = getIntent().getStringExtra("layout");
 
         methods = new Methods(this/*, new InterAdListener() {
             @Override
@@ -126,6 +129,11 @@ public class SingleWallpaper extends AppCompatActivity {
         });
 
         loadViewed(position);
+        if(layout.equalsIgnoreCase("Landscape"))
+        {
+            getWindow().setFlags(1024, 1024);
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        }
     }
 
     @Override

@@ -39,7 +39,7 @@
                     android:layout_margin="10dp"
                     android:scaleType="centerCrop"
                     app:tint="@color/primary"
-                    android:src="@drawable/play" />
+                    android:src="@drawable/new_play" />
 
                 <fr.castorflex.android.circularprogressbar.CircularProgressBar
                     android:id="@+id/pb_ringtone"

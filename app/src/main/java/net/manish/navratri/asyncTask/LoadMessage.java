@@ -45,8 +45,9 @@ public class LoadMessage extends AsyncTask<String, String, String> {
                 if (!objJson.has(Constant.TAG_SUCCESS)) {
                     String id = objJson.getString(Constant.LATESTMSG_ID);
                     String message = objJson.getString(Constant.LATESTMSG_URL);
+                    String number = objJson.getString(Constant.LATESTMSG_NUM);
 
-                    ItemMessage itemMessage = new ItemMessage(id, message);
+                    ItemMessage itemMessage = new ItemMessage(id, message, number);
                     arrayList.add(itemMessage);
                 } else {
                     verifyStatus = objJson.getString(Constant.TAG_SUCCESS);

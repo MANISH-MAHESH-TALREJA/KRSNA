@@ -104,6 +104,7 @@ public class FragmentHome extends Fragment {
                 Constant.arrayList_wallpaper.addAll(arrayList_mostviewed);
                 Intent intent = new Intent(getActivity(), SingleWallpaper.class);
                 intent.putExtra("pos", position);
+                intent.putExtra("layout", Constant.arrayList_wallpaper.get(position).getLayout());
                 startActivity(intent);
                 //methods.showInterAd(position, "");
             }

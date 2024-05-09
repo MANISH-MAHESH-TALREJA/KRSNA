@@ -39,9 +39,11 @@ public class Constant implements Serializable {
     public static final String TAG_WALL_NAME = "wall_name";
     public static final String TAG_WALL_IMAGE_BIG= "image_b";
     public static final String TAG_WALL_IMAGE_SMALL= "image_s";
+    public static final String TAG_WALL_LAYOUT= "wall_layout";
 
     public static final String LATESTMSG_ID = "id";
     public static final String LATESTMSG_URL = "sms";
+    public static final String LATESTMSG_NUM = "num";
 
     public static final String LATEST_VIDEO_ID = "id";
     public static final String LATEST_VIDEO_URL = "video_url";

@@ -41,7 +41,7 @@ public class AdapterMessage extends RecyclerView.Adapter<AdapterMessage.MyViewHo
 
     private final Methods methods;
     private final Context context;
-    private final ArrayList<ItemMessage> arrayList;
+    private ArrayList<ItemMessage> arrayList;
     private Boolean isAdLoaded = false;
     // private final List<NativeAd> mNativeAdsAdmob = new ArrayList<>();
     //  List<NativeAdDetails> nativeAdsStartApp = new ArrayList<>();
@@ -52,14 +52,23 @@ public class AdapterMessage extends RecyclerView.Adapter<AdapterMessage.MyViewHo
         methods = new Methods(context/*, interAdListener*/);
     }
 
+    public void filterList(ArrayList<ItemMessage> filterList) {
+        // below line is to add our filtered
+        // list in our course array list.
+        arrayList = filterList;
+        // below line is to notify our adapter
+        // as change in recycler view data.
+        notifyDataSetChanged();
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView textView_message;
-        RelativeLayout rl_native_ad;
+        TextView number;
 
         MyViewHolder(View view) {
             super(view);
             textView_message = view.findViewById(R.id.tv_message);
-            rl_native_ad = view.findViewById(R.id.rl_native_ad);
+            number = view.findViewById(R.id.shlokaNumber);
         }
     }
 
@@ -77,6 +86,7 @@ public class AdapterMessage extends RecyclerView.Adapter<AdapterMessage.MyViewHo
         ItemMessage itemMessage = arrayList.get(position);
 
         holder.textView_message.setText(itemMessage.getMessage());
+        holder.number.setText(itemMessage.getNumber());
         holder.textView_message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -9,7 +9,7 @@
 -->
     <string name="privacy_policy_url">http://www.example.com/</string>
     <string name="Let_me_recommend_you_this_application">Let me recommend you this application</string>
-    <string name="play_more_apps">https://play.google.com/store/apps/developer?id=Viaan+Parmar&amp;hl=en</string>
+    <string name="play_more_apps">https://play.google.com/store/apps/developer?id=MANISH+MAHESH+TALREJA&amp;hl=en</string>
     <string name="choose_one">Choose one</string>
     <string name="isRTL">false</string>
 
@@ -42,7 +42,7 @@
     <string name="quiz">Quiz Game</string>
     <string name="net_not_conn">Internet not connected</string>
     <string name="christmas">Christmas</string>
-    <string name="message">Message</string>
+    <string name="message">BG Shlokas</string>
     <string name="reload">Reload</string>
     <string name="no_message_found">No Messages Found</string>
     <string name="no_wallpaper_found">No Wallpapers Found</string>
