@@ -1,71 +1,40 @@
 package net.manish.navratri.util;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.MimeTypeMap;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
-/*import com.applovin.mediation.MaxAd;
-import com.applovin.mediation.MaxAdListener;
-import com.applovin.mediation.MaxError;
-import com.applovin.mediation.ads.MaxAdView;
-import com.applovin.sdk.AppLovinSdk;
-import com.google.ads.consent.ConsentInformation;
-import com.google.ads.consent.ConsentStatus;
-import com.google.ads.mediation.admob.AdMobAdapter;
-import com.google.ads.mediation.facebook.FacebookAdapter;
-import com.google.ads.mediation.facebook.FacebookExtras;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.FullScreenContentCallback;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;*/
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-/*import com.startapp.sdk.ads.banner.Banner;
-import com.startapp.sdk.adsbase.Ad;
-import com.startapp.sdk.adsbase.StartAppAd;
-import com.startapp.sdk.adsbase.StartAppSDK;
-import com.startapp.sdk.adsbase.adlisteners.AdDisplayListener;*/
 import net.manish.navratri.BuildConfig;
 import net.manish.navratri.R;
 import net.manish.navratri.activity.SetAsWallpaperActivity;
-import net.manish.navratri.interfaces.InterAdListener;
 
 import org.apache.commons.io.FilenameUtils;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -74,14 +43,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Arrays;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import javax.net.ssl.HttpsURLConnection;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -97,8 +64,6 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 public class Methods {
 
     private Context context;
-    private InterAdListener interAdListener;
-
     private static final String ALGORITHM = "Blowfish";
     private static final String MODE = "Blowfish/CBC/PKCS5Padding";
 
@@ -167,22 +132,6 @@ public class Methods {
         SharedPref sharedPref = new SharedPref(context);
         return sharedPref.getDarkMode();
     }
-
-    public boolean isAdmobFBAds() {
-        return Constant.bannerAdType.equals(Constant.AD_TYPE_ADMOB) ||
-                Constant.interstitialAdType.equals(Constant.AD_TYPE_ADMOB) ||
-                Constant.nativeAdType.equals(Constant.AD_TYPE_ADMOB) ||
-                Constant.bannerAdType.equals(Constant.AD_TYPE_FACEBOOK) ||
-                Constant.interstitialAdType.equals(Constant.AD_TYPE_FACEBOOK) ||
-                Constant.nativeAdType.equals(Constant.AD_TYPE_FACEBOOK);
-    }
-
-    public boolean isStartAppAds() {
-        return Constant.bannerAdType.equals(Constant.AD_TYPE_STARTAPP) ||
-                Constant.interstitialAdType.equals(Constant.AD_TYPE_STARTAPP) ||
-                Constant.nativeAdType.equals(Constant.AD_TYPE_STARTAPP);
-    }
-
 
 
     public static String encrypt(String value) {
@@ -451,12 +400,10 @@ public class Methods {
             dialog_sync.setContentView(R.layout.layout_permission);
 
             MaterialButton button = dialog_sync.findViewById(R.id.button_permission);
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    checkPerNotification();
-                    dialog_sync.dismiss();
-                }
+            button.setOnClickListener(view ->
+            {
+                checkPerNotification();
+                dialog_sync.dismiss();
             });
             dialog_sync.show();
             Window window = dialog_sync.getWindow();
@@ -469,33 +416,24 @@ public class Methods {
         alertDialog.setTitle(context.getString(R.string.update));
         alertDialog.setMessage(message);
         alertDialog.setCancelable(false);
-        alertDialog.setPositiveButton(context.getString(R.string.update), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String url = Constant.appUpdateURL;
-                if (url.equals("")) {
-                    url = "http://play.google.com/store/apps/details?id=" + context.getPackageName();
-                }
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                context.startActivity(i);
-
-                ((Activity) context).finish();
+        alertDialog.setPositiveButton(context.getString(R.string.update), (dialog, which) ->
+        {
+            String url = Constant.appUpdateURL;
+            if (url.equals("")) {
+                url = "http://play.google.com/store/apps/details?id=" + context.getPackageName();
             }
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            context.startActivity(i);
+
+            ((Activity) context).finish();
         });
         if (Constant.appUpdateCancel) {
-            alertDialog.setNegativeButton(context.getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                }
+            alertDialog.setNegativeButton(context.getString(R.string.cancel), (dialog, which) ->
+            {
             });
         } else {
-            alertDialog.setNegativeButton(context.getString(R.string.exit), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    ((Activity) context).finish();
-                }
-            });
+            alertDialog.setNegativeButton(context.getString(R.string.exit), (dialog, which) -> ((Activity) context).finish());
         }
         alertDialog.show();
     }
@@ -507,11 +445,9 @@ public class Methods {
         alertDialog.setMessage(message);
         alertDialog.setCancelable(false);
 
-        alertDialog.setPositiveButton(context.getString(R.string.ok), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        alertDialog.setPositiveButton(context.getString(R.string.ok), (dialog, which) ->
+        {
 //                finish();
-            }
         });
         alertDialog.show();
     }

@@ -1,8 +1,6 @@
 package net.manish.navratri.fragments;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,18 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-/*import com.google.ads.consent.ConsentInformation;
-import com.google.ads.consent.ConsentStatus;
-import com.google.ads.mediation.admob.AdMobAdapter;
-import com.google.ads.mediation.facebook.FacebookAdapter;
-import com.google.ads.mediation.facebook.FacebookExtras;
-import com.google.android.gms.ads.AdLoader;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.nativead.NativeAd;
-import com.startapp.sdk.ads.nativead.NativeAdPreferences;
-import com.startapp.sdk.ads.nativead.StartAppNativeAd;
-import com.startapp.sdk.adsbase.Ad;
-import com.startapp.sdk.adsbase.adlisteners.AdEventListener;*/
 import net.manish.navratri.adapter.AdapterMessage;
 import net.manish.navratri.asyncTask.LoadMessage;
 import net.manish.navratri.R;
@@ -32,8 +18,6 @@ import net.manish.navratri.interfaces.MessageListener;
 import net.manish.navratri.item.ItemMessage;
 import net.manish.navratri.util.Constant;
 import net.manish.navratri.util.Methods;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
@@ -44,10 +28,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 
-public class FragmentMessage extends Fragment {
+public class FragmentMessage extends Fragment
+{
 
     private Methods methods;
     private RecyclerView recyclerView;
@@ -61,7 +45,8 @@ public class FragmentMessage extends Fragment {
     private String errr_msg;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         View rootView = inflater.inflate(R.layout.fragment_messsage, container, false);
 
         methods = new Methods(getActivity());
@@ -77,12 +62,7 @@ public class FragmentMessage extends Fragment {
         recyclerView = rootView.findViewById(R.id.rv_message);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        button_try.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadMessage();
-            }
-        });
+        button_try.setOnClickListener(v -> loadMessage());
 
         loadMessage();
 
@@ -90,7 +70,8 @@ public class FragmentMessage extends Fragment {
         return rootView;
     }
 
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
@@ -110,51 +91,51 @@ public class FragmentMessage extends Fragment {
         SearchView searchView = (SearchView) searchItem.getActionView();
 
         // below line is to call set on query text listener method.
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+        {
             @Override
-            public boolean onQueryTextSubmit(String query) {
+            public boolean onQueryTextSubmit(String query)
+            {
                 return false;
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
-                // inside on query text change method we are
-                // calling a method to filter our recycler view.
+            public boolean onQueryTextChange(String newText)
+            {
                 filter(newText);
                 return false;
             }
         });
     }
 
-    private void filter(String text) {
-        // creating a new array list to filter our data.
+    private void filter(String text)
+    {
         ArrayList<ItemMessage> filteredlist = new ArrayList<ItemMessage>();
-
-        // running a for loop to compare elements.
-        for (ItemMessage item : arrayList) {
-            // checking if the entered string matched with any item of our recycler view.
-            if (item.getNumber().toLowerCase().contains(text.toLowerCase())) {
-                // if the item is matched we are
-                // adding it to our filtered list.
+        for (ItemMessage item : arrayList)
+        {
+            if (item.getNumber().toLowerCase().contains(text.toLowerCase()))
+            {
                 filteredlist.add(item);
             }
         }
-        if (filteredlist.isEmpty()) {
-            // if no item is added in filtered list we are
-            // displaying a toast message as no data found.
+        if (filteredlist.isEmpty())
+        {
             Toast.makeText(getActivity(), "No Data Found..", Toast.LENGTH_SHORT).show();
-        } else {
-            // at last we are passing that filtered
-            // list to our adapter class.
+        } else
+        {
             adapterMessage.filterList(filteredlist);
         }
     }
 
-    private void loadMessage() {
-        if (methods.isNetworkAvailable()) {
-            LoadMessage loadMessage = new LoadMessage(new MessageListener() {
+    private void loadMessage()
+    {
+        if (methods.isNetworkAvailable())
+        {
+            LoadMessage loadMessage = new LoadMessage(new MessageListener()
+            {
                 @Override
-                public void onStart() {
+                public void onStart()
+                {
                     arrayList.clear();
                     ll_empty.setVisibility(View.GONE);
                     recyclerView.setVisibility(View.GONE);
@@ -162,25 +143,24 @@ public class FragmentMessage extends Fragment {
                 }
 
                 @Override
-                public void onEnd(String success, String verifyStatus, String message, ArrayList<ItemMessage> arrayListMessage) {
-                    if (getActivity() != null) {
+                public void onEnd(String success, String verifyStatus, String message, ArrayList<ItemMessage> arrayListMessage)
+                {
+                    if (getActivity() != null)
+                    {
 
-                        // arrayListMessage.addAll(arrayListMessage);
-                       /* arrayListMessage.addAll(arrayListMessage);
-                        arrayListMessage.addAll(arrayListMessage);
-                        arrayListMessage.addAll(arrayListMessage);
-                        arrayListMessage.addAll(arrayListMessage);
-                        arrayListMessage.addAll(arrayListMessage);*/
-
-                        if (success.equals("1")) {
-                            if (!verifyStatus.equals("-1")) {
+                        if (success.equals("1"))
+                        {
+                            if (!verifyStatus.equals("-1"))
+                            {
                                 arrayList.addAll(arrayListMessage);
                                 errr_msg = getString(R.string.no_message_found);
                                 setAdapter();
-                            } else {
+                            } else
+                            {
                                 methods.getVerifyDialog(getString(R.string.error_unauth_access), message);
                             }
-                        } else {
+                        } else
+                        {
                             errr_msg = getString(R.string.server_no_conn);
                             setEmpty();
                         }
@@ -188,91 +168,32 @@ public class FragmentMessage extends Fragment {
                 }
             }, methods.getAPIRequest(Constant.METHOD_QUOTES, 0, "", "", ""));
             loadMessage.execute();
-        } else {
+        } else
+        {
             errr_msg = getString(R.string.net_not_conn);
             setEmpty();
         }
     }
 
-    private void setAdapter() {
+    private void setAdapter()
+    {
         adapterMessage = new AdapterMessage(getActivity(), arrayList);
         recyclerView.setAdapter(adapterMessage);
         setEmpty();
-
-        // loadNativeAds();
     }
 
-    private void setEmpty() {
+    private void setEmpty()
+    {
         progressBar.setVisibility(View.GONE);
-        if (arrayList.size() > 0) {
+        if (arrayList.size() > 0)
+        {
             recyclerView.setVisibility(View.VISIBLE);
             ll_empty.setVisibility(View.GONE);
-        } else {
+        } else
+        {
             textView_empty.setText(errr_msg);
             recyclerView.setVisibility(View.GONE);
             ll_empty.setVisibility(View.VISIBLE);
         }
     }
-
-    /*@SuppressLint("MissingPermission")
-    private void loadNativeAds() {
-        if (Constant.isNativeAd && arrayList.size() >= 10) {
-            switch (Constant.nativeAdType) {
-                case Constant.AD_TYPE_ADMOB:
-                case Constant.AD_TYPE_FACEBOOK:
-                    AdLoader.Builder builder = new AdLoader.Builder(getActivity(), Constant.nativeAdID);
-                    AdLoader adLoader = builder.forNativeAd(
-                            new NativeAd.OnNativeAdLoadedListener() {
-                                @Override
-                                public void onNativeAdLoaded(@NotNull NativeAd nativeAd) {
-                                    // A native ad loaded successfully, check if the ad loader has finished loading
-                                    // and if so, insert the ads into the list.
-                                    try {
-                                        adapterMessage.addAds(nativeAd);
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }).build();
-
-                    // Load the Native Express ad.
-                    Bundle extras = new Bundle();
-                    if (ConsentInformation.getInstance(getActivity()).getConsentStatus() != ConsentStatus.PERSONALIZED) {
-                        extras.putString("npa", "1");
-                    }
-                    AdRequest adRequest = new AdRequest.Builder()
-                            .addNetworkExtrasBundle(AdMobAdapter.class, extras)
-                            .addNetworkExtrasBundle(FacebookAdapter.class, new FacebookExtras().build())
-                            .build();
-
-                    adLoader.loadAds(adRequest, 5);
-                    break;
-                case Constant.AD_TYPE_STARTAPP:
-                    final StartAppNativeAd nativeAd = new StartAppNativeAd(getActivity());
-
-                    nativeAd.loadAd(new NativeAdPreferences()
-                            .setAdsNumber(3)
-                            .setAutoBitmapDownload(true)
-                            .setPrimaryImageSize(2), new AdEventListener() {
-                        @Override
-                        public void onReceiveAd(Ad ad) {
-                            try {
-                                adapterMessage.addNativeAds(nativeAd.getNativeAds());
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        @Override
-                        public void onFailedToReceiveAd(Ad ad) {
-//                            Log.e("aaa", "ad error");
-                        }
-                    });
-                    break;
-                case Constant.AD_TYPE_APPLOVIN:
-                    adapterMessage.setNativeAds(true);
-                    break;
-            }
-        }
-    }*/
 }

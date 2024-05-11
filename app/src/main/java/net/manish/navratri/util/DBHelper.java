@@ -97,12 +97,6 @@ public class DBHelper extends SQLiteOpenHelper {
             contentValues.put(TAG_ABOUT_DESC, Constant.itemAbout.getAppDesc());
             contentValues.put(TAG_ABOUT_DEVELOPED, Constant.itemAbout.getDevelopedby());
             contentValues.put(TAG_ABOUT_PRIVACY, Constant.itemAbout.getPrivacy());
-            contentValues.put(TAG_ABOUT_PUB_ID, Constant.publisherAdID);
-            contentValues.put(TAG_ABOUT_BANNER_ID, Constant.bannerAdID);
-            contentValues.put(TAG_ABOUT_INTER_ID, Constant.interstitialAdID);
-            contentValues.put(TAG_ABOUT_IS_BANNER, Constant.isBannerAd.toString());
-            contentValues.put(TAG_ABOUT_IS_INTER, Constant.isInterstitialAd.toString());
-            contentValues.put(TAG_ABOUT_CLICK, Constant.interstitialAdShow);
 
             db.insert(TABLE_ABOUT, null, contentValues);
         } catch (Exception e) {
@@ -128,13 +122,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 String privacy = c.getString(c.getColumnIndex(TAG_ABOUT_PRIVACY));
                 String developedby = c.getString(c.getColumnIndex(TAG_ABOUT_DEVELOPED));
 
-                Constant.bannerAdID = c.getString(c.getColumnIndex(TAG_ABOUT_BANNER_ID));
-                Constant.interstitialAdID = c.getString(c.getColumnIndex(TAG_ABOUT_INTER_ID));
-                Constant.isBannerAd = Boolean.parseBoolean(c.getString(c.getColumnIndex(TAG_ABOUT_IS_BANNER)));
-                Constant.isInterstitialAd = Boolean.parseBoolean(c.getString(c.getColumnIndex(TAG_ABOUT_IS_INTER)));
-                Constant.publisherAdID = c.getString(c.getColumnIndex(TAG_ABOUT_PUB_ID));
-                Constant.interstitialAdShow = Integer.parseInt(c.getString(c.getColumnIndex(TAG_ABOUT_CLICK)));
-
                 Constant.itemAbout = new ItemAbout(appname, applogo, desc, appversion, appauthor, appcontact, email, website, privacy, developedby);
             }
             c.close();
@@ -147,6 +134,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-//        Log.e("aaa","db update");
+
     }
 }  

@@ -22,10 +22,7 @@ import com.google.android.material.textview.MaterialTextView;
 import net.manish.navratri.R;
 import net.manish.navratri.activity.ActivityYoutubeVideo;
 import net.manish.navratri.activity.VideoPlayer;
-import net.manish.navratri.item.ItemMessage;
 import net.manish.navratri.item.ItemVideos;
-import net.manish.navratri.util.Methods;
-
 import java.util.ArrayList;
 import java.util.List;
 

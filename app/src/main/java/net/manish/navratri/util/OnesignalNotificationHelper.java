@@ -12,8 +12,6 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 
-
-import com.onesignal.OneSignal;
 import com.onesignal.notifications.IDisplayableMutableNotification;
 import com.onesignal.notifications.INotificationReceivedEvent;
 import com.onesignal.notifications.INotificationServiceExtension;
@@ -42,13 +40,6 @@ public class OnesignalNotificationHelper implements INotificationServiceExtensio
     @Override
     public void onNotificationReceived(INotificationReceivedEvent event) {
         IDisplayableMutableNotification notification = event.getNotification();
-
-        /*if (notification.getActionButtons() != null) {
-            for (OSNotification.ActionButton button : notification.getActionButtons()) {
-                OneSignal.onesignalLog(OneSignal.LOG_LEVEL.VERBOSE, "ActionButton: " + button.toString());
-            }
-        }*/
-
         title = notification.getTitle();
         message = notification.getBody();
         bigpicture = notification.getBigPicture();
@@ -60,12 +51,6 @@ public class OnesignalNotificationHelper implements INotificationServiceExtensio
         }
 
         sendNotification(event.getContext());
-
-        /*OSMutableNotification mutableNotification = notification.mutableCopy();
-        mutableNotification.setExtender(builder -> builder.setColor(context.getResources().getColor(R.color.colorPrimary)));
-
-        // If complete isn't call within a time period of 25 seconds, OneSignal internal logic will show the original notification
-        notificationReceivedEvent.complete(null);*/
         event.preventDefault();
     }
 

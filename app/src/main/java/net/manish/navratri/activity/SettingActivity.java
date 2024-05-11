@@ -33,9 +33,11 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
+
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
-public class SettingActivity extends AppCompatActivity {
+public class SettingActivity extends AppCompatActivity
+{
 
     Toolbar toolbar;
     SharedPref sharedPref;
@@ -48,12 +50,14 @@ public class SettingActivity extends AppCompatActivity {
     String them_mode = "";
 
     @Override
-    protected void attachBaseContext(Context newBase) {
+    protected void attachBaseContext(Context newBase)
+    {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
@@ -83,14 +87,17 @@ public class SettingActivity extends AppCompatActivity {
 
         switch_noti.setChecked(isNoti);
 
-        if (methods.isDarkMode()) {
+        if (methods.isDarkMode())
+        {
             iv_theme.setImageResource(R.mipmap.mode_dark);
-        } else {
+        } else
+        {
             iv_theme.setImageResource(R.mipmap.mode_icon);
         }
 
         String mode = methods.getDarkMode();
-        switch (mode) {
+        switch (mode)
+        {
             case Constant.DARK_MODE_SYSTEM:
                 tv_theme.setText(getString(R.string.system_default));
                 break;
@@ -104,7 +111,8 @@ public class SettingActivity extends AppCompatActivity {
 
         ll_noti_permission.setOnClickListener(v ->
         {
-            if(!methods.getPerNotificationStatus()) {
+            if (!methods.getPerNotificationStatus())
+            {
                 methods.checkPerNotification();
             }
         });
@@ -137,7 +145,8 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem menuItem) {
+    public boolean onOptionsItemSelected(MenuItem menuItem)
+    {
         if (menuItem.getItemId() == android.R.id.home)
         {
             onBackPressed();
@@ -148,12 +157,15 @@ public class SettingActivity extends AppCompatActivity {
         return true;
     }
 
-    private void openThemeDialog() {
+    private void openThemeDialog()
+    {
         final Dialog dialog = new Dialog(SettingActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_dialog_theme);
-        if (getString(R.string.isRTL).equals("true")) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+        if (getString(R.string.isRTL).equals("true"))
+        {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
+            {
                 dialog.getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
             }
         }
@@ -166,7 +178,8 @@ public class SettingActivity extends AppCompatActivity {
 
         String mode = methods.getDarkMode();
         assert mode != null;
-        switch (mode) {
+        switch (mode)
+        {
             case Constant.DARK_MODE_SYSTEM:
                 radioGroup.check(radioGroup.getChildAt(0).getId());
                 break;
@@ -178,17 +191,23 @@ public class SettingActivity extends AppCompatActivity {
                 break;
         }
 
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
             @SuppressLint("ResourceType")
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
+            public void onCheckedChanged(RadioGroup group, int checkedId)
+            {
                 MaterialRadioButton rb = group.findViewById(checkedId);
-                if (null != rb && checkedId > -1) {
-                    if (checkedId == R.id.radioButton_system_them) {
+                if (null != rb && checkedId > -1)
+                {
+                    if (checkedId == R.id.radioButton_system_them)
+                    {
                         them_mode = Constant.DARK_MODE_SYSTEM;
-                    } else if (checkedId == R.id.radioButton_light_them) {
+                    } else if (checkedId == R.id.radioButton_light_them)
+                    {
                         them_mode = Constant.DARK_MODE_OFF;
-                    } else if (checkedId == R.id.radioButton_dark_them) {
+                    } else if (checkedId == R.id.radioButton_dark_them)
+                    {
                         them_mode = Constant.DARK_MODE_ON;
                     }
                 }
@@ -198,7 +217,8 @@ public class SettingActivity extends AppCompatActivity {
         btn_ok.setOnClickListener(v ->
         {
             sharedPref.setDarkMode(them_mode);
-            switch (them_mode) {
+            switch (them_mode)
+            {
                 case Constant.DARK_MODE_SYSTEM:
                     tv_theme.setText(getResources().getString(R.string.system_default));
                     break;
@@ -214,7 +234,8 @@ public class SettingActivity extends AppCompatActivity {
             dialog.dismiss();
 
             String mode1 = sharedPref.getDarkMode();
-            switch (mode1) {
+            switch (mode1)
+            {
                 case Constant.DARK_MODE_SYSTEM:
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
                     break;
@@ -234,11 +255,14 @@ public class SettingActivity extends AppCompatActivity {
 
     }
 
-    public void openPrivacyDialog() {
+    public void openPrivacyDialog()
+    {
         Dialog dialog;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        {
             dialog = new Dialog(SettingActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
-        } else {
+        } else
+        {
             dialog = new Dialog(SettingActivity.this);
         }
 
@@ -250,16 +274,19 @@ public class SettingActivity extends AppCompatActivity {
         String mimeType = "text/html;charset=UTF-8";
         String encoding = "utf-8";
 
-        if (Constant.itemAbout != null) {
+        if (Constant.itemAbout != null)
+        {
             String text;
-            if (methods.isDarkMode()) {
+            if (methods.isDarkMode())
+            {
                 text = "<html><head>"
                         + "<style> body{color:#fff !important;text-align:left}"
                         + "</style></head>"
                         + "<body>"
                         + Constant.itemAbout.getPrivacy()
                         + "</body></html>";
-            } else {
+            } else
+            {
                 text = "<html><head>"
                         + "<style> body{color:#000 !important;text-align:left}"
                         + "</style></head>"
@@ -278,10 +305,13 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(permissions.length > 0 && permissions[0].equalsIgnoreCase("android.permission.post_notifications")) {
-            if(grantResults.length >0 && grantResults[0] != -1) {
+        if (permissions.length > 0 && permissions[0].equalsIgnoreCase("android.permission.post_notifications"))
+        {
+            if (grantResults.length > 0 && grantResults[0] != -1)
+            {
                 findViewById(R.id.tv_noti_permission).setVisibility(View.GONE);
             }
         }

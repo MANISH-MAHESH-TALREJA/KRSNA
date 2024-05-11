@@ -1,45 +1,29 @@
 package net.manish.navratri.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-/*import com.applovin.mediation.MaxAd;
-import com.applovin.mediation.MaxError;
-import com.applovin.mediation.nativeAds.MaxNativeAdListener;
-import com.applovin.mediation.nativeAds.MaxNativeAdLoader;
-import com.applovin.mediation.nativeAds.MaxNativeAdView;
-import com.google.android.gms.ads.nativead.MediaView;
-import com.google.android.gms.ads.nativead.NativeAd;
-import com.google.android.gms.ads.nativead.NativeAdView;*/
 import com.squareup.picasso.Picasso;
-/*import com.startapp.sdk.ads.nativead.NativeAdDetails;*/
+
 import net.manish.navratri.R;
 import net.manish.navratri.activity.SingleWallpaper;
-import net.manish.navratri.interfaces.InterAdListener;
 import net.manish.navratri.item.ItemWallpaper;
 import net.manish.navratri.util.Constant;
 import net.manish.navratri.util.Methods;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-public class AdapterWall extends RecyclerView.Adapter {
+public class AdapterWall extends RecyclerView.Adapter
+{
 
     Context context;
     ArrayList<ItemWallpaper> arrayList, arrayListAdLess;
@@ -47,31 +31,37 @@ public class AdapterWall extends RecyclerView.Adapter {
     Methods methods;
 
 
-    public AdapterWall(Context context, ArrayList<ItemWallpaper> arrayList, ArrayList<ItemWallpaper> arrayListAdLess, int columnWidth) {
+    public AdapterWall(Context context, ArrayList<ItemWallpaper> arrayList, ArrayList<ItemWallpaper> arrayListAdLess, int columnWidth)
+    {
         this.arrayList = arrayList;
         this.arrayListAdLess = arrayListAdLess;
         this.imageWidth = columnWidth;
         this.context = context;
-        methods = new Methods(context/*, interAdListener*/);
+        methods = new Methods(context);
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder
+    {
         ImageView imageView;
 
-        MyViewHolder(View view) {
+        MyViewHolder(View view)
+        {
             super(view);
             imageView = view.findViewById(R.id.iv_wall);
         }
     }
+
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_wallpaper, parent, false);
         return new MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, int position)
+    {
 
         ItemWallpaper objLatestBean = arrayList.get(position);
 
@@ -101,26 +91,31 @@ public class AdapterWall extends RecyclerView.Adapter {
     }
 
     @Override
-    public int getItemViewType(int position) {
-        if (arrayList.get(position) != null) {
+    public int getItemViewType(int position)
+    {
+        if (arrayList.get(position) != null)
+        {
             return position;
-        }
-        else {
+        } else
+        {
             return -2;
         }
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return arrayList.size();
     }
 
-    public boolean isHeader(int position) {
+    public boolean isHeader(int position)
+    {
         return arrayList.get(position) == null;
     }
 
-    public int getPos(int position) {
+    public int getPos(int position)
+    {
         return arrayListAdLess.indexOf(arrayList.get(position));
     }
 
-   }
+}

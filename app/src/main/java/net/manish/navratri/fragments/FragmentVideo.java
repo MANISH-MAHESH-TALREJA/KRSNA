@@ -1,8 +1,6 @@
 package net.manish.navratri.fragments;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,17 +11,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import net.manish.navratri.adapter.AdapterRingtone;
 import net.manish.navratri.adapter.AdapterVideo;
-import net.manish.navratri.asyncTask.LoadMessage;
-import net.manish.navratri.asyncTask.LoadRingtone;
 import net.manish.navratri.R;
 import net.manish.navratri.asyncTask.LoadVideo;
-import net.manish.navratri.interfaces.MessageListener;
-import net.manish.navratri.interfaces.RingtoneListener;
 import net.manish.navratri.interfaces.VideoListener;
-import net.manish.navratri.item.ItemMessage;
-import net.manish.navratri.item.ItemRingtone;
 import net.manish.navratri.item.ItemVideos;
 import net.manish.navratri.util.Constant;
 import net.manish.navratri.util.Methods;
@@ -80,7 +71,8 @@ public class FragmentVideo extends Fragment
         return rootView;
     }
 
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
@@ -89,58 +81,46 @@ public class FragmentVideo extends Fragment
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater)
     {
         super.onCreateOptionsMenu(menu, inflater);
-
-        // inside inflater we are inflating our menu file.
         inflater.inflate(R.menu.search, menu);
-
-        // below line is to get our menu item.
         MenuItem searchItem = menu.findItem(R.id.actionSearch);
-
-        // getting search view of our item.
         SearchView searchView = (SearchView) searchItem.getActionView();
-
-        // below line is to call set on query text listener method.
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+        {
             @Override
-            public boolean onQueryTextSubmit(String query) {
+            public boolean onQueryTextSubmit(String query)
+            {
                 return false;
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
-                // inside on query text change method we are
-                // calling a method to filter our recycler view.
+            public boolean onQueryTextChange(String newText)
+            {
                 filter(newText);
                 return false;
             }
         });
     }
 
-    private void filter(String text) {
-        // creating a new array list to filter our data.
+    private void filter(String text)
+    {
         ArrayList<ItemVideos> filteredlist = new ArrayList<ItemVideos>();
-
-        // running a for loop to compare elements.
-        for (ItemVideos item : arrayList) {
-            // checking if the entered string matched with any item of our recycler view.
-            if (item.getVideoTitle().toLowerCase().contains(text.toLowerCase())) {
-                // if the item is matched we are
-                // adding it to our filtered list.
+        for (ItemVideos item : arrayList)
+        {
+            if (item.getVideoTitle().toLowerCase().contains(text.toLowerCase()))
+            {
                 filteredlist.add(item);
             }
         }
-        if (filteredlist.isEmpty()) {
-            // if no item is added in filtered list we are
-            // displaying a toast message as no data found.
+        if (filteredlist.isEmpty())
+        {
             Toast.makeText(getActivity(), "No Data Found..", Toast.LENGTH_SHORT).show();
-        } else {
-            // at last we are passing that filtered
-            // list to our adapter class.
+        } else
+        {
             adapterVideo.filterList(filteredlist);
         }
     }
 
- 
+
     private void loadData()
     {
         if (methods.isNetworkAvailable())

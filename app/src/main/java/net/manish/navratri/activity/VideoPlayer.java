@@ -1,7 +1,5 @@
 package net.manish.navratri.activity;
 
-
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -30,7 +28,8 @@ import com.google.android.exoplayer2.util.Util;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
 
-public class VideoPlayer extends AppCompatActivity {
+public class VideoPlayer extends AppCompatActivity
+{
 
     private Methods method;
     private SimpleExoPlayer player;
@@ -41,13 +40,15 @@ public class VideoPlayer extends AppCompatActivity {
     private boolean isFullScreen = false;
 
     @Override
-    protected void attachBaseContext(Context newBase) {
+    protected void attachBaseContext(Context newBase)
+    {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
     }
 
     @SuppressLint({"UseCompatLoadingForDrawables", "SourceLockedOrientationActivity", "MissingInflatedId"})
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_player);
 
@@ -84,24 +85,29 @@ public class VideoPlayer extends AppCompatActivity {
         // Prepare the player with the source.
         player.prepare();
         player.setPlayWhenReady(true);
-        player.addListener(new Player.Listener() {
+        player.addListener(new Player.Listener()
+        {
             @Override
-            public void onIsPlayingChanged(boolean playWhenReady) {
-                if (playWhenReady) {
+            public void onIsPlayingChanged(boolean playWhenReady)
+            {
+                if (playWhenReady)
+                {
                     progressBar.setVisibility(View.GONE);
                 }
             }
         });
 
 
-
-        imageView.setOnClickListener(v -> {
-            if (isFullScreen) {
+        imageView.setOnClickListener(v ->
+        {
+            if (isFullScreen)
+            {
                 isFullScreen = false;
                 imageView.setImageDrawable(getResources().getDrawable(R.drawable.full_screen));
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                 getWindow().clearFlags(1024);
-            } else {
+            } else
+            {
                 isFullScreen = true;
                 imageView.setImageDrawable(getResources().getDrawable(R.drawable.exitfull_screen));
                 getWindow().setFlags(1024, 1024);
@@ -109,7 +115,7 @@ public class VideoPlayer extends AppCompatActivity {
             }
         });
 
-        if(videoLayout.equalsIgnoreCase("Landscape"))
+        if (videoLayout.equalsIgnoreCase("Landscape"))
         {
             getWindow().setFlags(1024, 1024);
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -118,8 +124,10 @@ public class VideoPlayer extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        if (player != null) {
+    public void onBackPressed()
+    {
+        if (player != null)
+        {
             player.setPlayWhenReady(false);
             player.stop();
             player.release();
@@ -128,16 +136,20 @@ public class VideoPlayer extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        if (player != null) {
+    protected void onPause()
+    {
+        if (player != null)
+        {
             player.setPlayWhenReady(false);
         }
         super.onPause();
     }
 
     @Override
-    protected void onDestroy() {
-        if (player != null) {
+    protected void onDestroy()
+    {
+        if (player != null)
+        {
             player.setPlayWhenReady(false);
             player.stop();
             player.release();

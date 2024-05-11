@@ -4,22 +4,15 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.os.StrictMode;
-
-/*import com.facebook.ads.AudienceNetworkAds;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;*/
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.onesignal.OneSignal;
+import com.onesignal.debug.LogLevel;
 
 import net.manish.navratri.R;
 import net.manish.navratri.util.Constant;
 import net.manish.navratri.util.DBHelper;
-import net.manish.navratri.util.Methods;
 import net.manish.navratri.util.SharedPref;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.multidex.MultiDex;
 import io.github.inflationx.calligraphy3.CalligraphyConfig;
@@ -40,6 +33,7 @@ public class MyApplication extends Application {
 
         OneSignal.initWithContext(this, getString(R.string.onesignal_app_id));
 
+        OneSignal.getDebug().setLogLevel(LogLevel.DEBUG);
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
 

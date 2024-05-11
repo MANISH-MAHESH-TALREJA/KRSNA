@@ -60,24 +60,6 @@ public class LoadAbout extends AsyncTask<String, String, String>
                         String privacy = c.getString("app_privacy_policy");
                         String developedby = c.getString("app_developed_by");
 
-                        Constant.publisherAdID = c.getString("publisher_id");
-                        Constant.startapp_id = c.getString("startapp_app_id");
-
-                        Constant.isBannerAd = Boolean.parseBoolean(c.getString("banner_ad"));
-                        Constant.isInterstitialAd = Boolean.parseBoolean(c.getString("interstitial_ad"));
-                        Constant.isNativeAd = Boolean.parseBoolean(c.getString("native_ad"));
-
-                        Constant.bannerAdType = c.getString("banner_ad_type");
-                        Constant.interstitialAdType = c.getString("interstitial_ad_type");
-                        Constant.nativeAdType = c.getString("native_ad_type");
-
-                        Constant.bannerAdID = c.getString("banner_ad_id");
-                        Constant.interstitialAdID = c.getString("interstitial_ad_id");
-                        Constant.nativeAdID = c.getString("native_ad_id");
-
-                        Constant.interstitialAdShow = Integer.parseInt(c.getString("interstitial_ad_click"));
-                        Constant.nativeAdShow = Integer.parseInt(c.getString("native_other_position"));
-
                         Constant.packageName = c.getString("package_name");
 
                         Constant.showUpdateDialog = c.getBoolean("app_update_status");

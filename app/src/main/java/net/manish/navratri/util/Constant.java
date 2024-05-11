@@ -38,7 +38,6 @@ public class Constant implements Serializable {
 
     public static final String TAG_WALL_NAME = "wall_name";
     public static final String TAG_WALL_IMAGE_BIG= "image_b";
-    public static final String TAG_WALL_IMAGE_SMALL= "image_s";
     public static final String TAG_WALL_LAYOUT= "wall_layout";
 
     public static final String LATESTMSG_ID = "id";
@@ -80,12 +79,10 @@ public class Constant implements Serializable {
 
     public static ItemAbout itemAbout;
 
-    public static Boolean isBannerAd = true, isInterstitialAd = true, isNativeAd = true, showUpdateDialog = false, appUpdateCancel = false;
-    public static String publisherAdID = "", startapp_id = "", bannerAdType = "admob", interstitialAdType = "admob",
-            nativeAdType = "admob", bannerAdID = "", interstitialAdID = "", nativeAdID = "", packageName = "",
+    public static Boolean showUpdateDialog = false, appUpdateCancel = false;
+    public static String packageName = "",
             appVersion= "", appUpdateMsg = "", appUpdateURL = "";
 
-    public static int adCount = 1, nativeAdShow = 10, interstitialAdShow = 5;
 
     public static boolean isQuizEnabled = true;
     public static boolean isWallpaperEnabled = true;

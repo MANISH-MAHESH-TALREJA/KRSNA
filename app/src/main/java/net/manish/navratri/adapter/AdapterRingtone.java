@@ -23,18 +23,9 @@ import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-/*import com.applovin.mediation.MaxAd;
-import com.applovin.mediation.MaxError;
-import com.applovin.mediation.nativeAds.MaxNativeAdListener;
-import com.applovin.mediation.nativeAds.MaxNativeAdLoader;
-import com.applovin.mediation.nativeAds.MaxNativeAdView;
-import com.google.android.gms.ads.nativead.MediaView;
-import com.google.android.gms.ads.nativead.NativeAd;
-import com.google.android.gms.ads.nativead.NativeAdView;*/
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-/*import com.startapp.sdk.ads.nativead.NativeAdDetails;*/
+
 import net.manish.navratri.R;
-import net.manish.navratri.item.ItemMessage;
 import net.manish.navratri.item.ItemRingtone;
 import net.manish.navratri.util.Constant;
 import net.manish.navratri.util.Methods;
@@ -53,10 +44,12 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.recyclerview.widget.RecyclerView;
+
 import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 
 
-public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyViewHolder> {
+public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyViewHolder>
+{
 
     private final Methods methods;
     private final Context context;
@@ -70,7 +63,8 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
     private final ProgressDialog progressDialog;
 
 
-    public AdapterRingtone(Context context, ArrayList<ItemRingtone> arrayList) {
+    public AdapterRingtone(Context context, ArrayList<ItemRingtone> arrayList)
+    {
         this.context = context;
         this.arrayList = arrayList;
         methods = new Methods(context);
@@ -82,14 +76,16 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder
+    {
         TextView textView_name;
         ImageView imageView_playpause;
         ImageView imageView_more;
         CircularProgressBar progressBar;
         RelativeLayout rl_native_ad;
 
-        MyViewHolder(View view) {
+        MyViewHolder(View view)
+        {
             super(view);
             textView_name = view.findViewById(R.id.tv_ring_name);
             imageView_playpause = view.findViewById(R.id.iv_ring_play);
@@ -99,21 +95,24 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
     }
 
 
-    public void filterList(ArrayList<ItemRingtone> filterList) {
+    public void filterList(ArrayList<ItemRingtone> filterList)
+    {
         arrayList = filterList;
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_ringtone, parent, false);
 
         return new MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, int position)
+    {
 
         final ItemRingtone itemRingtone = arrayList.get(position);
 
@@ -122,68 +121,76 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
         holder.imageView_more.setOnClickListener(v ->
         {
             ContextThemeWrapper ctw;
-            if (methods.isDarkMode()) {
+            if (methods.isDarkMode())
+            {
                 ctw = new ContextThemeWrapper(context, R.style.PopupMenuDark);
-            } else {
+            } else
+            {
                 ctw = new ContextThemeWrapper(context, R.style.PopupMenuLight);
             }
 
             PopupMenu popupMenu = new PopupMenu(ctw, v);
             popupMenu.getMenuInflater().inflate(R.menu.popup, popupMenu.getMenu());
-            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    int itemId = item.getItemId();
-                    if (itemId == R.id.item_popup_save) {
-                        if (methods.checkPer()) {
-                            buttonOnClick(holder.getAdapterPosition(), ctw.getString(R.string.download));
-                        }
-                    } else if (itemId == R.id.item_popup_share) {
-                        if (methods.checkPer()) {
-                            buttonOnClick(holder.getAdapterPosition(), ctw.getString(R.string.share));
-                        }
-                    } else if (itemId == R.id.item_popup_setas) {
-                        if (methods.checkPer()) {
-                            buttonOnClick(holder.getAdapterPosition(), ctw.getString(R.string.set_as));
-                        }
+            popupMenu.setOnMenuItemClickListener(item ->
+            {
+                int itemId = item.getItemId();
+                if (itemId == R.id.item_popup_save)
+                {
+                    if (methods.checkPer())
+                    {
+                        buttonOnClick(holder.getAdapterPosition(), ctw.getString(R.string.download));
                     }
-                    return true;
+                } else if (itemId == R.id.item_popup_share)
+                {
+                    if (methods.checkPer())
+                    {
+                        buttonOnClick(holder.getAdapterPosition(), ctw.getString(R.string.share));
+                    }
+                } else if (itemId == R.id.item_popup_setas)
+                {
+                    if (methods.checkPer())
+                    {
+                        buttonOnClick(holder.getAdapterPosition(), ctw.getString(R.string.set_as));
+                    }
                 }
+                return true;
             });
             popupMenu.show();
         });
 
-        holder.imageView_playpause.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!isFirst) {
-                    if (!arrayList.get(playpos).getId().equals(itemRingtone.getId())) {
-                        progressBar.setVisibility(View.GONE);
-                        roundedImageView.setVisibility(View.VISIBLE);
+        holder.imageView_playpause.setOnClickListener(v ->
+        {
+            if (!isFirst)
+            {
+                if (!arrayList.get(playpos).getId().equals(itemRingtone.getId()))
+                {
+                    progressBar.setVisibility(View.GONE);
+                    roundedImageView.setVisibility(View.VISIBLE);
 
-                        roundedImageView.setImageResource(R.drawable.new_play);
-                        roundedImageView = holder.imageView_playpause;
-                        progressBar = holder.progressBar;
-
-                        progressBar.setVisibility(View.VISIBLE);
-                        roundedImageView.setVisibility(View.GONE);
-
-                        playpos = holder.getAdapterPosition();
-                        playRingTone(holder.getAdapterPosition());
-                    } else {
-                        playpause();
-                    }
-                } else {
+                    roundedImageView.setImageResource(R.drawable.new_play);
                     roundedImageView = holder.imageView_playpause;
                     progressBar = holder.progressBar;
 
                     progressBar.setVisibility(View.VISIBLE);
                     roundedImageView.setVisibility(View.GONE);
 
-                    isFirst = false;
                     playpos = holder.getAdapterPosition();
                     playRingTone(holder.getAdapterPosition());
+                } else
+                {
+                    playpause();
                 }
+            } else
+            {
+                roundedImageView = holder.imageView_playpause;
+                progressBar = holder.progressBar;
+
+                progressBar.setVisibility(View.VISIBLE);
+                roundedImageView.setVisibility(View.GONE);
+
+                isFirst = false;
+                playpos = holder.getAdapterPosition();
+                playRingTone(holder.getAdapterPosition());
             }
         });
 
@@ -199,15 +206,19 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
 
     }
 
-    private class LoadPlay extends AsyncTask<String, String, String> {
+    private class LoadPlay extends AsyncTask<String, String, String>
+    {
         @Override
-        protected String doInBackground(String... strings) {
-            try {
+        protected String doInBackground(String... strings)
+        {
+            try
+            {
                 Uri myUri = Uri.parse(arrayList.get(Integer.parseInt(strings[0])).getUrl());
                 mediaPlayer.reset();
                 mediaPlayer.setDataSource(context, myUri);
                 mediaPlayer.prepare();
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
                 e.printStackTrace();
             }
             return null;
@@ -215,31 +226,38 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
     }
 
     @Override
-    public int getItemViewType(int position) {
+    public int getItemViewType(int position)
+    {
         return position;
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return arrayList.size();
     }
 
 
-    private void playRingTone(int pos) {
+    private void playRingTone(int pos)
+    {
         new LoadPlay().execute(String.valueOf(pos));
     }
 
-    private void playpause() {
-        if (!mediaPlayer.isPlaying()) {
+    private void playpause()
+    {
+        if (!mediaPlayer.isPlaying())
+        {
             mediaPlayer.start();
             roundedImageView.setImageResource(R.drawable.pause);
-        } else {
+        } else
+        {
             mediaPlayer.pause();
             roundedImageView.setImageResource(R.drawable.new_play);
         }
     }
 
-    private void showBottomSheetDialog(final int pos) {
+    private void showBottomSheetDialog(final int pos)
+    {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
         View view = inflater.inflate(R.layout.layout_ringtone_setas, null);
@@ -260,32 +278,40 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
         ll_set_alarm.setOnClickListener(v -> setRingtone(pos, context.getString(R.string.set_as_alarm)));
     }
 
-    private void setRingtone(final int pos, final String type) {
+    private void setRingtone(final int pos, final String type)
+    {
         boolean settingsCanWrite = false;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)
+        {
             settingsCanWrite = Settings.System.canWrite(context);
 
-            if (!settingsCanWrite) {
+            if (!settingsCanWrite)
+            {
                 Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
                 context.startActivity(intent);
-            } else {
+            } else
+            {
                 loadRingTone(pos, type);
             }
-        } else {
+        } else
+        {
             loadRingTone(pos, type);
         }
     }
 
-    private void loadRingTone(final int pos, final String type) {
+    private void loadRingTone(final int pos, final String type)
+    {
         new LoadDownloadRing(type, pos).execute();
     }
 
-    class LoadDownloadRing extends AsyncTask<String, String, String> {
+    class LoadDownloadRing extends AsyncTask<String, String, String>
+    {
 
         int pos;
         String type;
 
-        LoadDownloadRing(String type, int pos) {
+        LoadDownloadRing(String type, int pos)
+        {
             this.type = type;
             this.pos = pos;
 
@@ -293,17 +319,21 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
         }
 
         @Override
-        protected String doInBackground(String... strings) {
-            try {
+        protected String doInBackground(String... strings)
+        {
+            try
+            {
                 int count;
                 String ringtone_url = arrayList.get(pos).getUrl();
                 String fileName = arrayList.get(pos).getName() + ".mp3";
                 URL url = new URL(ringtone_url);
 
-                if (android.os.Build.VERSION.SDK_INT >= 29) {
+                if (android.os.Build.VERSION.SDK_INT >= 29)
+                {
                     String filePath = Environment.DIRECTORY_RINGTONES + File.separator + context.getString(R.string.app_name);
 
-                    if (!new File(Environment.getExternalStorageDirectory() + File.separator + filePath, fileName).exists()) {
+                    if (!new File(Environment.getExternalStorageDirectory() + File.separator + filePath, fileName).exists())
+                    {
                         ContentValues values = new ContentValues();
                         values.put(MediaStore.Audio.Media.MIME_TYPE, "audio/*");
                         values.put(MediaStore.Audio.Media.DATE_ADDED, System.currentTimeMillis() / 1000);
@@ -319,8 +349,10 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
 
                         Uri uri = context.getContentResolver().insert(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, values);
                         Constant.uri_set = uri;
-                        if (uri != null) {
-                            try {
+                        if (uri != null)
+                        {
+                            try
+                            {
                                 URLConnection connection = url.openConnection();
                                 connection.setRequestProperty("Accept-Encoding", "identity");
                                 connection.connect();
@@ -333,7 +365,8 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
 
                                 long total = 0;
 
-                                while ((count = input.read(data)) != -1) {
+                                while ((count = input.read(data)) != -1)
+                                {
                                     total += count;
                                     progressDialog.setProgress((int) ((total * 100) / lenghtOfFile));
                                     outputStream.write(data, 0, count);
@@ -345,21 +378,28 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
                                 context.getContentResolver().update(uri, values, null, null);
 
                                 return "1";
-                            } catch (Exception e) {
+                            } catch (Exception e)
+                            {
                                 return "0";
                             }
-                        } else {
+                        } else
+                        {
                             return "0";
                         }
-                    } else {
+                    } else
+                    {
                         return "1";
                     }
 
-                } else {
-                    try {
+                } else
+                {
+                    try
+                    {
                         File root = new File(Environment.getExternalStorageDirectory() + File.separator + Environment.DIRECTORY_RINGTONES + File.separator + context.getString(R.string.app_name));
-                        if (!new File(root, fileName).exists()) {
-                            if (!root.exists()) {
+                        if (!new File(root, fileName).exists())
+                        {
+                            if (!root.exists())
+                            {
                                 root.mkdirs();
                             }
 
@@ -375,7 +415,8 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
 
                             long total = 0;
 
-                            while ((count = input.read(data)) != -1) {
+                            while ((count = input.read(data)) != -1)
+                            {
                                 total += count;
                                 progressDialog.setProgress((int) ((total * 100) / lenghtOfFile));
                                 output.write(data, 0, count);
@@ -386,28 +427,37 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
                             input.close();
                         }
                         return "1";
-                    } catch (Exception e) {
+                    } catch (Exception e)
+                    {
                         return "0";
                     }
                 }
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
                 return "0";
             }
         }
 
         @Override
-        protected void onPostExecute(String s) {
-            if (s.equals("1")) {
-                if (context.getString(R.string.set_as_ring).equals(type)) {
+        protected void onPostExecute(String s)
+        {
+            if (s.equals("1"))
+            {
+                if (context.getString(R.string.set_as_ring).equals(type))
+                {
                     setAsRingtone(arrayList.get(pos));
-                } else if (context.getString(R.string.set_as_noti).equals(type)) {
+                } else if (context.getString(R.string.set_as_noti).equals(type))
+                {
                     setNoti(arrayList.get(pos));
-                } else if (context.getString(R.string.set_as_alarm).equals(type)) {
+                } else if (context.getString(R.string.set_as_alarm).equals(type))
+                {
                     setAlarm(arrayList.get(pos));
-                } else if (context.getString(R.string.download).equals(type)) {
+                } else if (context.getString(R.string.download).equals(type))
+                {
                     methods.showToast(context.getString(R.string.ringtone_saved));
                 }
-            } else {
+            } else
+            {
                 methods.showToast(context.getString(R.string.try_again));
             }
             progressDialog.dismiss();
@@ -416,12 +466,14 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
 
     }
 
-    private void setAsRingtone(ItemRingtone itemRingtone) {
+    private void setAsRingtone(ItemRingtone itemRingtone)
+    {
         String filePath = Environment.getExternalStorageDirectory() + File.separator + Environment.DIRECTORY_RINGTONES + File.separator + context.getString(R.string.app_name) + File.separator + itemRingtone.getName() + ".mp3";
 
         File ringtoneFile = new File(filePath);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+        {
             ContentValues values = new ContentValues();
             values.put(MediaStore.MediaColumns.TITLE, itemRingtone.getName() + ".mp3");
             values.put(MediaStore.MediaColumns.MIME_TYPE, methods.getMIMEType(filePath));
@@ -431,24 +483,29 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
 
             Uri newUri = context.getContentResolver()
                     .insert(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, values);
-            try (OutputStream os = context.getContentResolver().openOutputStream(newUri)) {
+            try (OutputStream os = context.getContentResolver().openOutputStream(newUri))
+            {
                 int size = (int) ringtoneFile.length();
                 byte[] bytes = new byte[size];
-                try {
+                try
+                {
                     BufferedInputStream buf = new BufferedInputStream(new FileInputStream(ringtoneFile));
                     buf.read(bytes, 0, bytes.length);
                     buf.close();
                     os.write(bytes);
                     os.close();
                     os.flush();
-                } catch (IOException e) {
+                } catch (IOException e)
+                {
                     e.printStackTrace();
                 }
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
                 e.printStackTrace();
             }
             RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE, newUri);
-        } else {
+        } else
+        {
 
             MediaMetadataRetriever md = new MediaMetadataRetriever();
             md.setDataSource(ringtoneFile.getAbsolutePath());
@@ -478,12 +535,14 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
         methods.showToast(context.getString(R.string.ringtone_set));
     }
 
-    private void setAlarm(ItemRingtone itemRingtone) {
+    private void setAlarm(ItemRingtone itemRingtone)
+    {
         String filePath = Environment.getExternalStorageDirectory() + File.separator + Environment.DIRECTORY_RINGTONES + File.separator + context.getString(R.string.app_name) + File.separator + itemRingtone.getName() + ".mp3";
 
         File ringtoneFile = new File(filePath);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+        {
             ContentValues values = new ContentValues();
             values.put(MediaStore.MediaColumns.TITLE, itemRingtone.getName() + ".mp3");
             values.put(MediaStore.MediaColumns.MIME_TYPE, methods.getMIMEType(filePath));
@@ -493,24 +552,29 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
 
             Uri newUri = context.getContentResolver()
                     .insert(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, values);
-            try (OutputStream os = context.getContentResolver().openOutputStream(newUri)) {
+            try (OutputStream os = context.getContentResolver().openOutputStream(newUri))
+            {
                 int size = (int) ringtoneFile.length();
                 byte[] bytes = new byte[size];
-                try {
+                try
+                {
                     BufferedInputStream buf = new BufferedInputStream(new FileInputStream(ringtoneFile));
                     buf.read(bytes, 0, bytes.length);
                     buf.close();
                     os.write(bytes);
                     os.close();
                     os.flush();
-                } catch (IOException e) {
+                } catch (IOException e)
+                {
                     e.printStackTrace();
                 }
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
                 e.printStackTrace();
             }
             RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM, newUri);
-        } else {
+        } else
+        {
 
             MediaMetadataRetriever md = new MediaMetadataRetriever();
             md.setDataSource(ringtoneFile.getAbsolutePath());
@@ -540,12 +604,14 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
         methods.showToast(context.getString(R.string.alarm_set));
     }
 
-    private void setNoti(ItemRingtone itemRingtone) {
+    private void setNoti(ItemRingtone itemRingtone)
+    {
         String filePath = Environment.getExternalStorageDirectory() + File.separator + Environment.DIRECTORY_RINGTONES + File.separator + context.getString(R.string.app_name) + File.separator + itemRingtone.getName() + ".mp3";
 
         File ringtoneFile = new File(filePath);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+        {
             ContentValues values = new ContentValues();
             values.put(MediaStore.MediaColumns.TITLE, itemRingtone.getName() + ".mp3");
             values.put(MediaStore.MediaColumns.MIME_TYPE, methods.getMIMEType(filePath));
@@ -555,24 +621,29 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
 
             Uri newUri = context.getContentResolver()
                     .insert(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, values);
-            try (OutputStream os = context.getContentResolver().openOutputStream(newUri)) {
+            try (OutputStream os = context.getContentResolver().openOutputStream(newUri))
+            {
                 int size = (int) ringtoneFile.length();
                 byte[] bytes = new byte[size];
-                try {
+                try
+                {
                     BufferedInputStream buf = new BufferedInputStream(new FileInputStream(ringtoneFile));
                     buf.read(bytes, 0, bytes.length);
                     buf.close();
                     os.write(bytes);
                     os.close();
                     os.flush();
-                } catch (IOException e) {
+                } catch (IOException e)
+                {
                     e.printStackTrace();
                 }
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
                 e.printStackTrace();
             }
             RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION, newUri);
-        } else {
+        } else
+        {
             MediaMetadataRetriever md = new MediaMetadataRetriever();
             md.setDataSource(ringtoneFile.getAbsolutePath());
             String title = ringtoneFile.getName();
@@ -602,33 +673,45 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
     }
 
 
-    public void stopMediaPlayer() {
-        if (mediaPlayer != null) {
-            try {
+    public void stopMediaPlayer()
+    {
+        if (mediaPlayer != null)
+        {
+            try
+            {
                 mediaPlayer.stop();
                 mediaPlayer.release();
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
                 e.printStackTrace();
             }
         }
     }
 
-    public void buttonOnClick(int position, String type) {
-        if (type.equals(context.getString(R.string.download))) {
-            if (methods.isNetworkAvailable()) {
+    public void buttonOnClick(int position, String type)
+    {
+        if (type.equals(context.getString(R.string.download)))
+        {
+            if (methods.isNetworkAvailable())
+            {
                 loadRingTone(position, type);
-            } else {
+            } else
+            {
                 methods.showToast(context.getString(R.string.net_not_conn));
             }
-        } else if (type.equals(context.getString(R.string.share))) {
+        } else if (type.equals(context.getString(R.string.share)))
+        {
             Intent share = new Intent(Intent.ACTION_SEND);
             share.setType("text/plain");
             share.putExtra(Intent.EXTRA_TEXT, context.getString(R.string.christmas_ringtone) + arrayList.get(position).getName() + " - " + context.getString(R.string.download_this_ring) + "\n\n " + context.getString(R.string.app_name) + " - https://play.google.com/store/apps/details?id=" + context.getPackageName());
             context.startActivity(Intent.createChooser(share, context.getString(R.string.share)));
-        } else {
-            if (methods.isNetworkAvailable()) {
+        } else
+        {
+            if (methods.isNetworkAvailable())
+            {
                 showBottomSheetDialog(position);
-            } else {
+            } else
+            {
                 methods.showToast(context.getString(R.string.net_not_conn));
             }
         }

@@ -2,7 +2,6 @@ package net.manish.navratri.activity;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -16,15 +15,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,15 +37,9 @@ import net.manish.navratri.fragments.FragmentRingtone;
 import net.manish.navratri.fragments.FragmentVideo;
 import net.manish.navratri.fragments.FragmentWallpaper;
 import net.manish.navratri.interfaces.AboutListener;
-import net.manish.navratri.interfaces.AdConsentListener;
-/*import net.manish.navratri.util.AdConsent;
-import net.manish.navratri.util.AdManagerInterAdmob;
-import net.manish.navratri.util.AdManagerInterApplovin;
-import net.manish.navratri.util.AdManagerInterStartApp;*/
 import net.manish.navratri.util.Constant;
 import net.manish.navratri.util.DBHelper;
 import net.manish.navratri.util.Methods;
-import net.manish.navratri.util.SharedPref;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -63,9 +53,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
+{
 
     Methods methods;
     DrawerLayout drawer;
@@ -78,12 +70,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     NavigationView navigationView;
 
     @Override
-    protected void attachBaseContext(Context newBase) {
+    protected void attachBaseContext(Context newBase)
+    {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -115,81 +109,93 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FragmentDashBoard fragmentDashBoard = new FragmentDashBoard();
         loadFrag(fragmentDashBoard, getString(R.string.app_name), fm);
 
-        if (methods.isNetworkAvailable()) {
+        if (methods.isNetworkAvailable())
+        {
             loadAboutData();
-        } else {
+        } else
+        {
             dbHelper.getAbout();
             methods.showToast(getString(R.string.net_not_conn));
         }
 
         setNavMenu();
 
-        if(!methods.getPerNotificationStatus()) {
+        if (!methods.getPerNotificationStatus())
+        {
             methods.permissionDialog();
         }
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item)
+    {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_home) {
+        if (id == R.id.nav_home)
+        {
             FragmentHome fragmentHome = new FragmentHome();
             loadFrag(fragmentHome, getString(R.string.home), fm);
-        } else if (id == R.id.nav_wallpapers) {
+        } else if (id == R.id.nav_wallpapers)
+        {
             FragmentWallpaper fragmentWallpaper = new FragmentWallpaper();
             loadFrag(fragmentWallpaper, "KRSNA IMAGES", fm);
-        } else if (id == R.id.nav_ringtones) {
+        } else if (id == R.id.nav_ringtones)
+        {
             FragmentRingtone fragmentRingtone = new FragmentRingtone();
             loadFrag(fragmentRingtone, "Kirtan", fm);
-        }
-        else if (id == R.id.nav_videos) {
+        } else if (id == R.id.nav_videos)
+        {
             FragmentVideo fragmentVideo = new FragmentVideo();
             loadFrag(fragmentVideo, "Videos", fm);
-        }
-        else if (id == R.id.nav_messages) {
+        } else if (id == R.id.nav_messages)
+        {
             FragmentMessage fragmentMessage = new FragmentMessage();
             loadFrag(fragmentMessage, getString(R.string.message), fm);
-        } else if (id == R.id.nav_quiz) {
+        } else if (id == R.id.nav_quiz)
+        {
             showQuiz();
-        } else if (id == R.id.nav_rate) {
-            final String appName = getPackageName();//your application package name i.e play store application url
-            try {
+        } else if (id == R.id.nav_rate)
+        {
+            final String appName = getPackageName();
+            try
+            {
                 startActivity(new Intent(Intent.ACTION_VIEW,
                         Uri.parse("market://details?id="
                                 + appName)));
-            } catch (android.content.ActivityNotFoundException anfe) {
+            } catch (android.content.ActivityNotFoundException anfe)
+            {
                 startActivity(new Intent(
                         Intent.ACTION_VIEW,
                         Uri.parse("http://play.google.com/store/apps/details?id="
                                 + appName)));
             }
-        } else if (id == R.id.nav_shareapp) {
+        } else if (id == R.id.nav_shareapp)
+        {
             Intent share = new Intent(Intent.ACTION_SEND);
             share.setType("text/plain");
             share.putExtra(Intent.EXTRA_TEXT, getString(R.string.app_name) + " - " + "http://play.google.com/store/apps/details?id=" + getPackageName());
             startActivity(share);
 
-        } else if (id == R.id.nav_settings) {
+        } else if (id == R.id.nav_settings)
+        {
             this.finishAffinity();
-        }
-        else if (id == R.id.nav_about_us) {
+        } else if (id == R.id.nav_about_us)
+        {
             Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
             startActivity(intent);
-        }
-        else if (id == R.id.nav_privacy) {
+        } else if (id == R.id.nav_privacy)
+        {
             openPrivacyDialog();
-        }
-        else if (id == R.id.nav_more) {
+        } else if (id == R.id.nav_more)
+        {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.play_more_apps))));
-        }
-        else if (id == R.id.nav_ekadashi) {
+        } else if (id == R.id.nav_ekadashi)
+        {
             EkadashiFragment ekadashiFragment = new EkadashiFragment();
             loadFrag(ekadashiFragment, "Ekadashi Calendar 2024", fm);
-        }
-        else
+        } else
         {
             FragmentHome fragmentHome = new FragmentHome();
             loadFrag(fragmentHome, getString(R.string.home), fm);
@@ -199,11 +205,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    public void openPrivacyDialog() {
+    public void openPrivacyDialog()
+    {
         Dialog dialog;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        {
             dialog = new Dialog(MainActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
-        } else {
+        } else
+        {
             dialog = new Dialog(MainActivity.this);
         }
 
@@ -215,16 +224,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String mimeType = "text/html;charset=UTF-8";
         String encoding = "utf-8";
 
-        if (Constant.itemAbout != null) {
+        if (Constant.itemAbout != null)
+        {
             String text = "";
-            if (methods.isDarkMode()) {
+            if (methods.isDarkMode())
+            {
                 text = "<html><head>"
                         + "<style> body{color:#fff !important;text-align:left}"
                         + "</style></head>"
                         + "<body>"
                         + Constant.itemAbout.getPrivacy()
                         + "</body></html>";
-            } else {
+            } else
+            {
                 text = "<html><head>"
                         + "<style> body{color:#000 !important;text-align:left}"
                         + "</style></head>"
@@ -242,34 +254,42 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
     }
 
-    public void setNavMenu() {
-        if (!Constant.isQuizEnabled) {
+    public void setNavMenu()
+    {
+        if (!Constant.isQuizEnabled)
+        {
             navigationView.getMenu().findItem(R.id.nav_quiz).setVisible(false);
         }
-        if (!Constant.isWallpaperEnabled) {
+        if (!Constant.isWallpaperEnabled)
+        {
             navigationView.getMenu().findItem(R.id.nav_wallpapers).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_home).setVisible(false);
         }
-        if (!Constant.isRingToneEnabled) {
+        if (!Constant.isRingToneEnabled)
+        {
             navigationView.getMenu().findItem(R.id.nav_ringtones).setVisible(false);
         }
-        if (!Constant.isMessageEnabled) {
+        if (!Constant.isMessageEnabled)
+        {
             navigationView.getMenu().findItem(R.id.nav_messages).setVisible(false);
         }
     }
 
-    public void loadFrag(Fragment f1, String name, FragmentManager fm) {
+    public void loadFrag(Fragment f1, String name, FragmentManager fm)
+    {
 
-        for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+        for (int i = 0; i < fm.getBackStackEntryCount(); ++i)
+        {
             fm.popBackStack();
         }
 
         FragmentTransaction ft = fm.beginTransaction();
-//        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 
-        if (name.equals(getString(R.string.christmas)) || name.equals(getString(R.string.app_name))) {
+        if (name.equals(getString(R.string.christmas)) || name.equals(getString(R.string.app_name)))
+        {
             ft.replace(R.id.frame_nav, f1, name);
-        } else {
+        } else
+        {
             ft.hide(fm.getFragments().get(fm.getBackStackEntryCount()));
             ft.add(R.id.frame_nav, f1, name);
             ft.addToBackStack(name);
@@ -279,8 +299,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getSupportActionBar().setTitle(name);
     }
 
-    public void loadAboutData() {
-        loadAbout = new LoadAbout(new AboutListener() {
+    public void loadAboutData()
+    {
+        loadAbout = new LoadAbout(new AboutListener()
+        {
             @Override
             public void onStart()
             {
@@ -288,18 +310,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
             @Override
-            public void onEnd(String success, String verifyStatus, String message) {
-                if (success.equals("1")) {
+            public void onEnd(String success, String verifyStatus, String message)
+            {
+                if (success.equals("1"))
+                {
                     String version = "";
-                    try {
+                    try
+                    {
                         PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
                         version = String.valueOf(pInfo.versionCode);
-                    } catch (PackageManager.NameNotFoundException e) {
+                    } catch (PackageManager.NameNotFoundException e)
+                    {
                         e.printStackTrace();
                     }
-                    if (Constant.showUpdateDialog && !Constant.appVersion.equals(version)) {
+                    if (Constant.showUpdateDialog && !Constant.appVersion.equals(version))
+                    {
                         methods.showUpdateAlert(Constant.appUpdateMsg);
-                    } else {
+                    } else
+                    {
                         dbHelper.addtoAbout();
                     }
 
@@ -310,7 +338,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         loadAbout.execute();
     }
 
-    private void showQuiz() {
+    private void showQuiz()
+    {
         final Dialog dialog = new Dialog(MainActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setTitle(getString(R.string.quiz));
@@ -323,12 +352,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         final AppCompatCheckBox checkBox = dialog.findViewById(R.id.checkBox_timer);
         final LinearLayout ll_checkBox = dialog.findViewById(R.id.ll_checkbox);
 
-        ll_checkBox.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkBox.setChecked(!checkBox.isChecked());
-            }
-        });
+        ll_checkBox.setOnClickListener(v -> checkBox.setChecked(!checkBox.isChecked()));
 
         String[] time = getResources().getStringArray(R.array.time);
         String[] ques = getResources().getStringArray(R.array.array_no_que);
@@ -341,23 +365,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         checkBox.setOnCheckedChangeListener((buttonView, isChecked) ->
         {
             isTime = isChecked;
-            if (isChecked) {
+            if (isChecked)
+            {
                 ll_time.setVisibility(View.VISIBLE);
-            } else {
+            } else
+            {
                 ll_time.setVisibility(View.GONE);
             }
         });
 
         button.setOnClickListener(v ->
         {
-            if (methods.isNetworkAvailable()) {
+            if (methods.isNetworkAvailable())
+            {
                 Intent intentabout = new Intent(getApplicationContext(), QuizActivity.class);
                 intentabout.putExtra("que", Integer.parseInt(spinner.getSelectedItem().toString()));
                 intentabout.putExtra("istime", checkBox.isChecked());
                 intentabout.putExtra("time", (Integer.parseInt(spinner_time.getSelectedItem().toString()) * Integer.parseInt(spinner.getSelectedItem().toString())));
                 startActivity(intentabout);
                 dialog.dismiss();
-            } else {
+            } else
+            {
                 Toast.makeText(MainActivity.this, getString(R.string.net_not_conn), Toast.LENGTH_SHORT).show();
             }
         });
@@ -374,18 +402,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.slide_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume()
+    {
         super.onResume();
     }
 
-    private void exitDialog() {
+    private void exitDialog()
+    {
         AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this, R.style.ThemeDialog);
         alert.setTitle(R.string.app_name);
         alert.setIcon(R.mipmap.app_icon);
@@ -403,12 +434,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         alert.setNeutralButton(getString(R.string.rate_app),
                 (dialog, which) ->
                 {
-                    final String appName = getPackageName();//your application package name i.e play store application url
-                    try {
+                    final String appName = getPackageName();
+                    try
+                    {
                         startActivity(new Intent(Intent.ACTION_VIEW,
                                 Uri.parse("market://details?id="
                                         + appName)));
-                    } catch (android.content.ActivityNotFoundException anfe) {
+                    } catch (android.content.ActivityNotFoundException anfe)
+                    {
                         startActivity(new Intent(
                                 Intent.ACTION_VIEW,
                                 Uri.parse("http://play.google.com/store/apps/details?id="
@@ -420,57 +453,71 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
+    public void onBackPressed()
+    {
+        if (drawer.isDrawerOpen(GravityCompat.START))
+        {
             drawer.closeDrawer(GravityCompat.START);
-        } else if (fm.getBackStackEntryCount() != 0) {
+        } else if (fm.getBackStackEntryCount() != 0)
+        {
             String title = fm.getFragments().get(fm.getBackStackEntryCount() - 1).getTag();
-            if (fm.getFragments().get(fm.getBackStackEntryCount()).getTag().equals(getString(R.string.home))) {
+            if (fm.getFragments().get(fm.getBackStackEntryCount()).getTag().equals(getString(R.string.home)))
+            {
                 navigationView.getMenu().findItem(R.id.nav_home).setChecked(false);
-            } else if (fm.getFragments().get(fm.getBackStackEntryCount()).getTag().equals(getString(R.string.wallpaper))) {
+            } else if (fm.getFragments().get(fm.getBackStackEntryCount()).getTag().equals(getString(R.string.wallpaper)))
+            {
                 navigationView.getMenu().findItem(R.id.nav_wallpapers).setChecked(false);
-            } else if (fm.getFragments().get(fm.getBackStackEntryCount()).getTag().equals(getString(R.string.ringtone))) {
+            } else if (fm.getFragments().get(fm.getBackStackEntryCount()).getTag().equals(getString(R.string.ringtone)))
+            {
                 navigationView.getMenu().findItem(R.id.nav_ringtones).setChecked(false);
-            } else if (fm.getFragments().get(fm.getBackStackEntryCount()).getTag().equals(getString(R.string.message))) {
+            } else if (fm.getFragments().get(fm.getBackStackEntryCount()).getTag().equals(getString(R.string.message)))
+            {
                 navigationView.getMenu().findItem(R.id.nav_messages).setChecked(false);
             }
             getSupportActionBar().setTitle(title);
 
             super.onBackPressed();
-        } else {
+        } else
+        {
             exitDialog();
         }
     }
 
-    public class CustomAdapter extends BaseAdapter {
+    public class CustomAdapter extends BaseAdapter
+    {
         Context context;
         String[] countryNames;
-        LayoutInflater inflter;
+        LayoutInflater inflater;
 
-        CustomAdapter(Context applicationContext, String[] countryNames) {
+        CustomAdapter(Context applicationContext, String[] countryNames)
+        {
             this.context = applicationContext;
             this.countryNames = countryNames;
-            inflter = (LayoutInflater.from(applicationContext));
+            inflater = (LayoutInflater.from(applicationContext));
         }
 
         @Override
-        public int getCount() {
+        public int getCount()
+        {
             return countryNames.length;
         }
 
         @Override
-        public Object getItem(int i) {
+        public Object getItem(int i)
+        {
             return countryNames[i];
         }
 
         @Override
-        public long getItemId(int i) {
+        public long getItemId(int i)
+        {
             return 0;
         }
 
         @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-            view = inflter.inflate(R.layout.layout_spinner, null);
+        public View getView(int i, View view, ViewGroup viewGroup)
+        {
+            view = inflater.inflate(R.layout.layout_spinner, null);
             TextView textView = view.findViewById(R.id.textView_spnr);
             textView.setText(countryNames[i]);
             return view;

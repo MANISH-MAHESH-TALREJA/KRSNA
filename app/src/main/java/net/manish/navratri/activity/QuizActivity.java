@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.method.ScrollingMovementMethod;
@@ -33,9 +32,11 @@ import java.util.Random;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
-public class QuizActivity extends AppCompatActivity implements OnClickListener {
+public class QuizActivity extends AppCompatActivity implements OnClickListener
+{
 
     Methods methods;
     TextView textView_que, textView_que_no, textView_tot_que, textView_timer, textView_5050, textView_skip;
@@ -53,12 +54,14 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
     int timer = 0;
 
     @Override
-    protected void attachBaseContext(Context newBase) {
+    protected void attachBaseContext(Context newBase)
+    {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
@@ -73,7 +76,8 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
 
         isTime = getIntent().getBooleanExtra("istime", false);
         total = getIntent().getIntExtra("que", 5);
-        if (isTime) {
+        if (isTime)
+        {
             timer = getIntent().getIntExtra("time", 30);
         }
 
@@ -101,74 +105,83 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
         radioButton_c.setButtonDrawable(android.R.color.transparent);
         radioButton_d.setButtonDrawable(android.R.color.transparent);
 
-        button_okk.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (radioGroup.getCheckedRadioButtonId() != -1) {
-                    if (!isAnswered) {
-                        attempted = attempted + 1;
-                        isAnswered = true;
-                        RadioButton rd = findViewById(radioGroup.getCheckedRadioButtonId());
-                        String selected = rd.getText().toString();
-                        if (selected.equals(arrayList.get(pos).getAnswer())) {
-                            right = right + 1;
-                            rd.setBackground(getResources().getDrawable(R.drawable.bg_radio_gradient_green));
-                            rd.setCompoundDrawablesWithIntrinsicBounds(R.drawable.thumb_green, 0, 0, 0);
-                            rd.setTextColor(getResources().getColor(R.color.white));
-                        } else {
-                            wrong = wrong + 1;
-                            rd.setBackground(getResources().getDrawable(R.drawable.bg_radio_gradient_red));
-                            rd.setCompoundDrawablesWithIntrinsicBounds(R.drawable.thumb_red, 0, 0, 0);
-                            rd.setTextColor(getResources().getColor(R.color.white));
-                            if (radioButton_a.getText().toString().equals(arrayList.get(pos).getAnswer())) {
-                                radioButton_a.setBackground(getResources().getDrawable(R.drawable.bg_radio_gradient_green));
-                                radioButton_a.setTextColor(getResources().getColor(R.color.white));
-                                radioButton_a.setCompoundDrawablesWithIntrinsicBounds(R.drawable.thumb_green, 0, 0, 0);
-                            } else if (radioButton_b.getText().toString().equals(arrayList.get(pos).getAnswer())) {
-                                radioButton_b.setBackground(getResources().getDrawable(R.drawable.bg_radio_gradient_green));
-                                radioButton_b.setTextColor(getResources().getColor(R.color.white));
-                                radioButton_b.setCompoundDrawablesWithIntrinsicBounds(R.drawable.thumb_green, 0, 0, 0);
-                            } else if (radioButton_c.getText().toString().equals(arrayList.get(pos).getAnswer())) {
-                                radioButton_c.setBackground(getResources().getDrawable(R.drawable.bg_radio_gradient_green));
-                                radioButton_c.setTextColor(getResources().getColor(R.color.white));
-                                radioButton_c.setCompoundDrawablesWithIntrinsicBounds(R.drawable.thumb_green, 0, 0, 0);
-                            } else if (radioButton_d.getText().toString().equals(arrayList.get(pos).getAnswer())) {
-                                radioButton_d.setBackground(getResources().getDrawable(R.drawable.bg_radio_gradient_green));
-                                radioButton_d.setTextColor(getResources().getColor(R.color.white));
-                                radioButton_d.setCompoundDrawablesWithIntrinsicBounds(R.drawable.thumb_green, 0, 0, 0);
-                            }
-                        }
-
-                        new Handler().postDelayed(() ->
+        button_okk.setOnClickListener(v ->
+        {
+            if (radioGroup.getCheckedRadioButtonId() != -1)
+            {
+                if (!isAnswered)
+                {
+                    attempted = attempted + 1;
+                    isAnswered = true;
+                    RadioButton rd = findViewById(radioGroup.getCheckedRadioButtonId());
+                    String selected = rd.getText().toString();
+                    if (selected.equals(arrayList.get(pos).getAnswer()))
+                    {
+                        right = right + 1;
+                        rd.setBackground(getResources().getDrawable(R.drawable.bg_radio_gradient_green));
+                        rd.setCompoundDrawablesWithIntrinsicBounds(R.drawable.thumb_green, 0, 0, 0);
+                        rd.setTextColor(getResources().getColor(R.color.white));
+                    } else
+                    {
+                        wrong = wrong + 1;
+                        rd.setBackground(getResources().getDrawable(R.drawable.bg_radio_gradient_red));
+                        rd.setCompoundDrawablesWithIntrinsicBounds(R.drawable.thumb_red, 0, 0, 0);
+                        rd.setTextColor(getResources().getColor(R.color.white));
+                        if (radioButton_a.getText().toString().equals(arrayList.get(pos).getAnswer()))
                         {
-                            radioGroup.clearCheck();
-                            nextQues();
-                        }, 2000);
+                            radioButton_a.setBackground(getResources().getDrawable(R.drawable.bg_radio_gradient_green));
+                            radioButton_a.setTextColor(getResources().getColor(R.color.white));
+                            radioButton_a.setCompoundDrawablesWithIntrinsicBounds(R.drawable.thumb_green, 0, 0, 0);
+                        } else if (radioButton_b.getText().toString().equals(arrayList.get(pos).getAnswer()))
+                        {
+                            radioButton_b.setBackground(getResources().getDrawable(R.drawable.bg_radio_gradient_green));
+                            radioButton_b.setTextColor(getResources().getColor(R.color.white));
+                            radioButton_b.setCompoundDrawablesWithIntrinsicBounds(R.drawable.thumb_green, 0, 0, 0);
+                        } else if (radioButton_c.getText().toString().equals(arrayList.get(pos).getAnswer()))
+                        {
+                            radioButton_c.setBackground(getResources().getDrawable(R.drawable.bg_radio_gradient_green));
+                            radioButton_c.setTextColor(getResources().getColor(R.color.white));
+                            radioButton_c.setCompoundDrawablesWithIntrinsicBounds(R.drawable.thumb_green, 0, 0, 0);
+                        } else if (radioButton_d.getText().toString().equals(arrayList.get(pos).getAnswer()))
+                        {
+                            radioButton_d.setBackground(getResources().getDrawable(R.drawable.bg_radio_gradient_green));
+                            radioButton_d.setTextColor(getResources().getColor(R.color.white));
+                            radioButton_d.setCompoundDrawablesWithIntrinsicBounds(R.drawable.thumb_green, 0, 0, 0);
+                        }
                     }
-                } else {
-                    Toast.makeText(QuizActivity.this, getString(R.string.select_answer), Toast.LENGTH_SHORT).show();
+
+                    new Handler().postDelayed(() ->
+                    {
+                        radioGroup.clearCheck();
+                        nextQues();
+                    }, 2000);
                 }
+            } else
+            {
+                Toast.makeText(QuizActivity.this, getString(R.string.select_answer), Toast.LENGTH_SHORT).show();
             }
         });
 
-        button_5050.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if (!isAnswered) {
-                    if (is5050) {
-                        if (life_5050 != 0) {
-                            life_5050 = life_5050 - 1;
-                            set5050();
-                            random();
-                            is5050 = false;
-                            radioGroup.clearCheck();
-                        } else {
-                            Toast.makeText(QuizActivity.this, getString(R.string.not_available_5050), Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        Toast.makeText(QuizActivity.this, getString(R.string.already_used_5050), Toast.LENGTH_SHORT).show();
+        button_5050.setOnClickListener(v ->
+        {
+            if (!isAnswered)
+            {
+                if (is5050)
+                {
+                    if (life_5050 != 0)
+                    {
+                        life_5050 = life_5050 - 1;
+                        set5050();
+                        random();
+                        is5050 = false;
+                        radioGroup.clearCheck();
+                    } else
+                    {
+                        Toast.makeText(QuizActivity.this, getString(R.string.not_available_5050), Toast.LENGTH_SHORT).show();
                     }
+                } else
+                {
+                    Toast.makeText(QuizActivity.this, getString(R.string.already_used_5050), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -179,15 +192,20 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v)
+    {
         int key = v.getId();
-        if (key == R.id.button_skip) {
-            if (!isAnswered) {
-                if (life_skip != 0) {
+        if (key == R.id.button_skip)
+        {
+            if (!isAnswered)
+            {
+                if (life_skip != 0)
+                {
                     life_skip = life_skip - 1;
                     setSkip();
                     nextQues();
-                } else {
+                } else
+                {
                     Toast.makeText(QuizActivity.this, getString(R.string.skip_not_available), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -196,8 +214,10 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
+    public boolean onOptionsItemSelected(MenuItem menuItem)
+    {
+        switch (menuItem.getItemId())
+        {
             case android.R.id.home:
                 onBackPressed();
                 break;
@@ -208,14 +228,16 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
         return true;
     }
 
-    private void getFromDatabase() {
+    private void getFromDatabase()
+    {
         arrayList_temp.clear();
         arrayList.clear();
 
         loadQuiz();
     }
 
-    private void setVariables() {
+    private void setVariables()
+    {
 
         textView_que_no.setText("" + (pos + 1));
 
@@ -249,13 +271,17 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
         radioButton_d.setEnabled(true);
     }
 
-    private void loadQuiz() {
-        if (methods.isNetworkAvailable()) {
-            LoadQuiz loadQuiz = new LoadQuiz(new QuizListener() {
+    private void loadQuiz()
+    {
+        if (methods.isNetworkAvailable())
+        {
+            LoadQuiz loadQuiz = new LoadQuiz(new QuizListener()
+            {
                 ProgressDialog pDialog;
 
                 @Override
-                public void onStart() {
+                public void onStart()
+                {
                     pDialog = new ProgressDialog(QuizActivity.this);
                     pDialog.setMessage(getString(R.string.loading));
                     pDialog.setCancelable(false);
@@ -263,43 +289,55 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
                 }
 
                 @Override
-                public void onEnd(String success, String verifyStatus, String message, ArrayList<ItemQuiz> arrayListQuiz) {
+                public void onEnd(String success, String verifyStatus, String message, ArrayList<ItemQuiz> arrayListQuiz)
+                {
                     pDialog.dismiss();
-                    if (success.equals("1")) {
-                        if (!verifyStatus.equals("-1")) {
+                    if (success.equals("1"))
+                    {
+                        if (!verifyStatus.equals("-1"))
+                        {
                             arrayList_temp.addAll(arrayListQuiz);
                             fillArrayRandomly();
                             textView_tot_que.setText("" + arrayList.size());
                             setVariables();
-                            if (isTime) {
+                            if (isTime)
+                            {
                                 startTimer();
                             }
-                        } else {
+                        } else
+                        {
                             methods.getVerifyDialog(getString(R.string.error_unauth_access), message);
                         }
-                    } else {
+                    } else
+                    {
                         Toast.makeText(QuizActivity.this, getString(R.string.server_no_conn), Toast.LENGTH_SHORT).show();
                     }
                 }
             }, methods.getAPIRequest(Constant.METHOD_QUIZ, 0, "", "", ""));
             loadQuiz.execute();
-        } else {
+        } else
+        {
             Toast.makeText(QuizActivity.this, getString(R.string.net_not_conn), Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void fillArrayRandomly() {
-        if (arrayList_temp.size() < total) {
+    public void fillArrayRandomly()
+    {
+        if (arrayList_temp.size() < total)
+        {
             total = arrayList_temp.size();
         }
         List<Integer> generated = new ArrayList<>();
         Random random = new Random(System.currentTimeMillis());
         arrayList.clear();
 
-        for (int i = 0; i < total; i++) {
-            while (true) {
+        for (int i = 0; i < total; i++)
+        {
+            while (true)
+            {
                 Integer next = random.nextInt(arrayList_temp.size());
-                if (!generated.contains(next)) {
+                if (!generated.contains(next))
+                {
                     arrayList.add(arrayList_temp.get(next));
                     generated.add(next);
                     break;
@@ -308,50 +346,57 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
         }
     }
 
-    private void setTimer() {
+    private void setTimer()
+    {
         timer = timer - 1;
         textView_timer.setText("" + timer);
-        if (timer == 0) {
+        if (timer == 0)
+        {
             showResult();
-        } else {
+        } else
+        {
             startTimer();
         }
     }
 
-    Runnable run = new Runnable() {
-        public void run() {
-            setTimer();
-        }
-    };
+    Runnable run = () -> setTimer();
 
-    private void startTimer() {
+    private void startTimer()
+    {
         handler.postDelayed(run, 1000);
     }
 
-    private void stopTimer() {
+    private void stopTimer()
+    {
         handler.removeCallbacks(run);
     }
 
-    private void set5050() {
+    private void set5050()
+    {
         textView_5050.setText(getString(R.string.a5050) + " - " + life_5050);
     }
 
-    private void setSkip() {
+    private void setSkip()
+    {
         textView_skip.setText(getString(R.string.skip) + " - " + life_skip);
     }
 
-    private void nextQues() {
-        if (pos < arrayList.size() - 1) {
+    private void nextQues()
+    {
+        if (pos < arrayList.size() - 1)
+        {
             is5050 = true;
             pos = pos + 1;
             setVariables();
             isAnswered = false;
-        } else {
+        } else
+        {
             showResult();
         }
     }
 
-    public void random() {
+    public void random()
+    {
         int tot = 0;
         int copy = 0;
         Random random = new Random();
@@ -363,30 +408,39 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
         String op4 = arrayList.get(pos).getD();
         String ans = arrayList.get(pos).getAnswer();
 
-        while (tot < 2) {
-            if (a == 1) {
-                if (!ans.equals(op1) && copy != a) {
+        while (tot < 2)
+        {
+            if (a == 1)
+            {
+                if (!ans.equals(op1) && copy != a)
+                {
                     radioButton_a.setEnabled(false);
                     radioButton_a.setTextColor(ContextCompat.getColor(QuizActivity.this, R.color.text_disable));
                     tot = tot + 1;
                     copy = a;
                 }
-            } else if (a == 2) {
-                if (!ans.equals(op2) && copy != a) {
+            } else if (a == 2)
+            {
+                if (!ans.equals(op2) && copy != a)
+                {
                     radioButton_b.setEnabled(false);
                     radioButton_b.setTextColor(ContextCompat.getColor(QuizActivity.this, R.color.text_disable));
                     tot = tot + 1;
                     copy = a;
                 }
-            } else if (a == 3) {
-                if (!ans.equals(op3) && copy != a) {
+            } else if (a == 3)
+            {
+                if (!ans.equals(op3) && copy != a)
+                {
                     radioButton_c.setEnabled(false);
                     radioButton_c.setTextColor(ContextCompat.getColor(QuizActivity.this, R.color.text_disable));
                     tot = tot + 1;
                     copy = a;
                 }
-            } else {
-                if (!ans.equals(op4) && copy != a) {
+            } else
+            {
+                if (!ans.equals(op4) && copy != a)
+                {
                     radioButton_d.setEnabled(false);
                     radioButton_d.setTextColor(ContextCompat.getColor(QuizActivity.this, R.color.text_disable));
                     tot = tot + 1;
@@ -397,7 +451,8 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
         }
     }
 
-    private void showResult() {
+    private void showResult()
+    {
 
         stopTimer();
 
@@ -418,34 +473,34 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
         textView_right.setText("" + right);
         textView_wrong.setText("" + wrong);
 
-        button_play.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                pos = 0;
-                attempted = 0;
-                right = 0;
-                wrong = 0;
-                is5050 = true;
-                life_5050 = 2;
-                life_skip = 2;
-                if (isTime) {
-                    timer = getIntent().getIntExtra("time", 30);
-                    startTimer();
-                }
-                set5050();
-                setSkip();
-                fillArrayRandomly();
-                setVariables();
-
-                try {
-                    radioGroup.clearCheck();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                isAnswered = false;
-                dialog.dismiss();
+        button_play.setOnClickListener(v ->
+        {
+            pos = 0;
+            attempted = 0;
+            right = 0;
+            wrong = 0;
+            is5050 = true;
+            life_5050 = 2;
+            life_skip = 2;
+            if (isTime)
+            {
+                timer = getIntent().getIntExtra("time", 30);
+                startTimer();
             }
+            set5050();
+            setSkip();
+            fillArrayRandomly();
+            setVariables();
+
+            try
+            {
+                radioGroup.clearCheck();
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            isAnswered = false;
+            dialog.dismiss();
         });
 
         button_exit.setOnClickListener(v ->
@@ -463,31 +518,32 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
         dialog.show();
     }
 
-    private void showExitDialog() {
+    private void showExitDialog()
+    {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(QuizActivity.this)
                 .setTitle(getString(R.string.cancel_quiz))
                 .setMessage(getString(R.string.sure_cancel_quiz))
-                .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        handler.removeCallbacks(run);
-                        finish();
-                    }
+                .setPositiveButton(getString(R.string.yes), (dialog, whichButton) ->
+                {
+                    handler.removeCallbacks(run);
+                    finish();
                 })
-                .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                    }
+                .setNegativeButton(getString(R.string.no), (dialog, whichButton) ->
+                {
                 });
         alertDialog.show();
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onDestroy()
+    {
         handler.removeCallbacks(run);
         super.onDestroy();
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
         showExitDialog();
     }
 }

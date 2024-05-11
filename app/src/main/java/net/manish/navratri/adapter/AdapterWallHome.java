@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.squareup.picasso.Picasso;
+
 import net.manish.navratri.R;
 import net.manish.navratri.item.ItemWallpaper;
 
@@ -15,19 +16,22 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class AdapterWallHome extends RecyclerView.Adapter<AdapterWallHome.MyViewHolder> {
+public class AdapterWallHome extends RecyclerView.Adapter<AdapterWallHome.MyViewHolder>
+{
 
     private ArrayList<ItemWallpaper> arrayList;
     private int imageWidth;
 
-    public AdapterWallHome(ArrayList<ItemWallpaper> arrayList, int columnWidth) {
+    public AdapterWallHome(ArrayList<ItemWallpaper> arrayList, int columnWidth)
+    {
         this.arrayList = arrayList;
-        this.imageWidth=columnWidth;
+        this.imageWidth = columnWidth;
     }
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.layout_wallpaper_home, parent, false);
 
@@ -35,7 +39,8 @@ public class AdapterWallHome extends RecyclerView.Adapter<AdapterWallHome.MyView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position)
+    {
 
         holder.imageView.setLayoutParams(new LinearLayout.LayoutParams(imageWidth, imageWidth));
         holder.imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -48,23 +53,29 @@ public class AdapterWallHome extends RecyclerView.Adapter<AdapterWallHome.MyView
     }
 
     @Override
-    public long getItemId(int id) {
+    public long getItemId(int id)
+    {
         return id;
     }
 
     @Override
-    public int getItemCount() {
-        if(arrayList.size() >= 10) {
+    public int getItemCount()
+    {
+        if (arrayList.size() >= 10)
+        {
             return 10;
-        } else {
+        } else
+        {
             return arrayList.size();
         }
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder
+    {
         ImageView imageView;
 
-        MyViewHolder(View view) {
+        MyViewHolder(View view)
+        {
             super(view);
             imageView = view.findViewById(R.id.iv_wall);
         }

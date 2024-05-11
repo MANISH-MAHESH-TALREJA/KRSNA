@@ -11,7 +11,6 @@ import net.manish.navratri.activity.MessageActivity;
 import net.manish.navratri.R;
 import net.manish.navratri.item.ItemMessage;
 import net.manish.navratri.util.Constant;
-import net.manish.navratri.util.Methods;
 
 import java.util.ArrayList;
 
@@ -21,8 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class AdapterMessage extends RecyclerView.Adapter<AdapterMessage.MyViewHolder>
 {
-
-    private final Methods methods;
     private final Context context;
     private ArrayList<ItemMessage> arrayList;
 
@@ -30,7 +27,6 @@ public class AdapterMessage extends RecyclerView.Adapter<AdapterMessage.MyViewHo
     {
         this.arrayList = arrayList;
         this.context = context;
-        methods = new Methods(context);
     }
 
     public void filterList(ArrayList<ItemMessage> filterList)

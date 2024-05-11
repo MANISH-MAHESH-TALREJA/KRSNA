@@ -8,16 +8,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import net.manish.navratri.fab.FloatingActionButton;
+
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import net.manish.navratri.R;
 import net.manish.navratri.asyncTask.LoadWallpapers;
-import net.manish.navratri.interfaces.InterAdListener;
 import net.manish.navratri.interfaces.WallpaperListener;
 import net.manish.navratri.item.ItemWallpaper;
 import net.manish.navratri.util.Constant;
@@ -30,10 +29,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
 
-public class SingleWallpaper extends AppCompatActivity {
+public class SingleWallpaper extends AppCompatActivity
+{
 
     Methods methods;
     int position;
@@ -42,12 +43,14 @@ public class SingleWallpaper extends AppCompatActivity {
     FloatingActionButton button_save, button_share_image, button_setWall;
 
     @Override
-    protected void attachBaseContext(Context newBase) {
+    protected void attachBaseContext(Context newBase)
+    {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_wallpaper);
 
@@ -72,21 +75,24 @@ public class SingleWallpaper extends AppCompatActivity {
 
         button_setWall.setOnClickListener(view ->
         {
-            if (methods.checkPer()) {
+            if (methods.checkPer())
+            {
                 methods.saveImage(Constant.arrayList_wallpaper.get(viewpager.getCurrentItem()).getImageBig(), getString(R.string.set_as_wallpaper), "");
             }
         });
 
         button_save.setOnClickListener(view ->
         {
-            if (methods.checkPer()) {
+            if (methods.checkPer())
+            {
                 methods.saveImage(Constant.arrayList_wallpaper.get(viewpager.getCurrentItem()).getImageBig(), getString(R.string.download), "");
             }
         });
 
         button_share_image.setOnClickListener(view ->
         {
-            if (methods.checkPer()) {
+            if (methods.checkPer())
+            {
                 methods.saveImage(Constant.arrayList_wallpaper.get(viewpager.getCurrentItem()).getImageBig(), getString(R.string.share), "");
             }
         });
@@ -95,19 +101,23 @@ public class SingleWallpaper extends AppCompatActivity {
         viewpager.setAdapter(adapter);
         viewpager.setCurrentItem(position);
 
-        viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener()
+        {
             @Override
-            public void onPageSelected(int position) {
+            public void onPageSelected(int position)
+            {
                 position = viewpager.getCurrentItem();
                 loadViewed(position);
             }
 
             @Override
-            public void onPageScrolled(int arg0, float arg1, int position) {
+            public void onPageScrolled(int arg0, float arg1, int position)
+            {
             }
 
             @Override
-            public void onPageScrollStateChanged(int position) {
+            public void onPageScrollStateChanged(int position)
+            {
             }
         });
 
@@ -115,13 +125,12 @@ public class SingleWallpaper extends AppCompatActivity {
         try
         {
             layout = getIntent().getStringExtra("layout");
-            if(layout.equalsIgnoreCase("Landscape"))
+            if (layout.equalsIgnoreCase("Landscape"))
             {
                 getWindow().setFlags(1024, 1024);
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
             }
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             e.printStackTrace();
         }
@@ -129,54 +138,67 @@ public class SingleWallpaper extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem menuItem) {
-        if (menuItem.getItemId() == android.R.id.home) {
+    public boolean onOptionsItemSelected(MenuItem menuItem)
+    {
+        if (menuItem.getItemId() == android.R.id.home)
+        {
             onBackPressed();
             return true;
         }
         return super.onOptionsItemSelected(menuItem);
     }
 
-    private void loadViewed(int pos) {
+    private void loadViewed(int pos)
+    {
         loadWallpapers(pos);
     }
 
-    private void loadWallpapers(int pos) {
-        if (methods.isNetworkAvailable()) {
-            LoadWallpapers loadWallpapers = new LoadWallpapers(new WallpaperListener() {
+    private void loadWallpapers(int pos)
+    {
+        if (methods.isNetworkAvailable())
+        {
+            LoadWallpapers loadWallpapers = new LoadWallpapers(new WallpaperListener()
+            {
                 @Override
-                public void onStart() {
+                public void onStart()
+                {
                 }
 
                 @Override
-                public void onEnd(String success, String verifyStatus, String message, ArrayList<ItemWallpaper> arrayListNews) {
+                public void onEnd(String success, String verifyStatus, String message, ArrayList<ItemWallpaper> arrayListNews)
+                {
                 }
             }, methods.getAPIRequest(Constant.METHOD_SINGLE_WALL, 0, "", Constant.arrayList_wallpaper.get(pos).getId(), ""));
             loadWallpapers.execute();
         }
     }
 
-    private class ImagePagerAdapter extends PagerAdapter {
+    private class ImagePagerAdapter extends PagerAdapter
+    {
 
         private LayoutInflater inflater;
 
-        ImagePagerAdapter() {
+        ImagePagerAdapter()
+        {
             inflater = getLayoutInflater();
         }
 
         @Override
-        public int getCount() {
+        public int getCount()
+        {
             return Constant.arrayList_wallpaper.size();
         }
 
         @Override
-        public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
+        public boolean isViewFromObject(@NonNull View view, @NonNull Object object)
+        {
             return view.equals(object);
         }
 
         @NonNull
         @Override
-        public Object instantiateItem(@NonNull ViewGroup container, int position) {
+        public Object instantiateItem(@NonNull ViewGroup container, int position)
+        {
 
             View imageLayout = inflater.inflate(R.layout.viewpager_item, container, false);
             assert imageLayout != null;
@@ -185,14 +207,17 @@ public class SingleWallpaper extends AppCompatActivity {
 
             Picasso.get()
                     .load(Constant.arrayList_wallpaper.get(position).getImageBig().replace(" ", "%20"))
-                    .into(imageView, new Callback() {
+                    .into(imageView, new Callback()
+                    {
                         @Override
-                        public void onSuccess() {
+                        public void onSuccess()
+                        {
                             spinner.setVisibility(View.GONE);
                         }
 
                         @Override
-                        public void onError(Exception e) {
+                        public void onError(Exception e)
+                        {
                             spinner.setVisibility(View.GONE);
                         }
                     });
@@ -203,7 +228,8 @@ public class SingleWallpaper extends AppCompatActivity {
         }
 
         @Override
-        public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+        public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object)
+        {
             container.removeView((View) object);
         }
     }

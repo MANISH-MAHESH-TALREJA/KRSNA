@@ -16,7 +16,6 @@ import android.widget.Toast;
 import net.manish.navratri.fab.FloatingActionButton;
 
 import net.manish.navratri.R;
-import net.manish.navratri.interfaces.InterAdListener;
 import net.manish.navratri.util.Constant;
 import net.manish.navratri.util.Methods;
 
@@ -68,17 +67,14 @@ public class MessageActivity extends AppCompatActivity {
         viewPager.setAdapter(viewpager_Adapter);
         viewPager.setCurrentItem(pos);
 
-        button_share.setOnClickListener(new View.OnClickListener() {
+        button_share.setOnClickListener(v ->
+        {
 
-            @Override
-            public void onClick(View v) {
-
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "" + Constant.arrayList_message.get(viewPager.getCurrentItem()).getMessage());
-                sendIntent.setType("text/plain");
-                startActivity(sendIntent);
-            }
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "" + Constant.arrayList_message.get(viewPager.getCurrentItem()).getMessage());
+            sendIntent.setType("text/plain");
+            startActivity(sendIntent);
         });
 
         button_copy.setOnClickListener(v ->

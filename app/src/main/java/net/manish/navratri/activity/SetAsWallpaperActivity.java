@@ -20,9 +20,11 @@ import net.manish.navratri.util.Constant;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
-public class SetAsWallpaperActivity extends AppCompatActivity {
+public class SetAsWallpaperActivity extends AppCompatActivity
+{
 
     Toolbar toolbar;
     CropImageView mCropImageView;
@@ -31,12 +33,14 @@ public class SetAsWallpaperActivity extends AppCompatActivity {
     BottomSheetDialog dialog_desc;
 
     @Override
-    protected void attachBaseContext(Context newBase) {
+    protected void attachBaseContext(Context newBase)
+    {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.set_as_wallpaper_activity);
 
@@ -53,32 +57,41 @@ public class SetAsWallpaperActivity extends AppCompatActivity {
 
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem menuItem) {
-        if (menuItem.getItemId() == android.R.id.home) {
+    public boolean onOptionsItemSelected(MenuItem menuItem)
+    {
+        if (menuItem.getItemId() == android.R.id.home)
+        {
             onBackPressed();
-        } else {
+        } else
+        {
             return super.onOptionsItemSelected(menuItem);
         }
         return true;
     }
 
-    private class SetWall extends AsyncTask<String, String, String> {
+    private class SetWall extends AsyncTask<String, String, String>
+    {
         @Override
-        protected void onPreExecute() {
+        protected void onPreExecute()
+        {
             progressDialog.show();
             bmImg = mCropImageView.getCroppedImage();
             super.onPreExecute();
         }
 
         @Override
-        protected String doInBackground(String... strings) {
+        protected String doInBackground(String... strings)
+        {
 
             WallpaperManager myWallpaperManager = WallpaperManager.getInstance(getApplicationContext());
-            try {
+            try
+            {
                 myWallpaperManager.setWallpaperOffsetSteps(0, 0);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                {
                     String locktype = strings[0];
-                    switch (locktype) {
+                    switch (locktype)
+                    {
                         case "home":
                             myWallpaperManager.setBitmap(bmImg, null, true, WallpaperManager.FLAG_SYSTEM);
                             break;
@@ -89,10 +102,12 @@ public class SetAsWallpaperActivity extends AppCompatActivity {
                             myWallpaperManager.setBitmap(bmImg);
                             break;
                     }
-                } else {
+                } else
+                {
                     myWallpaperManager.setBitmap(bmImg);
                 }
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
                 e.printStackTrace();
                 return "0";
             }
@@ -100,11 +115,14 @@ public class SetAsWallpaperActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String s) {
-            if (s.equals("1")) {
+        protected void onPostExecute(String s)
+        {
+            if (s.equals("1"))
+            {
                 Toast.makeText(SetAsWallpaperActivity.this, getString(R.string.wallpaper_set), Toast.LENGTH_SHORT).show();
                 finish();
-            } else {
+            } else
+            {
                 Toast.makeText(SetAsWallpaperActivity.this, getString(R.string.err_set_wallpaper), Toast.LENGTH_SHORT).show();
             }
             progressDialog.dismiss();
@@ -112,7 +130,8 @@ public class SetAsWallpaperActivity extends AppCompatActivity {
         }
     }
 
-    public void showBottomSheetDialog(View view1) {
+    public void showBottomSheetDialog(View view1)
+    {
         View view = getLayoutInflater().inflate(R.layout.layout_set_wall, null);
 
         dialog_desc = new BottomSheetDialog(this);
