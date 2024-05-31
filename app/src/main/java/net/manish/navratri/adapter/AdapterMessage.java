@@ -35,7 +35,7 @@ public class AdapterMessage extends RecyclerView.Adapter<AdapterMessage.MyViewHo
         notifyDataSetChanged();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder
+    public static class MyViewHolder extends RecyclerView.ViewHolder
     {
         TextView textView_message;
         TextView number;

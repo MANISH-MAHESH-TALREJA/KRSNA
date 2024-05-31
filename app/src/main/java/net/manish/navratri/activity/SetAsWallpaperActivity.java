@@ -21,6 +21,8 @@ import net.manish.navratri.util.Constant;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.util.Objects;
+
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
 public class SetAsWallpaperActivity extends AppCompatActivity
@@ -136,7 +138,7 @@ public class SetAsWallpaperActivity extends AppCompatActivity
 
         dialog_desc = new BottomSheetDialog(this);
         dialog_desc.setContentView(view);
-        dialog_desc.getWindow().findViewById(com.google.android.material.R.id.design_bottom_sheet).setBackgroundResource(android.R.color.transparent);
+        Objects.requireNonNull(dialog_desc.getWindow()).findViewById(com.google.android.material.R.id.design_bottom_sheet).setBackgroundResource(android.R.color.transparent);
         dialog_desc.show();
 
         TextView textView_home = dialog_desc.findViewById(R.id.tv_set_home);

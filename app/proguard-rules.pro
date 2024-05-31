@@ -15,6 +15,25 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+-dontwarn java.beans.BeanInfo
+-dontwarn java.beans.FeatureDescriptor
+-dontwarn java.beans.IntrospectionException
+-dontwarn java.beans.Introspector
+-dontwarn java.beans.PropertyDescriptor
+-dontwarn java.lang.management.ManagementFactory
+-dontwarn java.lang.management.RuntimeMXBean
+-dontwarn java.rmi.Remote
+-dontwarn javax.script.Bindings
+-dontwarn javax.script.Compilable
+-dontwarn javax.script.CompiledScript
+-dontwarn javax.script.ScriptContext
+-dontwarn javax.script.ScriptEngine
+-dontwarn javax.script.ScriptEngineFactory
+-dontwarn javax.script.ScriptEngineManager
+-dontwarn javax.script.ScriptException
+-dontwarn javax.script.SimpleBindings
+-dontwarn org.apache.commons.collections.BeanMap
+-dontwarn java.beans.**
 -dontwarn com.squareup.okhttp.**
 -dontwarn org.apache.http.**
 -dontwarn com.google.android.gms.**
@@ -31,7 +50,6 @@
 
 # For using GSON @Expose annotation
 -keepattributes Annotation
-
 # Gson specific classes
 -dontwarn sun.misc.**
 #-keep class com.google.gson.stream.* { ; }
@@ -152,3 +170,5 @@ LineNumberTable, *Annotation*, EnclosingMethod
     <init>();
 }
 -assumenosideeffects class androidx.startup.StartupLogger { public static <methods>; }
+
+

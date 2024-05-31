@@ -59,6 +59,8 @@ import static android.Manifest.permission.POST_NOTIFICATIONS;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.READ_MEDIA_AUDIO;
 import static android.Manifest.permission.READ_MEDIA_IMAGES;
+import static android.Manifest.permission.READ_MEDIA_VIDEO;
+import static android.Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class Methods {
@@ -347,9 +349,17 @@ public class Methods {
     }
 
     public Boolean checkPer() {
-        if (android.os.Build.VERSION.SDK_INT >= 33) {
-            if ((ContextCompat.checkSelfPermission(context, READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) || (ContextCompat.checkSelfPermission(context, READ_MEDIA_AUDIO) != PackageManager.PERMISSION_GRANTED)) {
-                ((Activity) context).requestPermissions(new String[]{READ_MEDIA_IMAGES, READ_MEDIA_AUDIO}, 1);
+        if (android.os.Build.VERSION.SDK_INT >= 34) {
+            if ((ContextCompat.checkSelfPermission(context, READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) || (ContextCompat.checkSelfPermission(context, READ_MEDIA_AUDIO) != PackageManager.PERMISSION_GRANTED) || (ContextCompat.checkSelfPermission(context, READ_MEDIA_VIDEO) != PackageManager.PERMISSION_GRANTED) || (ContextCompat.checkSelfPermission(context, READ_MEDIA_VISUAL_USER_SELECTED) != PackageManager.PERMISSION_GRANTED)) {
+                ((Activity) context).requestPermissions(new String[]{READ_MEDIA_IMAGES, READ_MEDIA_AUDIO, READ_MEDIA_VIDEO, READ_MEDIA_VISUAL_USER_SELECTED}, 1);
+                return false;
+            } else {
+                return true;
+            }
+        }
+        else if (Build.VERSION.SDK_INT == 33) {
+            if ((ContextCompat.checkSelfPermission(context, READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) || (ContextCompat.checkSelfPermission(context, READ_MEDIA_AUDIO) != PackageManager.PERMISSION_GRANTED) || (ContextCompat.checkSelfPermission(context, READ_MEDIA_VIDEO) != PackageManager.PERMISSION_GRANTED)) {
+                ((Activity) context).requestPermissions(new String[]{READ_MEDIA_IMAGES, READ_MEDIA_AUDIO, READ_MEDIA_VIDEO}, 1);
                 return false;
             } else {
                 return true;

@@ -12,6 +12,8 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 
+
+import com.onesignal.OneSignal;
 import com.onesignal.notifications.IDisplayableMutableNotification;
 import com.onesignal.notifications.INotificationReceivedEvent;
 import com.onesignal.notifications.INotificationServiceExtension;
@@ -40,6 +42,7 @@ public class OnesignalNotificationHelper implements INotificationServiceExtensio
     @Override
     public void onNotificationReceived(INotificationReceivedEvent event) {
         IDisplayableMutableNotification notification = event.getNotification();
+
         title = notification.getTitle();
         message = notification.getBody();
         bigpicture = notification.getBigPicture();
@@ -51,6 +54,7 @@ public class OnesignalNotificationHelper implements INotificationServiceExtensio
         }
 
         sendNotification(event.getContext());
+
         event.preventDefault();
     }
 
