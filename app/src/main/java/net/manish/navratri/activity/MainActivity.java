@@ -54,6 +54,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import java.util.Objects;
+
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
@@ -93,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setTitle(getString(R.string.app_name));
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.app_name));
 
         drawer = findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
@@ -208,13 +210,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void openPrivacyDialog()
     {
         Dialog dialog;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-        {
-            dialog = new Dialog(MainActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
-        } else
-        {
-            dialog = new Dialog(MainActivity.this);
-        }
+        dialog = new Dialog(MainActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
 
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_privacy);
@@ -321,7 +317,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         version = String.valueOf(pInfo.versionCode);
                     } catch (PackageManager.NameNotFoundException e)
                     {
-                        e.printStackTrace();
+                        e.getLocalizedMessage();
                     }
                     if (Constant.showUpdateDialog && !Constant.appVersion.equals(version))
                     {
@@ -474,7 +470,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             {
                 navigationView.getMenu().findItem(R.id.nav_messages).setChecked(false);
             }
-            getSupportActionBar().setTitle(title);
+            Objects.requireNonNull(getSupportActionBar()).setTitle(title);
 
             super.onBackPressed();
         } else

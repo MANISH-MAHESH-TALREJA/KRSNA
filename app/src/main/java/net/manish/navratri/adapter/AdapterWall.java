@@ -76,10 +76,11 @@ public class AdapterWall extends RecyclerView.Adapter
         ((MyViewHolder) holder).imageView.setOnClickListener(view ->
         {
             Constant.arrayList_wallpaper.clear();
-            if (arrayListAdLess.isEmpty())
+            if (arrayListAdLess != null && arrayListAdLess.isEmpty())
             {
                 Constant.arrayList_wallpaper.addAll(arrayList);
-            } else
+            }
+            else
             {
                 Constant.arrayList_wallpaper.addAll(arrayListAdLess);
             }

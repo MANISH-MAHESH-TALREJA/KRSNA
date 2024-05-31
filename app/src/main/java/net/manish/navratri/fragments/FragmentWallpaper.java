@@ -142,7 +142,7 @@ public class FragmentWallpaper extends Fragment
     private void setEmpty()
     {
         progressBar.setVisibility(View.GONE);
-        if (arrayList.size() > 0)
+        if (!arrayList.isEmpty())
         {
             recyclerView.setVisibility(View.VISIBLE);
             ll_empty.setVisibility(View.GONE);

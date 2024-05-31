@@ -133,7 +133,7 @@ public class FragmentMostViewWallpaper extends Fragment
 
     private void setAdapter()
     {
-        adapter = new AdapterWall(getActivity(), arrayList, null, columnWidth);
+        adapter = new AdapterWall(getActivity(), arrayList, arrayList, columnWidth);
         recyclerView.setAdapter(adapter);
         setEmpty();
     }
@@ -141,7 +141,7 @@ public class FragmentMostViewWallpaper extends Fragment
     private void setEmpty()
     {
         progressBar.setVisibility(View.GONE);
-        if (arrayList.size() > 0)
+        if (!arrayList.isEmpty())
         {
             recyclerView.setVisibility(View.VISIBLE);
             ll_empty.setVisibility(View.GONE);

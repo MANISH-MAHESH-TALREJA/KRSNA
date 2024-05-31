@@ -24,6 +24,7 @@ import net.manish.navratri.util.Methods;
 import net.manish.navratri.util.RecyclerItemClickListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
@@ -99,15 +100,16 @@ public class FragmentHome extends Fragment
         {
             FragmentManager fm = getFragmentManager();
             FragmentMostViewWallpaper f1 = new FragmentMostViewWallpaper();
+            assert fm != null;
             FragmentTransaction ft = fm.beginTransaction();
 
-            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            // ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
             ft.hide(fm.getFragments().get(fm.getFragments().size() - 1));
             ft.add(R.id.frame_nav, f1, getString(R.string.most_view_wallpaper));
             ft.addToBackStack(getString(R.string.most_view_wallpaper));
             ft.commit();
 
-            ((MainActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.most_view_wallpaper));
+            Objects.requireNonNull(((MainActivity) requireActivity()).getSupportActionBar()).setTitle(getString(R.string.most_view_wallpaper));
         });
 
         loadData();
@@ -139,7 +141,8 @@ public class FragmentHome extends Fragment
                         {
                             arrayList_wallpaper.addAll(arrayListWallPapers);
                             errr_msg = getString(R.string.no_wallpaper_found);
-                        } else
+                        }
+                        else
                         {
                             errr_msg = getString(R.string.server_no_conn);
                         }
@@ -180,8 +183,10 @@ public class FragmentHome extends Fragment
                             {
                                 errr_msg = getString(R.string.no_wallpaper_found);
                                 arrayList_mostviewed.addAll(arrayListWallPapers);
+                                System.out.println("ARRAY LIST MOST VIEWED : " + arrayList_mostviewed);
                                 setAdapter();
-                            } else
+                            }
+                            else
                             {
                                 methods.getVerifyDialog(getString(R.string.error_unauth_access), message);
                             }
@@ -218,11 +223,12 @@ public class FragmentHome extends Fragment
     private void setEmpty()
     {
         progressBar.setVisibility(View.GONE);
-        if (arrayList_wallpaper.size() > 0)
+        if (!arrayList_wallpaper.isEmpty())
         {
             scrollView.setVisibility(View.VISIBLE);
             ll_empty.setVisibility(View.GONE);
-        } else
+        }
+        else
         {
             textView_empty.setText(errr_msg);
             scrollView.setVisibility(View.GONE);

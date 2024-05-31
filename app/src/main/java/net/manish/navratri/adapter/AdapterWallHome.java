@@ -19,8 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 public class AdapterWallHome extends RecyclerView.Adapter<AdapterWallHome.MyViewHolder>
 {
 
-    private ArrayList<ItemWallpaper> arrayList;
-    private int imageWidth;
+    private final ArrayList<ItemWallpaper> arrayList;
+    private final int imageWidth;
 
     public AdapterWallHome(ArrayList<ItemWallpaper> arrayList, int columnWidth)
     {
@@ -61,16 +61,10 @@ public class AdapterWallHome extends RecyclerView.Adapter<AdapterWallHome.MyView
     @Override
     public int getItemCount()
     {
-        if (arrayList.size() >= 10)
-        {
-            return 10;
-        } else
-        {
-            return arrayList.size();
-        }
+        return Math.min(arrayList.size(), 10);
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder
+    static class MyViewHolder extends RecyclerView.ViewHolder
     {
         ImageView imageView;
 

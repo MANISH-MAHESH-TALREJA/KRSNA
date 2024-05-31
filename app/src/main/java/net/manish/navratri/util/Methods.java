@@ -374,25 +374,20 @@ public class Methods {
         } else {
             if ((ContextCompat.checkSelfPermission(context, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    ((Activity) context).requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE}, 22);
-                    return false;
-                }
+                ((Activity) context).requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE}, 22);
+                return false;
             }
             return true;
         }
     }
 
-    public Boolean checkPerNotification() {
+    public void checkPerNotification() {
         if (android.os.Build.VERSION.SDK_INT >= 33) {
             if ((ContextCompat.checkSelfPermission(context, POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED)) {
                 ((Activity) context).requestPermissions(new String[]{POST_NOTIFICATIONS}, 103);
-                return false;
             } else {
-                return true;
             }
         }
-        return true;
     }
 
     public Boolean getPerNotificationStatus() {

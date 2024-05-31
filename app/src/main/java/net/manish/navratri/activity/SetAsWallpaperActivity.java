@@ -110,7 +110,7 @@ public class SetAsWallpaperActivity extends AppCompatActivity
                 }
             } catch (Exception e)
             {
-                e.printStackTrace();
+                e.getLocalizedMessage();
                 return "0";
             }
             return "1";
@@ -119,6 +119,8 @@ public class SetAsWallpaperActivity extends AppCompatActivity
         @Override
         protected void onPostExecute(String s)
         {
+            progressDialog.dismiss();
+            dialog_desc.dismiss();
             if (s.equals("1"))
             {
                 Toast.makeText(SetAsWallpaperActivity.this, getString(R.string.wallpaper_set), Toast.LENGTH_SHORT).show();
@@ -127,7 +129,6 @@ public class SetAsWallpaperActivity extends AppCompatActivity
             {
                 Toast.makeText(SetAsWallpaperActivity.this, getString(R.string.err_set_wallpaper), Toast.LENGTH_SHORT).show();
             }
-            progressDialog.dismiss();
             super.onPostExecute(s);
         }
     }
@@ -145,10 +146,13 @@ public class SetAsWallpaperActivity extends AppCompatActivity
         TextView textView_lock = dialog_desc.findViewById(R.id.tv_set_lock);
         TextView textView_all = dialog_desc.findViewById(R.id.tv_set_all);
 
+        assert textView_home != null;
         textView_home.setOnClickListener(v -> new SetWall().execute("home"));
 
+        assert textView_lock != null;
         textView_lock.setOnClickListener(v -> new SetWall().execute("lock"));
 
+        assert textView_all != null;
         textView_all.setOnClickListener(v -> new SetWall().execute("all"));
     }
 }
