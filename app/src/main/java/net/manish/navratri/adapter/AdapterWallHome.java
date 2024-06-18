@@ -47,7 +47,7 @@ public class AdapterWallHome extends RecyclerView.Adapter<AdapterWallHome.MyView
 
         Picasso.get()
                 .load(arrayList.get(position).getImageSmall())
-                .placeholder(R.mipmap.app_icon)
+                .placeholder(R.drawable.app_logo)
                 .into(holder.imageView);
 
     }

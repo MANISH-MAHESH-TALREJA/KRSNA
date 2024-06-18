@@ -91,7 +91,7 @@ public class OnesignalNotificationHelper implements INotificationServiceExtensio
 
         mBuilder.setSmallIcon(getNotificationIcon(mBuilder, context));
         try {
-            mBuilder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.app_icon));
+            mBuilder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.app_logo));
         } catch (Exception e) {
             e.printStackTrace();
         }

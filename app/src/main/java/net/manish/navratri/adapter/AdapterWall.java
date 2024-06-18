@@ -70,7 +70,7 @@ public class AdapterWall extends RecyclerView.Adapter
 
         Picasso.get()
                 .load(objLatestBean.getImageSmall().replace(" ", "%20"))
-                .placeholder(R.mipmap.app_icon)
+                .placeholder(R.drawable.app_logo)
                 .into(((MyViewHolder) holder).imageView);
 
         ((MyViewHolder) holder).imageView.setOnClickListener(view ->

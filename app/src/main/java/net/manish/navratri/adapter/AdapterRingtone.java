@@ -391,7 +391,8 @@ public class AdapterRingtone extends RecyclerView.Adapter<AdapterRingtone.MyView
                         return "1";
                     }
 
-                } else
+                }
+                else
                 {
                     try
                     {

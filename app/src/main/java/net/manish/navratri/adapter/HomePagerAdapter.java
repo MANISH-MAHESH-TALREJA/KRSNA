@@ -50,7 +50,7 @@ public class HomePagerAdapter extends EnchantedViewPagerAdapter
         Picasso.get()
                 .load(arrayList.get(position).getImageBig())
                 .resize(650, 450)
-                .placeholder(R.mipmap.app_icon)
+                .placeholder(R.drawable.app_logo)
                 .into(imageView);
 
         mCurrentView.setOnClickListener(new View.OnClickListener()

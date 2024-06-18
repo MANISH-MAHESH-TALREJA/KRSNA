@@ -14,8 +14,8 @@ android {
         applicationId "net.manish.navratri"
         minSdk 24
         targetSdk 34
-        versionCode 10
-        versionName "2.0"
+        versionCode 12
+        versionName "2.2"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -29,8 +29,9 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            testProguardFiles 'test-proguard-rules.pro'
+            testProguardFiles 'proguard-rules.pro'
         }
+
     }
 
     buildTypes.each{
@@ -63,8 +64,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.material:material:1.12.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.onesignal:OneSignal:5.1.9'
-    implementation 'com.google.android.gms:play-services-location:21.3.0'
+    implementation 'com.onesignal:OneSignal:5.1.14'
     implementation 'com.google.firebase:firebase-core:21.1.1'
     implementation "com.google.firebase:firebase-messaging:24.0.0"
     implementation 'com.squareup.picasso:picasso:2.71828'
@@ -75,17 +75,17 @@ dependencies {
     implementation 'com.yanzhikai:TextPathView:0.2.1'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.28'
     implementation 'com.intuit.sdp:sdp-android:1.1.1'
-    implementation 'io.github.inflationx:viewpump:2.0.3'
+    implementation 'io.github.inflationx:viewpump:2.1.1'
     implementation 'com.github.iwgang:countdownview:2.1.6'
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'com.tiagosantos:enchantedviewpager:1.1.0'
     implementation 'com.google.code.gson:gson:2.11.0'
     implementation 'com.romandanylyk:pageindicatorview:1.0.1@aar'
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'commons-io:commons-io:2.13.0'
+    implementation 'commons-io:commons-io:2.16.1'
     implementation 'com.google.android.exoplayer:exoplayer:2.19.1'
-    implementation 'com.github.bumptech.glide:glide:4.15.1'
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
-    androidTestImplementation 'org.testng:testng:7.3.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.15.1'
+    androidTestImplementation 'org.testng:testng:7.10.2'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
 }

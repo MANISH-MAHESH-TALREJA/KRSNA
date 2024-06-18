@@ -189,7 +189,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intent);
         } else if (id == R.id.nav_privacy)
         {
-            openPrivacyDialog();
+            // openPrivacyDialog();
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://sites.google.com/view/hare-krishna-privacy-policy/"));
+            startActivity(browserIntent);
         } else if (id == R.id.nav_more)
         {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.play_more_apps))));
@@ -415,7 +417,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     {
         AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this, R.style.ThemeDialog);
         alert.setTitle(R.string.app_name);
-        alert.setIcon(R.mipmap.app_icon);
+        alert.setIcon(R.drawable.app_logo);
         alert.setMessage(getString(R.string.sure_quit));
 
         alert.setPositiveButton(getString(R.string.exit),

@@ -29,7 +29,7 @@
             android:layout_height="50dp"
             android:scaleType="centerCrop"
             android:visibility="gone"
-            android:src="@mipmap/app_icon"
+            android:src="@drawable/app_logo"
             app:riv_corner_radius="5dp" />
 
     </androidx.cardview.widget.CardView>
