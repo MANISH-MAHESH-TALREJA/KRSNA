@@ -8,6 +8,10 @@
     <string name="play_more_apps">https://play.google.com/store/apps/developer?id=MANISH+MAHESH+TALREJA&amp;hl=en</string>
     <string name="choose_one">Choose one</string>
     <string name="isRTL">false</string>
+    <string name="set_as_ringtone">Set As Ringtone</string>
+    <string name="ringtone_permission_req">Ringtone Permission Request</string>
+    <string name="error_try_again">Error Try Again</string>
+    <string name="hello_blank_fragment"></string>
 
     <string name="desc">desc</string>
     <string name="img_no">No Favorite Found</string>

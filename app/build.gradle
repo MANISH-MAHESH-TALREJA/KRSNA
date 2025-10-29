@@ -6,16 +6,16 @@ plugins {
 
 android {
     namespace 'net.manish.navratri'
-    compileSdk 34
+    compileSdk 36
     buildFeatures {
         buildConfig = true
     }
     defaultConfig {
         applicationId "net.manish.navratri"
         minSdk 24
-        targetSdk 34
-        versionCode 12
-        versionName "2.2"
+        targetSdk 36
+        versionCode 16
+        versionName "2.6"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -79,7 +79,7 @@ dependencies {
     implementation 'com.github.iwgang:countdownview:2.1.6'
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'com.tiagosantos:enchantedviewpager:1.1.0'
-    implementation 'com.google.code.gson:gson:2.11.0'
+    implementation 'com.google.code.gson:gson:2.13.2'
     implementation 'com.romandanylyk:pageindicatorview:1.0.1@aar'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'commons-io:commons-io:2.16.1'

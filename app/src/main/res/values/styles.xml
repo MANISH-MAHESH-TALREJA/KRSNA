@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
@@ -8,6 +8,16 @@
         <item name="drawableNavigationItemBackground">@drawable/menu_background_color_state</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="fontFamily">@font/poppins</item>
+        <item name="android:windowTranslucentStatus" >false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+
+        <item name="android:statusBarColor">@android:color/transparent</item>
+
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:fitsSystemWindows">true</item>
+
+        <item name="android:windowLightStatusBar" >false</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>

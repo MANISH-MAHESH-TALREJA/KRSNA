@@ -11,6 +11,7 @@
     <color name="textView_fitnessVideo_adapter">#525252</color>
     <color name="bg">#FFC4DF</color>
     <color name="bg_cardview">#f6f6f6</color>
+    <color name="login_input_box_line">#E91E63</color>
     <color name="bg_grey_dark">#F4F4F4</color>
     <color name="background_clr">#fafafa</color>
     <color name="bg_message">#ffffff</color>
