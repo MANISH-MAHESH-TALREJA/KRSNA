@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.ImageView;
 
 import net.manish.navratri.R;
 import net.manish.navratri.asyncTask.LoadAbout;
@@ -16,6 +17,8 @@ import net.manish.navratri.util.SharedPref;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.bumptech.glide.Glide;
 
 import yanzhikai.textpath.SyncTextPathView;
 
@@ -31,7 +34,12 @@ public class SplashActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
+        ImageView startImage = findViewById(R.id.startImage);
 
+        Glide.with(this)
+                .asGif()
+                .load(R.drawable.splash)
+                .into(startImage);
         SyncTextPathView syncTextPathView3 = findViewById(R.id.fancy_text3);
         syncTextPathView3.startAnimation(0, 1);
         SyncTextPathView syncTextPathView4 = findViewById(R.id.fancy_text4);
